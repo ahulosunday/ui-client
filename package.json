@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "National Health Insurance Authority ",
   "author": "nhia-developer-team",
-  "homepage": "/",
+  "homepage": "http:///",
   "scripts": {
     "build": "react-scripts build",
     "predeploy": "npm run build",
@@ -94,5 +94,7 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "main": "index.js",
+  "license": "ISC"
 }
