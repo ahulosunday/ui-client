@@ -1,1 +1,1 @@
-# ui-client
+permalink: /404.html
