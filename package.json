@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "National Health Insurance Authority ",
   "author": "nhia-developer-team",
-  "homepage": "http:///",
+  "homepage": "https://ahulosunday.github.io/ui-client",
   "scripts": {
     "build": "react-scripts build",
     "predeploy": "npm run build",
