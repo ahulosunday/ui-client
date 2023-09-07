@@ -1,5 +1,5 @@
 import React from 'react'
-
+//"homepage": "https://ahulosunday.github.io/ui-client",
 const Dashboard = React.lazy(() => import('./views/dashboard/Dashboard'))
 const Colors = React.lazy(() => import('./views/theme/colors/Colors'))
 const Typography = React.lazy(() => import('./views/theme/typography/Typography'))

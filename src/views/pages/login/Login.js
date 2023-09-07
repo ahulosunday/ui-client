@@ -71,9 +71,9 @@ const Login = () => {
    }
   return (
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center" >
-      <CContainer style={{width:'40%'}}>
+      <CContainer>
         <CRow className="justify-content-center" >
-          <CCol md={8}>
+          <CCol md={8} xs={12} xl={6}>
             <CCardGroup>
             
               <CCard className="p-6">
@@ -85,7 +85,7 @@ const Login = () => {
                     <p className="text-medium-emphasis" style={{textAlign:'center'}}>
                      <img style={{marginTop:0, borderRadius:'30px'}} src={DefaultLogo} alt='' />
                      <br />
-                    <span style={{color:'teal'}}> NHIA PORTAL</span> 
+                    <span style={{color:'teal'}}> e-NHIA PORTAL</span> 
                    
                 </p>
                 <span style={{color:'red'}}>{msg}</span>

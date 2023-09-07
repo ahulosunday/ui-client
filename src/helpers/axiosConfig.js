@@ -4,7 +4,7 @@ import axios from "axios";
 // the baseURL should to point to localhost in development
 // and your domain in production
 //const axiosCreate = async ()=>{
-const app = axios.create({ 
+const app = await axios.create({ 
     //baseURL: "http://localhost:6001/api/auth/"
     baseURL: "https://api-2f2e.onrender.com/api/auth/"
 });

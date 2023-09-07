@@ -33,7 +33,7 @@ const handleChange = e =>{
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
         <CRow className="justify-content-center">
-          <CCol md={6}>
+          <CCol md={6} xs={12} xl={6}>
             <div className="clearfix">
               <h1 className="float-start display-3 me-4">Recovery</h1>
               <h4 className="pt-3">Don't worry, we will help you recover your password !</h4>

@@ -151,7 +151,7 @@ const AssignPermissions = () =>{
     return (
        
       <CRow >
-         <CCol xs={6} style={{fontSize:'12px'}}>
+         <CCol md={12} xs={12} xl={6} style={{fontSize:'12px'}}>
         <CCard className="mb-12" >
          <CCardHeader style={{backgroundColor:'skyblue'}}>
             <strong style={{color:'white'}}>ASSIGN PERMISSIONS</strong>
@@ -193,7 +193,7 @@ const AssignPermissions = () =>{
         </CCard>
         </CCol>
 
-       <CCol xs={6} style={{fontSize:'12px'}}>
+       <CCol md={12} xs={12} xl={6} style={{fontSize:'12px'}}>
         <CCard className="mb-12" >
          <CCardHeader style={{backgroundColor:'skyblue'}}>
             <strong style={{color:'white'}}>PERMISSIONS</strong>

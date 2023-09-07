@@ -106,7 +106,7 @@ setMsg( errs.message + ": Invalid data entry, check the entry and try again")
     return (
        
     <CRow >
-         <CCol xs={6} style={{fontSize:'12px'}}>
+         <CCol md={12} xs={12} xl={6} style={{fontSize:'12px'}}>
         <CCard className="mb-12" >
          <CCardHeader style={{backgroundColor:'skyblue'}}>
             <strong style={{color:'white'}}>EDIT ASSIGNED PERMISSIONS</strong>

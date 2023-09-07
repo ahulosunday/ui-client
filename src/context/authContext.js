@@ -10,7 +10,7 @@ export const AuthContextProvider = ({children}) =>{
     const [permissions, setPermissions ] = useState([]);
  const login = async(inputs)=>{
         try{
-           await app.post("/auth/login", inputs)
+           await app.post("/login", inputs)
          .then(res =>{
              setCurrentUser(res.data)
          })

@@ -87,7 +87,7 @@ const Register = () => {
     <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
       <CContainer>
         <CRow className="justify-content-center">
-          <CCol md={9} lg={7} xl={6}>
+          <CCol md={12} xs={12} xl={8}>
             <CCard className="mx-4">
               <CCardBody className="p-4" style={{backgroundColor:'AppWorkspace', border: '2px solid darkgreen'}}>
                 <CForm>
@@ -95,7 +95,7 @@ const Register = () => {
                     <p className="text-medium-emphasis" style={{textAlign:'center'}}>
                      <img style={{marginTop:0, borderRadius:'30px'}} src={DefaultLogo} alt='' />
                      <br />
-                    <span style={{color:'teal'}}> NHIA PORTAL</span> 
+                    <span style={{color:'teal'}}> e-NHIA PORTAL</span> 
 
                     <br />
                     
