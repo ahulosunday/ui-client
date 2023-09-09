@@ -20,6 +20,7 @@ import { Stack } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 import { AuthContext } from '../../../context/authContext';
 import DefaultLogo from '../../../img/logo2.png'
+import PayOptions from '../payment/payOptions'
 
 
 const Login = () => {
@@ -128,7 +129,14 @@ const Login = () => {
                       </CCol>
                     </CRow>
                   </CForm>
-                   <span>Don't you have an account? <Link to="/register" style={{color:'red', textDecoration:'none'}}>Register</Link></span> | <span className="text-right"> <Link to="/payment/option" style={{textDecoration:'none'}}>Payment Options</Link></span>
+                  <CRow>
+                  <CCol xs={9} >
+                  <span style={{textAlign:'center'}}><>Don't you have an account? <Link to="/register" style={{color:'red', textDecoration:'none'}}>Register</Link></></span> 
+                  </CCol>
+                  <CCol xs={3} ><PayOptions />
+                  </CCol>
+                  </CRow>
+                   
                 </CCardBody>
               </CCard>
             

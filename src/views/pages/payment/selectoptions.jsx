@@ -23,19 +23,18 @@ import { cibAmericanExpress, cilArrowBottom, cilArrowTop, cilOptions } from '@co
 import { DocsExample } from '../../../components'
 import DefaultLogo from '../../../img/logo2.png'
 import ToggleClick from './GifshipModal'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import app from '../../../helpers/axiosConfig'
-import { nanoid } from '../../../helpers/customAlphabet';
-
+import { nanoid, pin } from '../../../helpers/customAlphabet';
 
 const SelectOptions = () => {
    const state = useLocation().state
    const [username, setUsername] = useState('')
    const [getGifship, setGifship] = useState([]);
+   const navigate = useNavigate()
 
    useEffect(()=>{
     
-
     setUsername(state)
     const loadItem = async e =>{
  try{
@@ -45,7 +44,7 @@ const SelectOptions = () => {
         setGifship(res.data);
        })
        .catch(err=>{
-        showToastMessage('Error occured while loading data', 'error')
+        showToastMessage('Something went wrong while trying to load data...', 'error')
        })  
     }catch(err){
         showToastMessage('Error occured while loading data', 'error')
@@ -53,11 +52,17 @@ const SelectOptions = () => {
         
     }
     loadItem();
+
+       
+
+
+
     
-   }, []);
- 
+   },[navigate]);
+
   return (
-    <div style={{marginTop:'1%'}} className="bg-light min-vh-100 d-flex flex-row align-items-center"  md={12} xs={12} xl={12}>
+    <div style={{marginTop:'1%'}}>
+    <div  className="bg-light min-vh-100 d-flex flex-row align-items-center"  md={12} xs={12} xl={12}>
       <CContainer >
       <CRow className="justify-content-center">
       <CCol xl={8} xs={12}>
@@ -96,7 +101,7 @@ const SelectOptions = () => {
               </CDropdownToggle>
               <CDropdownMenu>
               {
-                getGifship.length === 0? '': getGifship.map((item)=>{
+                username===null? '': getGifship.length === 0? '': getGifship.map((item)=>{
                   return(
                       <CDropdownItem><ToggleClick user={username} option={item.id} name={item.name} /></CDropdownItem>
                 
@@ -192,6 +197,7 @@ const SelectOptions = () => {
 </CCol>
 </CRow>
 </CContainer>
+</div>
 </div>
 
   )}

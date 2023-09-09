@@ -10,9 +10,11 @@ import showToastMessage from '../../../components/toast';
 import moment from 'moment';
 import { Link, useNavigate } from 'react-router-dom';
 import app from '../../../helpers/axiosConfig';
-import { nanoid, pin } from '../../../helpers/customAlphabet';
+import { pin } from '../../../helpers/customAlphabet';
 import { render } from "@react-email/render";
 import hostUrl from '../../../helpers/hostUrl';
+import { FormControl, InputLabel, MenuItem, Radio, Select, RadioGroup} from '@mui/material';
+
 
 export default function ToggleClick (props){
  const [open, setOpen] = React.useState(false);
@@ -21,17 +23,42 @@ export default function ToggleClick (props){
   const [ amount, setAmount ] = React.useState(0)
   const [gifship, setGifship] = React.useState([])
   const [valids, setValid] = React.useState(false)
-
+  const [ inputs, setInputs ] = React.useState({
+        pay: "",
+        sdate: Date()
+       
+       
+    })
 
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
+const html = (msg) =>{
+  return(
+     <html lang="en">
+      <h2>REGISTRATION CONFIRMATION</h2>
+      <hr />
+      <body>
+      <p>
+      {msg}
+      </p>
+      <p>Visit <a href={hostUrl}>here </a> to login</p>
+      <hr /> 
+     Thanks.<br />
+     Management Team.
+      </body>
+    </html>
+  )
+}
   const handleClose = () => {
     setOpen(false);
   };
-
+ const handleChanged = (e)=>{
+   setInputs(e.target.value)
+   alert(e.target.value)
+ }
   const handleSubmit = async ()=>{
      const num = document.getElementById('number').value;
      const sdate = document.getElementById('sdate').value;
@@ -61,7 +88,7 @@ export default function ToggleClick (props){
          })
           .then(async res2 =>{
           
-            const emailHtml = render(<><h2>Congratulations!</h2><p>Your account has been created successfully.<br />Username: {user.username} <br />password: ****** <br /> Registration code: {code}<br />Visit <a href={hostUrl}>here</a> to login</p></>);
+            const emailHtml = render(html(<><h2>Congratulations!</h2><p>Your account has been created successfully.<br />Username: {user.username} <br />password: ****** <br /> Registration code: {code}</p></>));
              await app.post('/sendmail/user/auth/email/send',{to: user.email, msg: emailHtml, subject: 'Registration Confirmation'})
               navigate('/login')
           })
@@ -171,11 +198,18 @@ const calculate = async ()=>{
             id="sdate"
             label="Start Date"
             type="date"
-            
+            value={inputs.sdate}
             fullWidth
             variant="standard"
+            onChange={handleChanged}
           />
-          
+     <FormControl fullWidth  variant="standard">
+     <InputLabel id="Payment">Payment Options</InputLabel>
+     <Select labelId="pay" id="pay" value={inputs.pay}  label="Payment Option" onChange={handleChanged}>
+     <MenuItem value={0}>Online/Web Transfer</MenuItem>
+     <MenuItem value={1}>Enter RRR Number</MenuItem>
+     </Select>
+     </FormControl>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>

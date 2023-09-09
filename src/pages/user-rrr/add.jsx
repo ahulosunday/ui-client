@@ -10,11 +10,11 @@ import showToastMessage from '../../components/toast';
 import { Stack } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
 import SendIcon from '@mui/icons-material/Send';
-//import { render } from '@react-email/render';
+import { render } from '@react-email/render';
 import hostUrl from '../../helpers/hostUrl';
 import { CCard, CCardBody, CCardHeader, CCol, CFormInput, CFormLabel, CFormSelect, CFormTextarea, CRow } from '@coreui/react';
 import { DocsExample } from '../../components';
-import { nanoid } from '../../helpers/customAlphabet';
+import { pin } from '../../helpers/customAlphabet';
 
 
 const AddUserRRR = () =>{ 
@@ -157,6 +157,7 @@ const handleChange = e =>{
       <p>
       {msg}
       </p>
+      <p>Visit <a href={hostUrl}>here </a> to login</p>
       <hr /> 
      Thanks.<br />
      Management Team.
@@ -191,16 +192,14 @@ const handleChange = e =>{
        .then(async res =>{
         setLoading(false)
         let insertedId = res.data.id;
-        let code = nanoid
+        let code = pin;
         await app.put(`/activate/${userId}/`,{}).then( async res1=>{
          await app.post('/code/0', {user_rrrId: insertedId, userId: user.id, code:code })
           .then(async res2 =>{
             setLoading(false)
-            showToastMessage('Your Code is: '+ code, 'success')
-            const emailHtml = render(html("Congratulations! <br /> Your account has been created successfully. Please visit: <a href ='" + hostUrl + "'>here </a> to login.<br /> Username is your registered email,<br /> password: password@123,<br /> registration code: " + code + "<br />"),
-             {
-             plainText: true,
-            });
+           
+            const emailHtml = render(html(<><h3>Congratulations!</h3> <br /> Your account has been created successfully.<br /> Username is your registered username <br /> password: ******<br /> Registration code: {code}<br /></>));
+            
              await app.post('/sendmail/user/auth/email/send',{to: email, msg: emailHtml, subject: 'Registration Confirmation'})
               
           })
