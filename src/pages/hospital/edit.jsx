@@ -166,28 +166,28 @@ const loadItem = async e =>{
             <DocsExample add="Update Hospital"> 
             <form>
             <CRow>
-                <CCol xs>
+                <CCol xl={6} xs={12}>
               Facility Code
                   <CFormInput type="text" value={inputs.hospitalCode} name="hospitalCode" placeholder="Primary Healthcare Code" onChange={handleChange}  />
                 </CCol>
-                <CCol xs>
+                <CCol xl={6} xs={12}>
                 Facility Name
                   <CFormInput type="text" value={inputs.name} name="name" placeholder="Primary Healthcare Name" onChange={handleChange}/>
                 </CCol>
               </CRow>
                  <CRow>
-                <CCol xs>
+                <CCol xl={6} xs={12}>
               Mobile
                   <CFormInput type="text" value={inputs.phone} name="phone" placeholder="Primary Healthcare Mobile" onChange={handleChange}  />
                 </CCol>
-                <CCol xs>
+                <CCol xl={6} xs={12}>
                Email
                   <CFormInput type="email" value={inputs.email} name="email" placeholder="Primary Healthcare Email" onChange={handleChange}/>
                 </CCol>
               </CRow>
        
       <CRow>
-      <CCol xs>
+      <CCol xl={6} xs={12}>
      Country
        <CFormSelect name="countryId"  onChange={handleChange} onBlur={loadRegion} >
        <option value={0} disabled selected>--select Country--</option>
@@ -199,7 +199,7 @@ const loadItem = async e =>{
       
        </CFormSelect>
       </CCol >
-      <CCol xs>
+      <CCol xl={6} xs={12}>
           Region
          <CFormSelect name="regionId"  onChange={handleChange} onBlur={loadStates} >
        <option value={0} disabled selected>--select Region--</option>
@@ -213,7 +213,7 @@ const loadItem = async e =>{
       </CCol>
       </CRow>
     <CRow>
-    <CCol xs>
+    <CCol xl={6} xs={12}>
 State
          <CFormSelect name="stateId"  onChange={handleChange} onBlur={loadLgas}>
        <option value={0} disabled selected>--select State--</option>
@@ -225,7 +225,7 @@ State
       
        </CFormSelect>
     </CCol>
-    <CCol xs>
+    <CCol xl={6} xs={12}>
          LGA
          <CFormSelect name="lgaId"  onChange={handleChange}  onBlur={loadWards}>
        <option value={0} disabled selected>--select Lga--</option>
@@ -239,7 +239,7 @@ State
     </CCol>
     </CRow>
     <CRow>
-    <CCol xs>
+    <CCol xl={6} xs={12}>
     Ward
          <CFormSelect name="wardId"  onChange={handleChange}>
        <option value={0} disabled selected>--select State--</option>
@@ -251,18 +251,18 @@ State
       
        </CFormSelect>
     </CCol>
-    <CCol xs>
+    <CCol xl={6} xs={12}>
     Bank
        <CFormInput type="text" value={inputs.bank} name="bank" onChange={handleChange} />
 
     </CCol>
     </CRow>
        <CRow>
-       <CCol xs>
+       <CCol xl={6} xs={12}>
      AccNo#
          <CFormInput type="text" value={inputs.accnumber} name="accnumber" onChange={handleChange} />
        </CCol>
-       <CCol xs>
+       <CCol xl={6} xs={12}>
   SortCode
        <CFormInput type="text" value={inputs.sortCode} name="sortCode" onChange={handleChange} />
        </CCol>

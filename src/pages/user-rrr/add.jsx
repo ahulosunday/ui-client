@@ -193,7 +193,7 @@ const handleChange = e =>{
         let insertedId = res.data.id;
         let code = nanoid
         await app.put(`/activate/${userId}/`,{}).then( async res1=>{
-         await app.post('/code/', {userId: userId, code:code,user_rrrId: insertedId })
+         await app.post('/code/0', {user_rrrId: insertedId, userId: user.id, code:code })
           .then(async res2 =>{
             setLoading(false)
             showToastMessage('Your Code is: '+ code, 'success')
@@ -201,7 +201,7 @@ const handleChange = e =>{
              {
              plainText: true,
             });
-             await app.post('sendmail/user/auth/email/send',{to: email, msg: emailHtml, subject: 'Registration Confirmation'})
+             await app.post('/sendmail/user/auth/email/send',{to: email, msg: emailHtml, subject: 'Registration Confirmation'})
               
           })
           .catch(err =>{
@@ -237,11 +237,11 @@ const handleChange = e =>{
           <CCardBody>
             <DocsExample add="States"> 
             <CRow>
-            <CCol xs>
+            <CCol xs={12} xl={6}>
         RRR NO#
         <CFormInput type="text" id="rrr_number" name="rrr_number" placeholder="RRR Number" onChange={handleChange} />
        </CCol>
-            <CCol xs>
+            <CCol xs={12} xl={6}>
      Enrolee
         <CFormSelect name="userId" id="userId" onChange={handleChange} onBlur={loadRegistration}>
         <option value={0} disabled selected>--select User--</option>
@@ -255,7 +255,7 @@ const handleChange = e =>{
         </CCol>
         </CRow>
       <CRow>
-      <CCol xs>
+      <CCol xs={12} xl={6}>
       Programme
         <CFormSelect name="gifshipId"  id="gifshipId" onChange={handleChange} onBlur={loadGifshipType} >
          <option disabled>-- select --</option>
@@ -268,7 +268,7 @@ const handleChange = e =>{
             })
             )}
          </CFormSelect>
-        </CCol>  <CCol xs >
+        </CCol>  <CCol xs={12} xl={6} >
        Sub-Programme 
         <CFormSelect name="gifshipTypeId" id="gifshipTypeId" onChange={handleChange} onBlur={loadGifshipTypePkg} >
         <option disabled>-- select --</option>
@@ -286,7 +286,7 @@ const handleChange = e =>{
         </CCol>
         </CRow>
         <CRow>
-        <CCol xs>
+        <CCol xs={12} xl={6}>
         Package
         <CFormSelect name="gifshipPackageId" id="gifshipPackageId" onChange={handleChange} onBlur={getOnePkg} >
         <option disabled>-- select --</option>
@@ -300,7 +300,7 @@ const handleChange = e =>{
 }))}
         </CFormSelect>
        </CCol>
-       <CCol xs>
+       <CCol xs={12} xl={6}>
        Min. Amount
         <CFormInput type="number" name="amt" id="amt" value={(amount.amount * amount.qty).toFixed(2)} readOnly/>
         <CFormInput type="hidden" name="minNumber" id="minNumber" value={amount.qty} readOnly/>
@@ -308,16 +308,16 @@ const handleChange = e =>{
        </CCol>
        </CRow>
       <CRow>
-        <CCol xs>Duration in Days 
+        <CCol xs={12} xl={6}>Duration in Days 
         <CFormInput type="number" name="duration" id="duration" readOnly value={amount.duration} onChange={handleChange} />
        </CCol>
-   <CCol xs>
+   <CCol xs={12} xl={6}>
    Amount Paid
         <CFormInput type="number" name="amount" id="amount" value={inputs.amount} placeholder="Amount paid" onChange={handleChange} />
        </CCol>
        </CRow>
         <CRow>
-        <CCol xs>Start Date
+        <CCol xs={12} xl={6}>Start Date
         <CFormInput type="date" name="activated_date" id="activated_date" placeholder="Start date" onChange={handleChange} />
        </CCol>
 <CCol>

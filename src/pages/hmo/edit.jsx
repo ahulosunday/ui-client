@@ -31,7 +31,7 @@ const EditHmo
        userId: currentUser?.id,
        code: "",
        id: "",
-       phone:'', address:'', email:'', countryId:'', regionId:'', stateId:'',lgaId:'', wardId:''    
+       phone:'', address:'', email:'', countryId:'', regionId:'', stateId:'',lgaId:'', wardId:'', types: ''    
     })
 
           useEffect(()=>{
@@ -39,7 +39,8 @@ const EditHmo
         try{
            await app.get(`/hmo/${id}`)
             .then(res =>{
-               setInputs(res.data)
+               setInputs(res.data);
+            
             })
             .catch(err=>{
                showToastMessage('Unable to load data, reason:' +err, 'error')
@@ -145,35 +146,45 @@ const handleChange = e =>{
           <CCardBody>
             <DocsExample add="HMO"> 
             <CRow>
-            <CCol xs>
+            <CCol xs={12} xl={6}>
             Code
             <CFormInput type="text" name="code" value={inputs.code} placeholder="Hmo Code" onChange={handleChange} />
             </CCol>
-            <CCol xs>
+            <CCol xs={12} xl={6}>
             Hmo Name
        <CFormInput type="text" name="name" value={inputs.name} placeholder="Hmo Name" onChange={handleChange}  />
             </CCol>
             </CRow>
         <CRow>
-        <CCol xs>
-        Phone No#
+           <CCol xs={12} xl={6}>
+         HMO Type
+         <CFormSelect name="types" onChange={handleChange}>
+         <option value={1} selected={inputs.types  === 1? 'selected': ''}>National</option>
+         <option value={2} selected={inputs.types  === 2? 'selected': ''}>Regional</option>
+         <option value={3} selected={inputs.types  === 3? 'selected': ''}>State</option>
+         </CFormSelect>
+         </CCol>       
+        </CRow>
+        </DocsExample>
+         <DocsExample add="Head Office Information"> 
+        <CRow>
+         <CCol xs={12} xl={6}>
+        Official Phone No#
        <CFormInput type="text" name="phone" value={inputs.phone} placeholder="Phone Number" onChange={handleChange}  />
         </CCol>
-        <CCol xs>
+         <CCol xs={12} xl={6}>
         Official Email 
        <CFormInput type="email" name="email" value={inputs.email} placeholder="Email Address" onChange={handleChange}  />
         </CCol>
-        </CRow>
+         </CRow>
+      
         <CRow>
-        <CCol xs>
-        Address
+        <CCol xs={12} xl={6}>
+        Head Office Address
         <CFormTextarea name="address" placeholder="Address" value={inputs.address} onChange={handleChange} ></CFormTextarea>
         </CCol>
-   
-        </CRow>
-        <CRow>
-        <CCol xs>
-        Country
+        <CCol xs={12} xl={6}>
+        Head Office Location:Country
        <CFormSelect name="countryId"  onChange={handleChange} onBlur={loadRegion} >
        <option value={0} disabled selected>--select Country--</option>
       { 
@@ -184,7 +195,10 @@ const handleChange = e =>{
       
        </CFormSelect>
         </CCol>
-        <CCol xs>
+        
+        </CRow>
+       <CRow>
+       <CCol xs={12} xl={6}>
         Region
          <CFormSelect name="regionId"  onChange={handleChange} onBlur={loadStates} >
        <option value={0} disabled selected>--select Region--</option>
@@ -196,9 +210,7 @@ const handleChange = e =>{
       
        </CFormSelect>
         </CCol>
-        </CRow>
-       <CRow>
-       <CCol xs>
+       <CCol xs={12} xl={6}>
        State 
          <CFormSelect name="stateId"  onChange={handleChange}  onBlur={loadLgas}>
        <option value={0} disabled selected>--select State--</option>
@@ -210,7 +222,10 @@ const handleChange = e =>{
       
        </CFormSelect>
        </CCol>
-       <CCol xs>
+       
+       </CRow>
+       <CRow>
+       <CCol xs={12} xl={6}>
        LGA
          <CFormSelect name="lgaId"  onChange={handleChange} onBlur={loadWard} >
        <option value={0} disabled selected>--select local Govt Area--</option>
@@ -222,9 +237,7 @@ const handleChange = e =>{
       
        </CFormSelect>
        </CCol>
-       </CRow>
-       <CRow>
-       <CCol xs>
+       <CCol xs={12} xl={6}>
        Ward
          <CFormSelect name="wardId"  onChange={handleChange} >
         <option value={0} >--select--</option>
@@ -236,12 +249,13 @@ const handleChange = e =>{
       
        </CFormSelect>
        </CCol>
-       <CCol xs>
+       <CCol xs={12}>
        
        </CCol>
        </CRow> 
+       
        <CRow>
-       <CCol xs>
+       <CCol xs={12}>
        <br />
        { permissions.indexOf("ADD_HMOS") > -1? 
          <Stack direction="row" spacing={1}> <LoadingButton size="small"

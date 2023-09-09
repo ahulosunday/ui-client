@@ -78,7 +78,7 @@ const Login = () => {
             
               <CCard className="p-6">
                  
-                <CCardBody style={{backgroundColor:'AppWorkspace', border: '2px solid darkgreen'}}>
+                <CCardBody style={{backgroundColor:'AppWorkspace', border: '1px solid darkgreen'}}>
                
                   <CForm>
                    
@@ -122,13 +122,13 @@ const Login = () => {
         </Stack>
                       </CCol>
                       <CCol xs={6} className="text-right">
-                        <CButton color="link" className="px-0" onClick={handleForgot}>
+                        <CButton color="link" className="px-0" style={{textDecoration:'none'}} onClick={handleForgot}>
                           Forgot password?
                         </CButton>
                       </CCol>
                     </CRow>
                   </CForm>
-                   <span>Don't you have an account? <Link to="/register" style={{color:'red'}}>Register</Link></span>
+                   <span>Don't you have an account? <Link to="/register" style={{color:'red', textDecoration:'none'}}>Register</Link></span> | <span className="text-right"> <Link to="/payment/option" style={{textDecoration:'none'}}>Payment Options</Link></span>
                 </CCardBody>
               </CCard>
             

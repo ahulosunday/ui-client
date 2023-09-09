@@ -72,27 +72,27 @@ const handleChange = e =>{
             <DocsExample add="Country"> 
          <form>
          <CRow>
-         <CCol xs>
+         <CCol xs={12}>
          Country
        <CFormInput type="text" name="name" placeholder="Country Name" onChange={handleChange}  />
          </CCol>
-         <CCol xs>
+         <CCol xs={12}>
          Code
         <CFormInput type="text" name="code" placeholder="Country Code" onChange={handleChange} />
          </CCol>
          </CRow>
         <CRow>
-        <CCol xs>
+        <CCol xs={12}>
         Shortname
         <CFormInput type="text" name="shortname" placeholder="Country Shortname" onChange={handleChange} />
         </CCol>
-        <CCol xs>
+        <CCol xs={12}>
         Currency
         <CFormInput type="text" name="currency" placeholder="Country Currency" onChange={handleChange} />
         </CCol>
         </CRow>
       <CRow>
-      <CCol xs>
+      <CCol xs={12}>
       <br />
           {permissions.indexOf("ADD_COUNTRY") > -1? 
        <Stack direction="row" spacing={1}> <LoadingButton size="small"

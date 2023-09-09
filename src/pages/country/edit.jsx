@@ -94,7 +94,7 @@ const handleChange = e =>{
             
             <DocsExample add="Update Country"> 
          <CRow>
-         <CCol xs>
+         <CCol xs={12}>
        Country
        <CFormInput type="text" value={inputs.name} name="name" placeholder={inputs.name} onChange={handleChange} />
          </CCol>
@@ -104,7 +104,7 @@ const handleChange = e =>{
         </CCol>
          </CRow>
         <CRow>
-        <CCol xs>
+        <CCol xs={12}>
         Shortname
         <CFormInput type="text" name="shortname" value={inputs.shortname} placeholder={inputs.shortname} onChange={handleChange} />
         </CCol>

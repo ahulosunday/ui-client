@@ -46,7 +46,7 @@ const Register = () => {
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [roleid, setRolid] = useState(2)
+    const [roleid, setRolid] = useState(3)
     const [uiid, setUiid] = useState(v1())
     const [ imgurl , setImgUrl] = useState("")
     
@@ -65,7 +65,7 @@ const Register = () => {
         await app.post("/users", {username:username, password:password, email:email,uiid:uiid, roleid:roleid, imgurl:res.data.filename, surname: surname, othername: othername, phone: phone, isActive: 0})
         .then(res =>{
           setLoading(false)
-             navigate("/login", {state:'Please wait for confirmation of your Payment.'});
+             navigate("/payment/option", {state:username});
         })
         .catch(errs=>{
            setLoading(false)
@@ -84,7 +84,7 @@ const Register = () => {
         
    }
   return (
-    <div className="bg-light min-vh-100 d-flex flex-row align-items-center">
+    <div className="bg-light min-vh-100 d-flex flex-row align-items-center" xs={12} xl={8}>
       <CContainer>
         <CRow className="justify-content-center">
           <CCol md={12} xs={12} xl={8}>
@@ -111,7 +111,7 @@ const Register = () => {
             
                  
                             <div style={{textAlign:'right'}} ><img className="uploadImg" alt="" src={imgurl} style={{height:'100px', width:'100px'}}  id="cxfileimg" />
-           <br /> <span style={{color: 'red', fontSize: 9}}>Image size: 5kb, type: png, jpeg, jpg, gif</span>
+           <br /> <span style={{color: 'red', fontSize: 9}}>Image size: 30kb, type: png, jpeg, jpg, gif</span>
            </div>
            
                      <CInputGroup className="mb-4">
@@ -124,34 +124,34 @@ const Register = () => {
             setImgUrl(URL.createObjectURL(e.target.files[0]));}}
                     />
                   </CInputGroup>
-                   <CInputGroup className="mb-3">
+                   <CInputGroup className="mb-3 sm-12">
                     <CInputGroupText>
                       <AiTwotonePicture />
                     </CInputGroupText>
                     <CFormInput placeholder="Surname" name="surname" autoComplete="surname" onChange={e =>setSurname(e.target.value)}  />
-  
+  </CInputGroup> <CInputGroup className="mb-3 sm-12">
                     <CInputGroupText>
                       <AiFillAlert />
                     </CInputGroupText>
                     <CFormInput placeholder="Othername" name="othername" autoComplete="othername" onChange={e =>setOthername(e.target.value)}  />
                   </CInputGroup>
-                  <CInputGroup className="mb-3">
+                  <CInputGroup className="mb-3 sm-12">
                     
                     <CInputGroupText>
                       <AiFillPhone />
                     </CInputGroupText>
                     <CFormInput placeholder="Phone Number" name="phone" autoComplete="phone" onChange={e =>setPhone(e.target.value)}  />
-                  
+                  </CInputGroup> <CInputGroup className="mb-3 sm-12">
                     <CInputGroupText>@</CInputGroupText>
-                    <CFormInput placeholder="Email" name="email" autoComplete="email" onChange={e =>setEmail(e.target.value)}  />
+                    <CFormInput placeholder="Email" type="email" name="email" autoComplete="email" onChange={e =>setEmail(e.target.value)}  />
                   </CInputGroup>
-                    <CInputGroup className="mb-3">
+                    <CInputGroup className="mb-3 sm-12">
                     <CInputGroupText>
                       <AiFillEye />
                     </CInputGroupText>
                     <CFormInput placeholder="Username" name="username" autoComplete="username" onChange={e =>setUsername(e.target.value)}  />
                   </CInputGroup>
-                  <CInputGroup className="mb-3">
+                  <CInputGroup className="mb-3 sm-12">
                     <CInputGroupText>
                       <AiFillCompass />
                     </CInputGroupText>
@@ -162,7 +162,7 @@ const Register = () => {
                       autoComplete="new-password"
                       onChange={e =>setPassword(e.target.value)} 
                     />
-              
+              </CInputGroup> <CInputGroup className="mb-3 sm-12">
                     <CInputGroupText>
                       <AiFillCompass />
                     </CInputGroupText>

@@ -28,7 +28,7 @@ const AddHmo = () =>{
        userId: currentUser?.id,
        code: "",
        id: "",
-       phone:'', address:'', email:'', countryId:'', regionId:'', stateId:'',lgaId:'', wardId:'' 
+       phone:'', address:'', email:'', countryId:1, regionId:1, stateId:1,lgaId:1, wardId:1, types:''
     })
       
 const handleChange = e =>{
@@ -123,34 +123,47 @@ loadcountry()
           <CCardBody>
             <DocsExample add="HMO"> 
             <CRow>
-            <CCol xs>
+            <CCol xs={12} xl={6}>
             Code
             <CFormInput type="text" name="code" placeholder="Hmo Code" onChange={handleChange} />
             </CCol>
-            <CCol xs>
+            <CCol xs={12} xl={6}>
             Hmo Name
        <CFormInput type="text" name="name" placeholder="Hmo Name" onChange={handleChange}  />
             </CCol>
             </CRow>
+            <CRow>
+            <CCol xs={12}>
+         HMO Type
+         <CFormSelect name="types" onChange={handleChange}>
+         <option value={1}>National</option>
+         <option value={2}>Regional</option>
+         <option value={3}>State</option>
+         </CFormSelect>
+         </CCol>
+            </CRow>
+             </DocsExample>
+         <DocsExample add="Head Office Information"> 
         <CRow>
-        <CCol xs>
-        Phone No#
+        <CCol xs={12}  xl={6}>
+        Official Phone No#
        <CFormInput type="text" name="phone" placeholder="Phone Number" onChange={handleChange}  />
         </CCol>
-        <CCol xs>
+        <CCol xs={12}  xl={6}>
         Official Email 
        <CFormInput type="email" name="email" placeholder="Email Address" onChange={handleChange}  />
         </CCol>
         </CRow>
         <CRow>
-        <CCol xs>
-        Address
+        <CCol xs={12}>
+        Head Office Address
         <CFormTextarea name="address" placeholder="Address" onChange={handleChange} ></CFormTextarea>
         </CCol>
-   
+         
         </CRow>
+          
         <CRow>
-        <CCol xs>
+        <CCol xs={12}  xl={6}>
         Country
        <CFormSelect name="countryId"  onChange={handleChange} onBlur={loadRegion} >
        <option value={0} disabled selected>--select Country--</option>
@@ -162,7 +175,7 @@ loadcountry()
       
        </CFormSelect>
         </CCol>
-        <CCol xs>
+        <CCol xs={12}  xl={6}>
         Region
          <CFormSelect name="regionId"  onChange={handleChange} onBlur={loadStates} >
        <option value={0} disabled selected>--select Region--</option>
@@ -176,7 +189,7 @@ loadcountry()
         </CCol>
         </CRow>
        <CRow>
-       <CCol xs>
+       <CCol xs={12}  xl={6}>
        State 
          <CFormSelect name="stateId"  onChange={handleChange}  onBlur={loadLgas}>
        <option value={0} disabled selected>--select State--</option>
@@ -188,7 +201,7 @@ loadcountry()
       
        </CFormSelect>
        </CCol>
-       <CCol xs>
+       <CCol xs={12}  xl={6}>
        LGA
          <CFormSelect name="lgaId"  onChange={handleChange} onBlur={loadWard} >
        <option value={0} disabled selected>--select local Govt Area--</option>
@@ -202,7 +215,7 @@ loadcountry()
        </CCol>
        </CRow>
        <CRow>
-       <CCol xs>
+       <CCol xs={12}  xl={6}>
        Ward
          <CFormSelect name="wardId"  onChange={handleChange} >
         <option value={0} >--select--</option>
@@ -214,12 +227,12 @@ loadcountry()
       
        </CFormSelect>
        </CCol>
-       <CCol xs>
+       <CCol xs={12}  xl={6}>
        
        </CCol>
        </CRow> 
        <CRow>
-       <CCol xs>
+       <CCol xs={12}  xl={6}>
        <br />
        { permissions.indexOf("ADD_HMOS") > -1? 
          <Stack direction="row" spacing={1}> <LoadingButton size="small"
