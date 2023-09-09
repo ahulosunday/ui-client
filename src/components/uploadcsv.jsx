@@ -22,7 +22,7 @@ export default function FormDialogCsv(props) {
   const [open, setOpen] = React.useState(false);
   const [file, setFile] = React.useState([])
    const [items, setItems] = React.useState({
-    Surname:'', othername:'', email:'', phone:'', nin:''
+    Surname:'', Othername:'', Email:'', Phone:'', NIN:''
    });
 
   const handleClickOpen = () => {
@@ -53,7 +53,7 @@ export default function FormDialogCsv(props) {
 
     promise.then(d => {
       setItems(d);
-    }).catch(err=>{
+       }).catch(err=>{
      showToastMessage(err, 'error')
     });
   };
@@ -67,7 +67,9 @@ export default function FormDialogCsv(props) {
       const ext = file.name.split('.')[1]
       if((ext === 'csv') || (ext === 'xlsx') || (ext === 'xls')) {
          readExcel(file);
-        
+       
+        showToastMessage('getting data ready, click Save to effect changes ...', 'info')
+       
       let pass = ''
         await app.get(`/hashed/change/pass/${'password@123'}/ok/ww`).then( async res=>{
              const obj = items.map((d, index)=>{
@@ -80,7 +82,7 @@ export default function FormDialogCsv(props) {
                 password :res.data,
                 imgurl: 'images.png',
                 isActive: 1,
-                roleid:2,
+                roleid:3,
                 uiid: v1()
               })
             })
@@ -93,16 +95,16 @@ export default function FormDialogCsv(props) {
             else{
               
                 await app.post('/users/bulk', obj).then(res1=>{
-                 showToastMessage('Transaction complted with status: ' +res1.statusText, 'success')
+                 showToastMessage('Transaction completed with status: ' +res1.statusText, 'success')
                 
                  const obj2 = res1.data.map((q, index)=>{
               return Object.assign({
                 userId: q.id,
                 user_rrrId: props.user_rrrId,
-                code:  pin
+                code:  pin+index
                 })
                  })
-                 
+                 console.log(obj2)
                  app.post('/codes/', obj2).then(res2=>{
                 //send email here console.log(res2.data)
                 obj.map((ob)=>{
@@ -117,6 +119,7 @@ export default function FormDialogCsv(props) {
                       subject: subject
                     })
                   app.post('/sendmail/user/auth/email/send', obj3).then(res4=>{
+                  handleClose()
 
                   }).catch(err4=>{
 
@@ -139,6 +142,7 @@ export default function FormDialogCsv(props) {
         }).catch(err=>{
           showToastMessage(err, 'error')
         })
+        
                    
          
             }
@@ -163,6 +167,7 @@ export default function FormDialogCsv(props) {
                     })
                   app.post('sendmail/user/auth/email/send', obj).then(res=>{
                       showToastMessage(res, 'success')
+                     
                   }).catch(err=>{
                         showToastMessage(err, 'error')
                   })
