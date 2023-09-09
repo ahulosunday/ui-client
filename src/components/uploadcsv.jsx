@@ -13,9 +13,9 @@ import showToastMessage from "./toast";
 import { v1 } from "uuid";
 import { trackPromise } from 'react-promise-tracker';
 import hostUrl from '../helpers/hostUrl';
-//import { render } from '@react-email/render';
+import { render } from '@react-email/render';
 import { Link } from '@mui/material';
-import { nanoid } from '../helpers/customAlphabet';
+import { nanoid, pin } from '../helpers/customAlphabet';
 
 
 export default function FormDialogCsv(props) {
@@ -58,30 +58,16 @@ export default function FormDialogCsv(props) {
     });
   };
 
-  //===================================
-    const html = (msg) =>{
-  return(
-     <html lang="en">
-      <h2>REGISTRATION CONFIRMATION</h2>
-      <hr />
-      <body>
-      <p>
-      {msg}
-      </p>
-      <hr /> 
-     Thanks.<br />
-     Management Team.
-      </body>
-    </html>
-  )
-}
 //=========================================
   const handleSubmit = async e =>{
     e.preventDefault() 
     try{
     
      if(file.length !== 0) {
-      readExcel(file);
+      const ext = file.name.split('.')[1]
+      if((ext === 'csv') || (ext === 'xlsx') || (ext === 'xls')) {
+         readExcel(file);
+        
       let pass = ''
         await app.get(`/hashed/change/pass/${'password@123'}/ok/ww`).then( async res=>{
              const obj = items.map((d, index)=>{
@@ -113,7 +99,7 @@ export default function FormDialogCsv(props) {
               return Object.assign({
                 userId: q.id,
                 user_rrrId: props.user_rrrId,
-                code:  nanoid
+                code:  pin
                 })
                  })
                  
@@ -122,15 +108,15 @@ export default function FormDialogCsv(props) {
                 obj.map((ob)=>{
                 res2.data.map((item)=>{
                   if(item.userId !== 0){
-                    const msg = "Congratulations! <br /> Your account has been created successfully. Please visit: <a href ='" + hostUrl + "'>here </a> to login.<br /> Username is your registered email,<br /> password: password@123,<br /> registration code: " + item.code
+                    const msg = render(<><h3>Congratulations! </h3>Your account has been created successfully. Please visit: <a href ={ hostUrl}>here </a> to login.<br /> Username is your registered email,<br /> password: password@123,<br /> registration code: {item.code}</>);
                     const to = ob.email;
                     const subject = 'Registration Code';
                     const obj3 = Object.assign({
                       msg: msg,
-                      to: 'ahulosunday@gmail.com',
+                      to: to,
                       subject: subject
                     })
-                  app.post('sendmail/user/auth/email/send', obj3).then(res4=>{
+                  app.post('/sendmail/user/auth/email/send', obj3).then(res4=>{
 
                   }).catch(err4=>{
 
@@ -156,6 +142,10 @@ export default function FormDialogCsv(props) {
                    
          
             }
+            else{
+              showToastMessage('Invalid file format (csv, xlxs, xls only)...', 'error')
+            }
+    }
     }
     catch(err){
   showToastMessage(err, 'error')
@@ -164,9 +154,6 @@ export default function FormDialogCsv(props) {
 
   }
 
-const emailHtml = render(html('demo style'), {
-  pretty: true,
-});
   const handleEmial = async e =>{
           const obj = Object.assign({
                       msg:emailHtml,

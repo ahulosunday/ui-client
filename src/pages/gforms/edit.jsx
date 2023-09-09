@@ -250,7 +250,7 @@ const handleChange = e =>{
     const loadHospital = async e =>{
  try{
   const lga = e.target.value
-         const hospital = await app.get(`/hospital/${inputs.regiteredCountry}/${inputs.regiteredRegion}/${inputs.regiteredState}/${inputs.regiteredLga}/lga`)
+         const hospital = await app.get(`/hospital/${inputs.residentCountry}/${inputs.residentRegion}/${inputs.residentState}/${inputs.residentLga}/lga`)
          setHospitals(hospital.data)
          }catch(err){
          return(err.message)
@@ -356,6 +356,7 @@ const loadItem = async e =>{
         <CFormInput type="text" value={inputs.nin} name="nin" placeholder="NIN" onChange={handleChange}  />
         </CCol>
           <CCol xl={6} xs={12}>
+          <h5>ID No#: {inputs.idCode}</h5>
       </CCol>
          </CRow>
 
@@ -554,97 +555,7 @@ const loadItem = async e =>{
      </CCol>
         </CRow>
       </DocsExample>
-      <DocsExample add="Place of Registration">
-        <CRow>
-        <CCol xl={6} xs={12}>
-       <label htmlFor="name">Country</label> 
-       <CFormSelect name="regiteredCountry"  onChange={handleChange} onBlur={loadRegionRegister} >
-      <option value={0} >--select--</option>
-      { 
-      registercountry.map((item)=>(
-        <option value={item.id} key={item.id} selected={inputs.regiteredCountry ===item.id? 'selelected':''}>{item.code + ' - ' + item.name} </option>
-      ))
-      }
-      
-       </CFormSelect>
-       </CCol>
-       <CCol xl={6} xs={12}>        
-       <label htmlFor="name">Region</label> 
-         <CFormSelect name="regiteredRegion"  onChange={handleChange} onBlur={loadStatesRegister} >
-       <option value={0} >--select--</option>
-      { 
-      registerregions.map((item)=>(
-        <option value={item.id} key={item.id} selected={inputs.regiteredRegion ===item.id? 'selelected':''}>{item.name} </option>
-      ))
-      }
-      
-       </CFormSelect>
-       </CCol>
-       </CRow>
-       
-       <CRow>
-       <CCol xl={6} xs={12}>
-       <label htmlFor="name">State</label> 
-         <CFormSelect name="regiteredState"  onChange={handleChange} onBlur={loadLgasRegister}>
-      <option value={0} >--select--</option>
-      { 
-      registerstates.map((item)=>(
-        <option value={item.id} key={item.id} selected={inputs.regiteredState ===item.id? 'selelected':''}>{item.name} </option>
-      ))
-      }
-      
-       </CFormSelect>
-       </CCol>
-       <CCol xl={6} xs={12}>
-       <label htmlFor="name">Lga</label> 
-         <CFormSelect name="regiteredLga"  onChange={handleChange}  onBlur={loadWardRegister}>
-      <option value={0} >--select--</option>
-      { 
-      registerlgas.map((items)=>(
-        <option value={items.id} key={items.id} selected={items.id ===inputs.regiteredLga? 'selelected':''}>{items.name} </option>
-      ))
-      }
-      
-       </CFormSelect></CCol>
-       </CRow>
-       <CRow>
-       <CCol xl={6} xs={12}>
-              <label htmlFor="name">Ward</label> 
-         <CFormSelect name="registeredWard"  onChange={handleChange}  onBlur={loadHospital}>
-        <option value={0} >--select--</option>
-      { 
-      registerWard.map((item)=>(
-        <option value={item.id} key={item.id} selected={inputs.residentWard ===item.id? 'selelected':''}>{item.name} </option>
-      ))
-      }
-      
-       </CFormSelect>
-       </CCol>
-       <CCol xl={6} xs={12}>
-       <label htmlFor="name"></label> 
-       <CFormInput type='text' style={{color:'red', border:'none'}} value={'Note: All fields are required'} disabled />
-       </CCol>
-       </CRow>
-       
-      
-      </DocsExample>
-       <DocsExample add="Primary Healthcare">
-      
-          <CRow>
-          <CCol xl={6} xs={12}>
-        <label htmlFor="code">Primary Healthcare</label> 
-        <CFormSelect  name="hospitalId" onChange={handleChange}  >
-       <option value={0} >--select--</option>
-      { 
-      hospitals.map((item)=>(
-        <option value={item.id} key={item.id} selected={ inputs.hospitalId === item.id? 'selected': ''}>{item.hospitalCode + ' - ' + item.name} </option>
-      ))
-      }
-       </CFormSelect>
-         </CCol>
-         </CRow>
-        </DocsExample>
-        <DocsExample add="Place of Residence">
+      <DocsExample add="Place of Residence">
  <CRow>
  <CCol xl={6} xs={12}>
         
@@ -701,7 +612,7 @@ const loadItem = async e =>{
        <CRow>
        <CCol xl={6} xs={12}>
        <label htmlFor="name">Ward</label> 
-         <CFormSelect name="residentWard"  onChange={handleChange} >
+         <CFormSelect name="residentWard"  onChange={handleChange} onBlur={loadHospital} >
         <option value={0} >--select--</option>
       { 
       residentWard.map((item)=>(
@@ -714,6 +625,95 @@ const loadItem = async e =>{
 <CCol></CCol>
        </CRow>
        </DocsExample>
+        <DocsExample add="Primary Healthcare">
+      
+          <CRow>
+          <CCol xl={6} xs={12}>
+        <label htmlFor="code">Primary Healthcare</label> 
+        <CFormSelect  name="hospitalId" onChange={handleChange}  >
+       <option value={0} >--select--</option>
+      { 
+      hospitals.map((item)=>(
+        <option value={item.id} key={item.id} selected={ inputs.hospitalId === item.id? 'selected': ''}>{item.hospitalCode + ' - ' + item.name} </option>
+      ))
+      }
+       </CFormSelect>
+         </CCol>
+         </CRow>
+        </DocsExample>
+      <DocsExample add="Place of Registration">
+        <CRow>
+        <CCol xl={6} xs={12}>
+       <label htmlFor="name">Country</label> 
+       <CFormSelect name="regiteredCountry"  onChange={handleChange} onBlur={loadRegionRegister} >
+      <option value={0} >--select--</option>
+      { 
+      registercountry.map((item)=>(
+        <option value={item.id} key={item.id} selected={inputs.regiteredCountry ===item.id? 'selelected':''}>{item.code + ' - ' + item.name} </option>
+      ))
+      }
+      
+       </CFormSelect>
+       </CCol>
+       <CCol xl={6} xs={12}>        
+       <label htmlFor="name">Region</label> 
+         <CFormSelect name="regiteredRegion"  onChange={handleChange} onBlur={loadStatesRegister} >
+       <option value={0} >--select--</option>
+      { 
+      registerregions.map((item)=>(
+        <option value={item.id} key={item.id} selected={inputs.regiteredRegion ===item.id? 'selelected':''}>{item.name} </option>
+      ))
+      }
+      
+       </CFormSelect>
+       </CCol>
+       </CRow>
+       
+       <CRow>
+       <CCol xl={6} xs={12}>
+       <label htmlFor="name">State</label> 
+         <CFormSelect name="regiteredState"  onChange={handleChange} onBlur={loadLgasRegister}>
+      <option value={0} >--select--</option>
+      { 
+      registerstates.map((item)=>(
+        <option value={item.id} key={item.id} selected={inputs.regiteredState ===item.id? 'selelected':''}>{item.name} </option>
+      ))
+      }
+      
+       </CFormSelect>
+       </CCol>
+       <CCol xl={6} xs={12}>
+       <label htmlFor="name">Lga</label> 
+         <CFormSelect name="regiteredLga"  onChange={handleChange}  onBlur={loadWardRegister}>
+      <option value={0} >--select--</option>
+      { 
+      registerlgas.map((items)=>(
+        <option value={items.id} key={items.id} selected={items.id ===inputs.regiteredLga? 'selelected':''}>{items.name} </option>
+      ))
+      }
+      
+       </CFormSelect></CCol>
+       </CRow>
+       <CRow>
+       <CCol xl={6} xs={12}>
+              <label htmlFor="name">Ward</label> 
+         <CFormSelect name="registeredWard"  onChange={handleChange} >
+        <option value={0} >--select--</option>
+      { 
+      registerWard.map((item)=>(
+        <option value={item.id} key={item.id} selected={inputs.residentWard ===item.id? 'selelected':''}>{item.name} </option>
+      ))
+      }
+      
+       </CFormSelect>
+       </CCol>
+       <CCol xl={6} xs={12}>
+       <label htmlFor="name"></label> 
+       <CFormInput type='text' style={{color:'red', border:'none'}} value={'Note: All fields are required'} disabled />
+       </CCol>
+       </CRow>
+      </DocsExample>
+             
 <DocsExample add="FINALIZE">
  <Stack direction="row" spacing={1}> <LoadingButton size="small"
           onClick={(e) => handleUpdate(e)

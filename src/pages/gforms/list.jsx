@@ -123,7 +123,7 @@ const loadItem = async e =>{
             </p>
            
             <DocsExample href="" add="Enrolee List"></DocsExample>
-            <span style={{width:'100%', display:'flex', flexDirection:'row', gap:'10px'}}>{ newreg >0 ?'':<FormDialog /> }   {/* showUpload && <FormDialogCsv user_rrrId={rrrId} count ={count}/> */} </span>
+            <span style={{width:'100%', display:'flex', flexDirection:'row', gap:'10px'}}>{ newreg > 0 ?'':<FormDialog /> }   {showUpload && <FormDialogCsv user_rrrId={rrrId} count ={count}/>} </span>
     
        <CTable striped style={{fontSize:'12px'}} align="middle" responsive>
        <CTableHead>
@@ -158,7 +158,7 @@ const loadItem = async e =>{
        <CTableDataCell></CTableDataCell>
        <CTableDataCell>
        <CButtonGroup>
-       { permissions?.indexOf("EDIT_MEMBERSHIP_FORM") > -1? <CButton color="secondary" size="sm" > <Link to={`/${0}/register/`}  state={item.id} className="edit"style={{color:'white', textDecoration:'none'}}> Edit</Link></CButton> :''}
+       { permissions?.indexOf("EDIT_MEMBERSHIP_FORM") > -1? <CButton color="secondary" size="sm" > <Link to={`/${0}/register/`}  state={item.id} className="edit" style={{color:'white', textDecoration:'none'}}> Edit</Link></CButton> :''}
         { permissions?.indexOf("VIEW_MEMBERSHIP_FORM") > -1? <CButton color="info" size="sm" > <Link to={`/${item.id}/register/3`}  state={item.id} className="view" style={{color:'white', textDecoration:'none'}}>View</Link></CButton> :'' }
         { permissions?.indexOf("DELETE_MEMBERSHIP_FORM") > -1? <CButton color="danger" size="sm" ><Link to={'/delete'}  state={item.id +'&/form/register&/register/'} className="delete" style={{color:'white', textDecoration:'none'}}>Delete</Link></CButton> :''}
      </CButtonGroup>
