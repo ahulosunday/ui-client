@@ -147,24 +147,6 @@ const handleChange = e =>{
         setInputs(prev =>({ ...prev, [e.target.name] : e.target.value}))
          }
 
-  //===================================
-    const html = (msg) =>{
-  return(
-     <html lang="en">
-      <h2>REGISTRATION CONFIRMATION</h2>
-      <hr />
-      <body>
-      <p>
-      {msg}
-      </p>
-      <p>Visit <a href={hostUrl}>here </a> to login</p>
-      <hr /> 
-     Thanks.<br />
-     Management Team.
-      </body>
-    </html>
-  )
-}
 
 //=========================================
 
@@ -198,7 +180,7 @@ const handleChange = e =>{
           .then(async res2 =>{
             setLoading(false)
            
-            const emailHtml = render(html(<><h3>Congratulations!</h3> <br /> Your account has been created successfully.<br /> Username is your registered username <br /> password: ******<br /> Registration code: {code}<br /></>));
+            const emailHtml = render(<><h3>Congratulations!</h3> <br /> Your account has been created successfully.<br /> Username is your registered username <br /> password: ******<br /> Registration code: {code}<br /> Visit <a href={hostUrl}> here</a> to login. <br /> <hr /> Thanks.<br /> Management Team.</>);
             
              await app.post('/sendmail/user/auth/email/send',{to: email, msg: emailHtml, subject: 'Registration Confirmation'})
               
