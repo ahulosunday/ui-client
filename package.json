@@ -1,7 +1,6 @@
 {
   "name": "nhia-client",
   "version": "1.0.0",
-  "homepage": "https://ahulosunday.github.io/aisnet",
   "description": "National Health Insurance Authority ",
   "author": "nhia-developer-team",
   "scripts": {
