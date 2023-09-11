@@ -27,6 +27,7 @@ const LoadingIndicator = props => {
     </div>
   
 }
+//npm install pg sequelize-cli body-parser xlsx cors express cookie-parser sequelize bcryptjs jsonwebtoken multer mysql2 --save && sequelize db:migrate
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode> 

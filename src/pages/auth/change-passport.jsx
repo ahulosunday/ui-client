@@ -13,7 +13,7 @@ const style ={
   top: '40%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: '40%',
+  width: '100%',
   margin: 0,
   bgcolor: 'background.paper',
   border: '1px solid #000',
@@ -50,7 +50,7 @@ export default function ChangePort(){
     return(
  <Modal open={opens} aria-labelledby ="modal-modal-title" aria-descriptionby="modal-modal-description">
       <Box sx={style}>
-       <CCol xs={12} style={{fontSize:'12px'}}>
+       <CCol xs={12} xl={6} style={{fontSize:'12px'}}>
         <CCard className="mb-12" >
          <CCardHeader style={{backgroundColor:'skyblue'}}>
             <strong style={{color:'white'}}>CHANGE PROFILE PICTURE</strong>

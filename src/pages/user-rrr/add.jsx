@@ -38,7 +38,7 @@ const AddUserRRR = () =>{
         	activatedby:'',	amount:0,
             	duration:0,	gifshipId:0,
                 	gifshipTypeId:0,	gifshipPackageId:0,
-                    	activated_date:'',	expired_date:''
+                    	activated_date:'',	expired_date:'', authNumber:''
         
     })
     
@@ -168,9 +168,10 @@ const handleChange = e =>{
         let  activated_date= document.getElementById('activated_date').value
         let  minNumber= document.getElementById('minNumber').value
         let  maxNumber= document.getElementById('maxNumber').value
+        let authNumber= document.getElementById('authNumber').value
         let  expired_date= moment(Date.parse(activated_date) + ((duration * 1000 * 60 * 60 * 24))).format('YYYY-MM-DD')
 
-       await app.post('/user-rrr/', {rrr_number:rrr_number, userId:userId, activated:activated, activatedby:activatedby,	amount:amount,	duration:duration,	gifshipId:gifshipId,	gifshipTypeId:gifshipTypeId,	gifshipPackageId:gifshipPackageId,	activated_date:activated_date,	expired_date:expired_date, maxNumber:(amount/maxNumber), minNumber:minNumber})
+       await app.post('/user-rrr/', {rrr_number:rrr_number, userId:userId, activated:activated, activatedby:activatedby,	amount:amount,	duration:duration,	gifshipId:gifshipId,	gifshipTypeId:gifshipTypeId,	gifshipPackageId:gifshipPackageId,	activated_date:activated_date,	expired_date:expired_date, maxNumber:(amount/maxNumber), minNumber:minNumber, authNumber: authNumber})
        .then(async res =>{
         setLoading(false)
         let insertedId = res.data.id;
@@ -218,11 +219,16 @@ const handleChange = e =>{
           <CCardBody>
             <DocsExample add="States"> 
             <CRow>
-            <CCol xs={12} xl={6}>
+            <CCol xs={12} xl={4}>
         RRR NO#
         <CFormInput type="text" id="rrr_number" name="rrr_number" placeholder="RRR Number" onChange={handleChange} />
        </CCol>
-            <CCol xs={12} xl={6}>
+       <CCol xs={12} xl={3}>
+       Payment Confirmation Code
+       <CFormInput type="text" id="authNumber" name="authNumber" placeholder="Payment confirmation code" onChange={handleChange} />
+    
+       </CCol>
+            <CCol xs={12} xl={5}>
      Enrolee
         <CFormSelect name="userId" id="userId" onChange={handleChange} onBlur={loadRegistration}>
         <option value={0} disabled selected>--select User--</option>

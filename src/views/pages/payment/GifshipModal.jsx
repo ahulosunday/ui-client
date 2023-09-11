@@ -28,7 +28,8 @@ export default function ToggleClick (props){
   const [ inputs, setInputs ] = React.useState({
         pay:0,
         sdate: date,
-        rrr:''
+        rrr:'',
+        authNumber:''
        
        
     })
@@ -50,6 +51,7 @@ export default function ToggleClick (props){
      const num = document.getElementById('number').value;
      const sdate = document.getElementById('sdate').value;
      const amount = document.getElementById('amount').value;
+     //const authNumber = document.getElementById('authNumber').value;
      //code must be 11 digits
    let code = pin;
 
@@ -63,7 +65,7 @@ export default function ToggleClick (props){
  const status = 'OK'
  if(status === 'OK' && inputs.pay === 0){
   let  expired_date= moment(Date.parse(sdate) + ((gifship.duration * 1000 * 60 * 60 * 24))).format('YYYY-MM-DD')
-  await app.post('/user-rrr/', {rrr_number:code, userId:user.id, activated:1, activatedby:user.id,	amount:amount,	duration:gifship.duration,	gifshipId:gifship.gifshipId,	gifshipTypeId:gifship.gifshipTypeId,	gifshipPackageId:gifship.id,	activated_date:sdate,	expired_date:expired_date, maxNumber:num, minNumber:num})
+  await app.post('/user-rrr/', {rrr_number:code, userId:user.id, activated:1, activatedby:user.id,	amount:amount,	duration:gifship.duration,	gifshipId:gifship.gifshipId,	gifshipTypeId:gifship.gifshipTypeId,	gifshipPackageId:gifship.id,	activated_date:sdate,	expired_date:expired_date, maxNumber:num, minNumber:num, authNumber: code})
        .then(async res =>{
        
         let insertedId = res.data.id;
@@ -95,7 +97,7 @@ if(RRRValid === 'OK'){
     return
   }
 let  expired_date= moment(Date.parse(sdate) + ((gifship.duration * 1000 * 60 * 60 * 24))).format('YYYY-MM-DD')
-  await app.post('/user-rrr/', {rrr_number:inputs.rrr, userId:user.id, activated:1, activatedby:user.id,	amount:amount,	duration:gifship.duration,	gifshipId:gifship.gifshipId,	gifshipTypeId:gifship.gifshipTypeId,	gifshipPackageId:gifship.id,	activated_date:sdate,	expired_date:expired_date, maxNumber:num, minNumber:num})
+  await app.post('/user-rrr/', {rrr_number:inputs.rrr, userId:user.id, activated:1, activatedby:user.id,	amount:amount,	duration:gifship.duration,	gifshipId:gifship.gifshipId,	gifshipTypeId:gifship.gifshipTypeId,	gifshipPackageId:gifship.id,	activated_date:sdate,	expired_date:expired_date, maxNumber:num, minNumber:num, authNumber:inputs.authNumber})
        .then(async res =>{
        
         let insertedId = res.data.id;
@@ -239,7 +241,7 @@ const calculate = async ()=>{
      <MenuItem value={1}>Enter RRR Number</MenuItem>
      </Select>
      </FormControl>
-     {inputs.pay===1?
+     {inputs.pay===1?<>
         <TextField
             margin="dense"
             id="rrr"
@@ -250,7 +252,19 @@ const calculate = async ()=>{
             fullWidth
             variant="standard"
             onChange={handleChanged}
-          />:''
+          />
+          <TextField
+            margin="dense"
+            id="authNumber"
+            name="authNumber"
+            label="RRR Number"
+            type="text"
+            value={inputs.authNumber}
+            fullWidth
+            variant="standard"
+            onChange={handleChanged}
+          /></>
+          :''
 
      }
         </DialogContent>

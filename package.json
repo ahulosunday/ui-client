@@ -1,12 +1,12 @@
 {
   "name": "nhia-client",
   "version": "1.0.0",
+  "license": "MIT",
   "description": "National Health Insurance Authority ",
   "author": "nhia-developer-team",
   "scripts": {
     "build": "react-scripts build",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    
     "eject": "react-scripts eject",
     "start": "react-scripts start",
     "test": "react-scripts test",

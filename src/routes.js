@@ -51,6 +51,7 @@ const AddWard  = React.lazy(() => import( './pages/ward/add'));
 const ListWard  = React.lazy(() => import( './pages/ward/list'));
 const ChangePassword  = React.lazy(() => import( './pages/auth/change-password'));
 const ChangePort  = React.lazy(() => import( './pages/auth/change-passport'));
+const ActivateUser  = React.lazy(() => import( './pages/user/ActivateUser'));
 const PaymentInfo  = React.lazy(() => import( './pages/paymeninfo'));
 
 // Base
@@ -248,6 +249,11 @@ const routes = [
   path: "/change-password",
   name:'Password',
   element: ChangePassword
+},
+ {
+  path: "/user/activate/0/1",
+  name:'Password',
+  element: ActivateUser
 },
   {
   path: "/gifship-list",

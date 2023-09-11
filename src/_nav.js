@@ -198,7 +198,13 @@ const _nav = [
   name: 'Change Password',
   to: '/change-password',
    icon: <CIcon icon={cilUser} customClassName="nav-icon" />
-}, 
+},
+ {
+  component: CNavItem,
+  name: 'Activate User',
+  to: '/user/activate/0/1',
+   icon: <CIcon icon={cilUser} customClassName="nav-icon" />
+}, //
 {
 component: CNavItem,
   name: 'Profile Pix',
