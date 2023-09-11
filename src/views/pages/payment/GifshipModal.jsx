@@ -257,7 +257,7 @@ const calculate = async ()=>{
             margin="dense"
             id="authNumber"
             name="authNumber"
-            label="RRR Number"
+            label="Payment Confirn Code"
             type="text"
             value={inputs.authNumber}
             fullWidth
