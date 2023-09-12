@@ -60,9 +60,10 @@ const Register = () => {
           showToastMessage('Password mismatch found !', 'error')
           setLoading(false)
          }
-         else{
-          const ext = 
-        const formData = new FormData();
+         else{ 
+          const ext = file.name.split('.')[1]
+          if(img.includes(ext)){
+            const formData = new FormData();
         formData.append('file', file)
         await app.post('/uploadfile', formData).then(async res =>{
         await app.post("/users", {username:username, password:password, email:email,uiid:uiid, roleid:roleid, imgurl:res.data.filename, surname: surname, othername: othername, phone: phone, isActive: 0})
@@ -79,6 +80,10 @@ const Register = () => {
         showToastMessage("No image found", 'error')
        })
          }
+         else{
+          showToastMessage('Invalid image format ...', 'error')
+         }
+         }
         }
         catch(errs){
             setError("Something went wrong. All fields are required. please check your entry and try again" + errs) 
@@ -87,12 +92,12 @@ const Register = () => {
         
    }
   return (
-    <div className="bg-light min-vh-100 d-flex flex-row align-items-center" xs={12} xl={8}>
+   <div className="bg-light min-vh-100 d-flex flex-row align-items-center" >
       <CContainer>
         <CRow className="justify-content-center">
           <CCol md={12} xs={12} xl={8}>
-            <CCard className="mx-4">
-              <CCardBody className="p-4" style={{backgroundColor:'AppWorkspace', border: '2px solid darkgreen'}}>
+            <CCard className="p-6">
+              <CCardBody className="p-6" style={{backgroundColor:'AppWorkspace', border: '0.5px solid darkgreen'}}>
                 <CForm>
                 
                     <p className="text-medium-emphasis" style={{textAlign:'center'}}>
@@ -205,7 +210,7 @@ const Register = () => {
           </CCol>
         </CRow>
       </CContainer>
-    </div>
+   </div>
   )
 }
 
