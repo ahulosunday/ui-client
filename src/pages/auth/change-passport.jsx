@@ -27,6 +27,7 @@ export default function ChangePort(){
    const [file, setFile] = React.useState(null)
   const navigate = useNavigate()
    const {currentUser } = React.useContext(AuthContext);
+       const img = ['png', 'jpeg', 'jpg', 'gif']
   const handleClose = ()=>{
     navigate('/')
   }
@@ -34,6 +35,14 @@ export default function ChangePort(){
     handleOpen()
   })
   const uploadPaaport = async e=>{
+    const ext = file.name.split('.')[1]
+          if(file.length === 0){
+            showToastMessage('Please upload passport size photograph', 'error')
+          }
+          else if((file.size/1024) > 40){
+            showToastMessage('Image size must not be greater than 40kb', 'error')
+          }
+          else if(img.includes(ext)){
      const formData = new FormData();
             formData.append('file', file)
           await app.post('/uploadfile', formData).then( async res =>{
@@ -45,6 +54,10 @@ export default function ChangePort(){
           }).catch(err=>{
             showToastMessage("Unable to upload file ...", 'error')
           })
+          }
+          else{
+            showToastMessage('Invalid image format ...', 'error')
+          }
 
   }
     return(
@@ -58,7 +71,10 @@ export default function ChangePort(){
           <CCardBody>
             <DocsExample add="Upload Profile picture">   
       <Typography className='changePassport' id="modal-modal-description" sx={{mt:2}}>
-      <div style={{textAlign:'right'}}><img height={100} width={100} src={imgUrl} /></div>
+      <div style={{textAlign:'right'}}><img height={100} width={100} src={imgUrl} />
+      <br />
+      <span style={{color: 'red', fontSize: 9}}>Image size: 40kb, type: png, jpeg, jpg, gif</span>
+      </div>
       <CRow>
       <CCol xs>
        <label>Passport</label>
