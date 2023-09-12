@@ -49,12 +49,12 @@ showToastMessage('Username not found.', 'error')
 return (
      <div>
       
-      <Link onClick={handleClickOpen} style={{textDecoration:'none', color:'gray'}}>Please click here to activate user</Link>
+      <Link onClick={handleClickOpen} style={{textDecoration:'none', color:'red'}}>Please click here to activate enrolle/user</Link>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Activate User ...</DialogTitle>
+        <DialogTitle>Activate Enrolle/User ...</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Enter the Enrolee username
+            Enter the Enrolee/User username
           </DialogContentText>
           <TextField
             autoFocus

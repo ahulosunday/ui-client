@@ -9,6 +9,8 @@ const AddHospital = React.lazy(() => import('./pages/hospital/add'))
 const EditHospital = React.lazy(() => import('./pages/hospital/edit'))
 const ViewHospital = React.lazy(() => import('./pages/hospital/view'))
 
+const ListUsers = React.lazy(() => import('./pages/user/list'))
+
 const PrintForm = React.lazy(()=> import('./pages/printout'))
 const GifshipList = React.lazy(() => import('./pages/gifship/listall'));
 const  GifshipType  = React.lazy(() => import( './pages/gifship/gifshipType'));
@@ -111,6 +113,8 @@ const routes = [
   {path: '/hospital/add', name:'Hospital', element: AddHospital},
   {path: '/:id/hospital', name:'Hospital', element: EditHospital},
   {path: '/:id/hospital/view', name:'Hospital', element: ViewHospital },
+//================================
+ {path: '/users/list', name:'Users', element: ListUsers },
 //================================
 {path: '/print/form/:id', name : 'PrintForm', element: PrintForm },
 {path: '/user-rrr/', name: 'User_RRR', element: ListRRR},

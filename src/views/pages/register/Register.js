@@ -62,7 +62,13 @@ const Register = () => {
          }
          else{ 
           const ext = file.name.split('.')[1]
-          if(img.includes(ext)){
+          if(file.length === 0){
+            showToastMessage('Please upload passport size photograph', 'error')
+          }
+          else if((file.size/1024) > 40){
+            showToastMessage('Image size must not be greater than 40kb', 'error')
+          }
+          else if(img.includes(ext)){
             const formData = new FormData();
         formData.append('file', file)
         await app.post('/uploadfile', formData).then(async res =>{
@@ -119,7 +125,7 @@ const Register = () => {
             
                  
                             <div style={{textAlign:'right'}} ><img className="uploadImg" alt="" src={imgurl} style={{height:'100px', width:'100px'}}  id="cxfileimg" />
-           <br /> <span style={{color: 'red', fontSize: 9}}>Image size: 30kb, type: png, jpeg, jpg, gif</span>
+           <br /> <span style={{color: 'red', fontSize: 9}}>Image size: 40kb, type: png, jpeg, jpg, gif</span>
            </div>
            
                      <CInputGroup className="mb-4">
