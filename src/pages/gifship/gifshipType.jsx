@@ -81,7 +81,7 @@ const handleChange = e =>{
             
             <DocsExample add="SUB-PROGRAMME"> 
        <CRow>
-       <CCol xs>
+       <CCol xs={12}>
        Programme
        <CFormSelect name="gifshipId" onChange={handleChange} >
         <option value={0} disabled selected>--select Category--</option>
@@ -94,13 +94,13 @@ const handleChange = e =>{
        </CCol>
        </CRow>
        <CRow>
-       <CCol xs>
+       <CCol xs={12}>
        Sub: 
        <CFormInput type="text" name="name" placeholder="" onChange={handleChange} />
        </CCol>
        </CRow>
        <CRow>
-       <CCol xs>
+       <CCol xs={12}>
        <br />
        { permissions.indexOf("ADD_GIFSHIP_TYPE") > -1? 
         <Stack direction="row" spacing={1}> <LoadingButton size="small"

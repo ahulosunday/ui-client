@@ -109,10 +109,8 @@ const handleChange = e =>{
 
     
     return (
-       <div className="form-horizontal">
-           
-                 <CRow >
-<CCol xs={12} style={{fontSize:'12px'}} >
+      <CRow >
+<CCol xs={12} xl={12} style={{fontSize:'12px'}} >
         <CCard className="mb-12" >
          <CCardHeader style={{backgroundColor:'skyblue'}}>
             <strong style={{color:'white'}}>Programme Packages</strong>
@@ -121,7 +119,7 @@ const handleChange = e =>{
             
             <DocsExample add="Programme Packages"> 
        <CRow>
-       <CCol xs>
+       <CCol xs={12} xl={6}>
        Programme
         <CFormSelect name="gifshipId" onChange={handleChange}  onBlur={loadItemType}>
         <option value={0} disabled selected>--select Programme--</option>
@@ -132,7 +130,7 @@ const handleChange = e =>{
         }
         </CFormSelect>
         </CCol>
-        <CCol xs>
+        <CCol xs={12} xl={6}>
         Sub-Programme
            <CFormSelect name="gifshipTypeId" onChange={handleChange} >
         <option value={0} disabled selected>--select Sub-Programme--</option>
@@ -145,34 +143,34 @@ const handleChange = e =>{
         </CCol>
         </CRow>
        <CRow>
-       <CCol xs>
+       <CCol xs={12} xl={6}>
        Package
         <CFormInput type="text" name="name" value={inputs.name} placeholder="Package" onChange={handleChange} />
        </CCol>
-       <CCol xs>
+       <CCol xs={12} xl={6}>
        Amount (per Enrolee)
        <CFormInput type="number" name="amount" value={inputs.amount} placeholder="Amount per Enrolee" onChange={handleChange} />
        </CCol>
        </CRow>
        <CRow>
-       <CCol xs>
+       <CCol xs={12} xl={6}>
        Min Number of Enrolees
         <CFormInput type="number" name="qty" value={inputs.qty} placeholder="Min Number of Enrolees" onChange={handleChange} />
        </CCol>
-       <CCol xs>
+       <CCol xs={12} xl={6}>
        Max Number of Enrolees
        <CFormInput type="number" name="maxNumber" value={inputs.maxNumber} placeholder="Max Number of Enrolees" onChange={handleChange} />
        </CCol>
        </CRow>
        <CRow>
-       <CCol xs>
+       <CCol xs={12} xl={6}>
        Duration in Days
        <CFormInput type="number" name="duration" value={inputs.duration} placeholder="Duration in days" onChange={handleChange} />
        </CCol>
        <CCol></CCol>
        </CRow>
     <CRow>
-    <CCol>
+    <CCol xs={12} xl={6}>
    <br />
          { permissions.indexOf("EDIT_GIFSHIP_PACKAGE") > -1? 
        <Stack direction="row" spacing={1}> <LoadingButton size="small"
@@ -193,72 +191,6 @@ const handleChange = e =>{
     </CCardBody>
     </CCard></CCol>
     </CRow>
-        <div className="gifship" style={{marginTop:'30px'}}>
-         <form>
-         <h1>Programme Package [{inputs.name}]</h1>
-        <div className="input-group">
-       <label htmlFor="gifshipId">Programme</label> 
-        <select name="gifshipId" onChange={handleChange}  onBlur={loadItemType}>
-        <option value={0} disabled selected>--select Programme--</option>
-        {
-            getGifship.length===0? '': getGifship.map((item)=>(
-            <option key={item.id} value={item.id} selected ={inputs.gifshipId===item.id? 'selected': ''}>{item.name}</option>
-            ))
-        }
-        </select>
-        </div>
-        <div className="input-group">
-       <label htmlFor="gifshipTypeId">SubProgramme</label> 
-        <select name="gifshipTypeId" onChange={handleChange} >
-        <option value={0} disabled selected>--select sub Programme--</option>
-        {
-            getGifshipType.length===0?'':getGifshipType.map((item)=>(
-            <option key={item.id} value={item.id} selected ={inputs.gifshipTypeId===item.id? 'selected': ''}>{item.name}</option>
-            ))//setGifshipType
-        }
-        </select>
-        </div>
-        <div className="input-group">
-       <label htmlFor="name">Package</label> 
-        <input type="text" name="name" value={inputs.name} placeholder="Package" onChange={handleChange} />
-       </div>
-       <div className="input-group">
-       <label htmlFor="name">Amount (per one)</label> 
-        <input type="number" name="amount" value={inputs.amount} placeholder="Amount per person" onChange={handleChange} />
-       </div>
-       <div className="input-group">
-       <label htmlFor="name">Min Number of Enrolees</label> 
-        <input type="number" name="qty" value={inputs.qty} placeholder="Min Number of Enrolees" onChange={handleChange} />
-       </div>
-       <div className="input-group">
-       <label htmlFor="name">Max Number of Enrolees</label> 
-        <input type="number" name="maxNumber" value={inputs.maxNumber} placeholder="Max Number of Enrolees" onChange={handleChange} />
-       </div>
-       <div className="input-group">
-       <label htmlFor="name">Duration in Days</label> 
-        <input type="number" name="duration" value={inputs.duration} placeholder="Duration in days" onChange={handleChange} />
-       </div>
-       <div className="input-group">
-       <label htmlFor="buttton"></label> 
-        { permissions.indexOf("EDIT_GIFSHIP_PACKAGE") > -1? 
-       <Stack direction="row" spacing={1}> <LoadingButton size="small"
-          onClick={(e) => handleUpdate(e)
-          }
-          endIcon={<SendIcon />}
-          loading={loading}
-          loadingPosition="end"
-          variant="contained"
-        >
-          <span>Update</span>
-        </LoadingButton>
-       <Goback url='/gifshipPackage' />
-        </Stack> : <Goback url='/gifshipPackage' />}
-        
-        </div>
-         </form>
-        </div>
-           
-       </div>
        
     )
 }

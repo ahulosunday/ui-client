@@ -85,7 +85,7 @@ if(!(permissions.indexOf("EDIT_GIFSHIP_TYPE") > -1)){
     
     return (
                  <CRow >
-<CCol xs={12} style={{fontSize:'12px'}} >
+<CCol xs={12} xl={12} style={{fontSize:'12px'}} >
         <CCard className="mb-12" >
          <CCardHeader style={{backgroundColor:'skyblue'}}>
             <strong style={{color:'white'}}>EDIT [{inputs.name}]</strong>
@@ -94,7 +94,7 @@ if(!(permissions.indexOf("EDIT_GIFSHIP_TYPE") > -1)){
             
             <DocsExample add="Country"> 
             <CRow>
-            <CCol xs>
+            <CCol xs={12}>
             Programme
             <CFormSelect name="gifshipId" onChange={handleChange} >
         <option value={0} disabled>--select Category--</option>
@@ -105,14 +105,14 @@ if(!(permissions.indexOf("EDIT_GIFSHIP_TYPE") > -1)){
         }
         </CFormSelect>
             </CCol>
-            <CCol xs>
+            <CCol xs={12}>
             Sub:
             <CFormInput type="text" value={inputs.name} name="name" placeholder={inputs.name} onChange={handleChange} />
       
             </CCol>
             </CRow>   
             <CRow>
-            <CCol xs>
+            <CCol xs={12}>
            <br />
        {permissions.indexOf("EDIT_GIFSHIP_TYPE") > -1? 
        <Stack direction="row" spacing={1}> <LoadingButton size="small"

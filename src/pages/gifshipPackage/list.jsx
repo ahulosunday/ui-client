@@ -77,7 +77,7 @@ if(!(permissions.indexOf("VIEW_GIFSHIP_PACKAGE") > -1)){
     return (
       
        <CRow >
-<CCol xs={12} >
+<CCol xs={12} xl={12} >
         <CCard className="mb-12" >
          <CCardHeader style={{backgroundColor:'skyblue'}}>
             <strong style={{color:'white'}}>LIST OF PACKAGES</strong>

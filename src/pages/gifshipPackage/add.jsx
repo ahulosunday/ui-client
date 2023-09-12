@@ -95,7 +95,7 @@ const handleChange = e =>{
     return (
      
                  <CRow >
-<CCol xs={12} style={{fontSize:'12px'}} >
+<CCol xs={12} xl={12} style={{fontSize:'12px'}} >
         <CCard className="mb-12" >
          <CCardHeader style={{backgroundColor:'skyblue'}}>
             <strong style={{color:'white'}}>Programme Packages</strong>
@@ -104,7 +104,7 @@ const handleChange = e =>{
             
             <DocsExample add="Programme Packages"> 
        <CRow>
-       <CCol xs>
+       <CCol xs={12} xl={6}>
        Programme
         <CFormSelect name="gifshipId" onChange={handleChange}  onBlur={loadItemType}>
         <option value={0} disabled selected>--select Programme--</option>
@@ -115,7 +115,7 @@ const handleChange = e =>{
         }
         </CFormSelect>
         </CCol>
-        <CCol xs>
+        <CCol xs={12} xl={6}>
         Sub-Programme
            <CFormSelect name="gifshipTypeId" onChange={handleChange} >
         <option value={0} disabled selected>--select Sub-Programme--</option>
@@ -128,34 +128,34 @@ const handleChange = e =>{
         </CCol>
         </CRow>
        <CRow>
-       <CCol xs>
+       <CCol xs={12} xl={6}>
        Package
         <CFormInput type="text" name="name" placeholder="Package" onChange={handleChange} />
        </CCol>
-       <CCol xs>
+       <CCol xs={12} xl={6}>
        Amount (per Enrolee)
        <CFormInput type="number" name="amount" placeholder="Amount per Enrolee" onChange={handleChange} />
        </CCol>
        </CRow>
        <CRow>
-       <CCol xs>
+       <CCol xs={12} xl={6}>
        Min Number of Enrolees
         <CFormInput type="number" name="qty" placeholder="Min Number of Enrolees" onChange={handleChange} />
        </CCol>
-       <CCol xs>
+       <CCol xs={12} xl={6}>
        Max Number of Enrolees
        <CFormInput type="number" name="maxNumber" placeholder="Max Number of Enrolees" onChange={handleChange} />
        </CCol>
        </CRow>
        <CRow>
-       <CCol xs>
+       <CCol xs={12} xl={6}>
        Duration in Days
        <CFormInput type="number" name="duration" placeholder="Duration in days" onChange={handleChange} />
        </CCol>
        <CCol></CCol>
        </CRow>
     <CRow>
-    <CCol>
+    <CCol xs={12} xl={6}>
    <br />
        {permissions.indexOf("ADD_GIFSHIP_PACKAGE") > -1? 
        <Stack direction="row" spacing={1}> <LoadingButton size="small"

@@ -109,7 +109,7 @@ const Login = () => {
                       />
                     </CInputGroup>
                     <CRow>
-                      <CCol xs={6}>
+                      <CCol xs={7}>
                                    <Stack direction="row" spacing={1} > <LoadingButton size="small"
           onClick={(e) => handleSummit(e)
           }
@@ -122,7 +122,7 @@ const Login = () => {
         </LoadingButton> 
         </Stack>
                       </CCol>
-                      <CCol xs={6} className="text-right">
+                      <CCol xs={5} className="text-right">
                         <CButton color="link" className="px-0" style={{textDecoration:'none'}} onClick={handleForgot}>
                           Forgot password?
                         </CButton>
@@ -130,10 +130,10 @@ const Login = () => {
                     </CRow>
                   </CForm>
                   <CRow>
-                  <CCol xs={9} >
+                  <CCol xs={8} >
                   <span style={{textAlign:'center'}}><>Don't you have an account? <Link to="/register" style={{color:'red', textDecoration:'none'}}>Register</Link></></span> 
                   </CCol>
-                  <CCol xs={3} ><PayOptions />
+                  <CCol xs={4} ><PayOptions />
                   </CCol>
                   </CRow>
                    

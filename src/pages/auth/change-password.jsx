@@ -55,7 +55,7 @@ const [ inputs, setInputs ] = useState({
     }
 return(
   <CRow >
-<CCol xs={8} style={{fontSize:'12px'}}>
+<CCol xs={12} xl={8} style={{fontSize:'12px'}}>
         <CCard className="mb-12" >
          <CCardHeader style={{backgroundColor:'skyblue'}}>
             <strong style={{color:'white'}}>CHANGE PASSWORD</strong>
@@ -64,25 +64,25 @@ return(
             
             <DocsExample add="Change Password"> 
             <CRow>
-            <CCol xs>
+            <CCol xs={12} xl={6}>
             Username
              <CFormInput type="text" readOnly name="username" value={currentUser.username} />
             </CCol>
             </CRow>
             <CRow>
-            <CCol xs>
+            <CCol xs={12} xl={6}>
             Current Password
              <CFormInput type="password" name="cpassword" value={inputs.cpassword} onChange={handleChange} />
             </CCol>
             </CRow>
             <CRow>
-            <CCol xs>
+            <CCol xs={12} xl={6}>
             New Password
      <CFormInput type="password" name="password" value={inputs.password} onChange={handleChange} />
             </CCol>
             </CRow>
             <CRow>
-            <CCol xs>
+            <CCol xs={12} xl={6}>
              Confirm Password
      <CFormInput type="password" name="conpassword" value={inputs.conpassword} id="conpassword" onChange={handleChange} />
             </CCol>

@@ -174,7 +174,7 @@ export default function FormDialogCsv(props) {
   }
 //<Link to='/form/register/add' className="addnew">Registration</Link>
   return (
-    <div>
+    <div xs={12} xl={6}>
       <Button variant="outlined" onClick={handleClickOpen}>
         Upload
       </Button>
