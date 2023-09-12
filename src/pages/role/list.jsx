@@ -78,7 +78,6 @@ const loadItem = async e =>{
        <CTableRow>
        <CTableHeaderCell>Name</CTableHeaderCell>
        <CTableHeaderCell>Description</CTableHeaderCell>
-      
        <CTableHeaderCell></CTableHeaderCell>
        </CTableRow>
        </CTableHead>
