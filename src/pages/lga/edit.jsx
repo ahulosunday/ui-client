@@ -120,7 +120,7 @@ const loadItem = async e =>{
     return (
   
          <CRow >
-         <CCol xs={12} style={{fontSize:'12px'}}>
+         <CCol xs={12} xl={12} style={{fontSize:'12px'}}>
         <CCard className="mb-12" >
          <CCardHeader style={{backgroundColor:'skyblue'}}>
             <strong style={{color:'white'}}>EDIT LGAs</strong>
@@ -128,7 +128,7 @@ const loadItem = async e =>{
           <CCardBody>
             <DocsExample add="LGA"> 
              <CRow>
-            <CCol xs>
+            <CCol xs={12} xl={6}>
             Country
        <CFormSelect name="countryId"  onChange={handleChange} onBlur={loadRegion} >
        <option value={0} disabled selected>--select Country--</option>
@@ -140,7 +140,7 @@ const loadItem = async e =>{
       
        </CFormSelect>
        </CCol>
-       <CCol xs>
+       <CCol xs={12} xl={6}>
         Region
          <CFormSelect name="regionId"  onChange={handleChange} onBlur={loadStates} >
        <option value={0} disabled selected>--select Region--</option>
@@ -152,7 +152,7 @@ const loadItem = async e =>{
       </CFormSelect></CCol>
        </CRow>
        <CRow>
-       <CCol xs>
+       <CCol xs={12} xl={6}>
 State
          <CFormSelect name="stateId"  onChange={handleChange} >
        <option value={0} disabled selected>--select State--</option>
@@ -167,17 +167,17 @@ State
        </CRow>
 
    <CRow>
-   <CCol xs>
+   <CCol xs={12} xl={6}>
    Lga
        <CFormInput type="text" value={inputs.name} name="name" placeholder="Lga Name" onChange={handleChange}  />
         </CCol>
-        <CCol xs>
+        <CCol xs={12} xl={6}>
      Code
         <CFormInput type="text" value={inputs.code} name="code" placeholder="Lga Code" onChange={handleChange} />
        </CCol>
        </CRow>
        <CRow>
-       <CCol xs>
+       <CCol xs={12} xl={6}>
     <br />
         {permissions.indexOf("ADD_LGAS") > -1? 
            <Stack direction="row" spacing={1}> <LoadingButton size="small"

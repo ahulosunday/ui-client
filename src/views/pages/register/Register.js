@@ -49,6 +49,8 @@ const Register = () => {
     const [roleid, setRolid] = useState(3)
     const [uiid, setUiid] = useState(v1())
     const [ imgurl , setImgUrl] = useState("")
+    const img = ['png', 'jpeg', 'jpg', 'gif']
+
     
    const handleSummit = async e =>{
         e.preventDefault()
@@ -59,6 +61,7 @@ const Register = () => {
           setLoading(false)
          }
          else{
+          const ext = 
         const formData = new FormData();
         formData.append('file', file)
         await app.post('/uploadfile', formData).then(async res =>{

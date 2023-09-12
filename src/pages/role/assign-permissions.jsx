@@ -159,19 +159,19 @@ const AssignPermissions = () =>{
           <CCardBody>
             <DocsExample add="Assign Permissions"> 
         <CRow>
-        <CCol xs>
+        <CCol xs={12} xl={12}>
      <label htmlFor="name">Role</label> 
        <CFormInput type="text" value={inputs.name} placeholder={inputs.name} readOnly name="name"  onChange={handleChange} />
         </CCol>
         </CRow>
         <CRow>
-        <CCol xs>
+        <CCol xs={12} xl={12}>
        <label htmlFor="description">Description</label> 
         <CFormInput type="text" placeholder={inputs.description} readOnly value={inputs.description} name="description"  onChange={handleChange} />
        </CCol>
        </CRow>
        <CRow>
-       <CCol> <br />
+       <CCol xs={12} xl={12}> <br />
        {permissions.indexOf("EDIT_ROLE") > -1? 
       <Stack direction="row" spacing={1}> <LoadingButton size="small"
           onClick={(e) => handleUpdate(e)

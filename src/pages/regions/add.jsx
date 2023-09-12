@@ -67,7 +67,7 @@ const loadItem = async e =>{
     }, [permissions, navigate])
     return (
         <CRow >
-         <CCol xs={12} style={{fontSize:'12px'}}>
+         <CCol xs={12} xl={12} style={{fontSize:'12px'}}>
         <CCard className="mb-12" >
          <CCardHeader style={{backgroundColor:'skyblue'}}>
             <strong style={{color:'white'}}>ADD REGIONS</strong>
@@ -75,7 +75,7 @@ const loadItem = async e =>{
           <CCardBody>
             <DocsExample add="Regions"> 
        <CRow>
-       <CCol xs>
+       <CCol xs={12} xl={6}>
        Country
        <CFormSelect name="countryId"  onChange={handleChange} >
        <option value="0" disabled selected>--select Country--</option>
@@ -87,19 +87,13 @@ const loadItem = async e =>{
       
        </CFormSelect>
        </CCol>
-       <CCol xs>
+       <CCol xs={12} xl={6}>
        Region
         <CFormInput type="text" name="name" placeholder="Region" onChange={handleChange} />
        </CCol>
        </CRow>
-    
-    
-
-
-
-
     <CRow>
-    <CCol xs>
+    <CCol xs={12} xl={6}>
    <br />
        {permissions.indexOf("ADD_REGIONS") > -1? 
       <Stack direction="row" spacing={1}> <LoadingButton size="small"

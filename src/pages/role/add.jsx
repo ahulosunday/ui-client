@@ -69,19 +69,19 @@ const handleChange = e =>{
           <CCardBody>
             <DocsExample add="ADD ROLES"> 
         <CRow>
-        <CCol xs>
+        <CCol xs={12} xl={12}>
        <label htmlFor="name">Role</label> 
        <CFormInput type="text" name="name" placeholder="Role name" onChange={handleChange} />
         </CCol>
         </CRow>
         <CRow>
-         <CCol xs>
+         <CCol xs={12} xl={12}>
        <label htmlFor="description">Description</label> 
         <CFormInput type="text" name="description" placeholder="Description" onChange={handleChange} />
         </CCol>
        </CRow>
        <CRow>
-       <CCol xs>
+       <CCol xs={12} xl={12}>
        <br />
         <Stack direction="row" spacing={1}> <LoadingButton size="small"
           onClick={(e) => handleSubmit(e)
