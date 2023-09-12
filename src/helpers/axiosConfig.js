@@ -5,8 +5,8 @@ import axios from "axios";
 // and your domain in production
 //const axiosCreate = async ()=>{
 const app = await axios.create({ 
-    baseURL: "http://localhost:6001/api/auth/"
-    //baseURL: "https://api-lky4.onrender.com/api/auth/"
+    //baseURL: "http://localhost:6001/api/auth/"
+    baseURL: "https://api-lky4.onrender.com/api/auth/"
 });
 
 // axios consumes rejected API responses by default,
