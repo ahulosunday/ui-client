@@ -50,7 +50,7 @@ export default function ChangePort(){
     return(
  <Modal open={opens} aria-labelledby ="modal-modal-title" aria-descriptionby="modal-modal-description">
       <Box sx={style}>
-       <CCol xs={12} xl={6} style={{fontSize:'12px'}}>
+       <CCol xs={12} xl={12} style={{fontSize:'12px'}}>
         <CCard className="mb-12" >
          <CCardHeader style={{backgroundColor:'skyblue'}}>
             <strong style={{color:'white'}}>CHANGE PROFILE PICTURE</strong>

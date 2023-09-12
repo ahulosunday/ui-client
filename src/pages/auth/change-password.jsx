@@ -64,25 +64,25 @@ return(
             
             <DocsExample add="Change Password"> 
             <CRow>
-            <CCol xs={12} xl={6}>
+            <CCol xs={12} xl={12}>
             Username
              <CFormInput type="text" readOnly name="username" value={currentUser.username} />
             </CCol>
             </CRow>
             <CRow>
-            <CCol xs={12} xl={6}>
+            <CCol xs={12} xl={12}>
             Current Password
              <CFormInput type="password" name="cpassword" value={inputs.cpassword} onChange={handleChange} />
             </CCol>
             </CRow>
             <CRow>
-            <CCol xs={12} xl={6}>
+            <CCol xs={12} xl={12}>
             New Password
      <CFormInput type="password" name="password" value={inputs.password} onChange={handleChange} />
             </CCol>
             </CRow>
             <CRow>
-            <CCol xs={12} xl={6}>
+            <CCol xs={12} xl={12}>
              Confirm Password
      <CFormInput type="password" name="conpassword" value={inputs.conpassword} id="conpassword" onChange={handleChange} />
             </CCol>

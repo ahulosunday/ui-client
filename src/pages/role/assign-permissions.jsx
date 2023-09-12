@@ -149,7 +149,7 @@ const AssignPermissions = () =>{
         };
    
     return (
-       
+       <form method='post'>
       <CRow >
          <CCol md={12} xs={12} xl={6} style={{fontSize:'12px'}}>
         <CCard className="mb-12" >
@@ -246,6 +246,7 @@ const AssignPermissions = () =>{
       </CCardBody></CCard>
       </CCol>
         </CRow>
+        </form>
        
     )
 }

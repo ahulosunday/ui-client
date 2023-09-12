@@ -89,7 +89,9 @@ const handleChange = e =>{
             e.preventDefault()
             setLoading(true)
        await app.put(`/gifshipPackage/${inputs.id}`, inputs)
+
        .then(res =>{
+       
         setLoading(false)
         showToastMessage('Update successful', 'success')
         navigate('/gifshipPackage')
