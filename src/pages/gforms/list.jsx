@@ -9,6 +9,9 @@ import { trackPromise } from 'react-promise-tracker';
 import { per_page, startIndex } from '../../helpers/paging_indexes';
 import showToastMessage from '../../components/toast';
 import moment from 'moment';
+import BrowseGalleryOutlinedIcon from '@mui/icons-material/BrowseGalleryOutlined';
+import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
+import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import {
   CButton,
   CButtonGroup,
@@ -158,9 +161,9 @@ const loadItem = async e =>{
        <CTableDataCell></CTableDataCell>
        <CTableDataCell>
        <CButtonGroup>
-       { permissions?.indexOf("EDIT_MEMBERSHIP_FORM") > -1? <CButton color="secondary" size="sm" > <Link to={`/${0}/register/`}  state={item.id} className="edit" style={{color:'white', textDecoration:'none'}}> Edit</Link></CButton> :''}
-        { permissions?.indexOf("VIEW_MEMBERSHIP_FORM") > -1? <CButton color="info" size="sm" > <Link to={`/${item.id}/register/3`}  state={item.id} className="view" style={{color:'white', textDecoration:'none'}}>View</Link></CButton> :'' }
-        { permissions?.indexOf("DELETE_MEMBERSHIP_FORM") > -1? <CButton color="danger" size="sm" ><Link to={'/delete'}  state={item.id +'&/form/register&/register/'} className="delete" style={{color:'white', textDecoration:'none'}}>Delete</Link></CButton> :''}
+       { permissions?.indexOf("EDIT_MEMBERSHIP_FORM") > -1? <CButton color="secondary" size="sm" > <Link to={`/${0}/register/`}  state={item.id} className="edit" style={{color:'white', textDecoration:'none'}}> <CreateOutlinedIcon /></Link></CButton> :''}
+        { permissions?.indexOf("VIEW_MEMBERSHIP_FORM") > -1? <CButton color="info" size="sm" > <Link to={`/${item.id}/register/3`}  state={item.id} className="view" style={{color:'white', textDecoration:'none'}}><BrowseGalleryOutlinedIcon /></Link></CButton> :'' }
+        { permissions?.indexOf("DELETE_MEMBERSHIP_FORM") > -1? <CButton color="danger" size="sm" ><Link to={'/delete'}  state={item.id +'&/form/register&/register/'} className="delete" style={{color:'white', textDecoration:'none'}}><DeleteForeverOutlinedIcon /></Link></CButton> :''}
      </CButtonGroup>
      </CTableDataCell>
        </CTableRow>
@@ -184,9 +187,9 @@ const loadItem = async e =>{
        <CTableDataCell></CTableDataCell>
        <CTableDataCell>
        <CButtonGroup>
-       { permissions?.indexOf("EDIT_MEMBERSHIP_FORM") > -1? <CButton color="secondary" size="sm" ><Link to={`/${0}/register/`}  state={item.id} className="edit"> Edit</Link></CButton> :''}
-        { permissions?.indexOf("VIEW_MEMBERSHIP_FORM") > -1? <CButton color="info" size="sm" ><Link to={`/${item.id}/register/3`}  state={item.id} className="view">View</Link></CButton> :'' }
-        { permissions?.indexOf("DELETE_MEMBERSHIP_FORM") > -1? <CButton color="danger" size="sm" ><Link to={'/delete'}  state={item.id +'&/form/register&/register/'} className="delete">Delete</Link></CButton> :''}
+       { permissions?.indexOf("EDIT_MEMBERSHIP_FORM") > -1? <CButton color="secondary" size="sm" ><Link to={`/${0}/register/`}  state={item.id} className="edit"> <CreateOutlinedIcon /></Link></CButton> :''}
+        { permissions?.indexOf("VIEW_MEMBERSHIP_FORM") > -1? <CButton color="info" size="sm" ><Link to={`/${item.id}/register/3`}  state={item.id} className="view"><BrowseGalleryOutlinedIcon /></Link></CButton> :'' }
+        { permissions?.indexOf("DELETE_MEMBERSHIP_FORM") > -1? <CButton color="danger" size="sm" ><Link to={'/delete'}  state={item.id +'&/form/register&/register/'} className="delete"><DeleteForeverOutlinedIcon /></Link></CButton> :''}
         </CButtonGroup></CTableDataCell>
        </CTableRow>
             )

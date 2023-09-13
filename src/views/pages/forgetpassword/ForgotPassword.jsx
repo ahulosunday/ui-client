@@ -12,6 +12,10 @@ import CIcon from '@coreui/icons-react'
 import { cilMagnifyingGlass, cilMedicalCross } from '@coreui/icons'
 import showToastMessage from '../../../components/toast'
 import { useNavigate } from 'react-router-dom'
+import { pin } from '../../../helpers/customAlphabet';
+import { render } from "@react-email/render";
+import hostUrl from '../../../helpers/hostUrl';
+import app from '../../../helpers/axiosConfig';
 
 const Page404 = () => {
     const [inputs, setInputs]=useState({email: ''})
@@ -21,8 +25,23 @@ const Page404 = () => {
             showToastMessage('Invalid email address', 'error')
         }
         else{
-             showToastMessage('The password link has been sent to your email. Kindly follow the instruction therein to reset your password.', 'success')
-          navigate('/login')
+             await app.get(`/find/email/1/${inputs.email}/1/1/1/1`)
+             .then(async res=>{
+              if(res.data.length === 0){
+                showToastMessage('Unable to associate this email with any account in our portal, check your email and try again', 'error')
+              }
+              else{
+             const emailHtml = render(<><h2>Recovery password request!</h2><p>Your password has been reset successfully.<br />Username: {inputs.email} <br />password: ****** <br /> Visit <a href={hostUrl}> here</a> to login. <br /> <hr /> Thanks.<br /> Management Team.</p></>);
+             await app.post('/sendmail/user/auth/email/send',{to: inputs.email, msg: emailHtml, subject: 'Reset password'})
+              showToastMessage('The password link has been sent to your email. Kindly follow the instruction therein to reset your password.', 'success')
+               navigate('/login')
+              }
+             })
+             .catch(err=>{
+              showToastMessage('Internal Error: unable to associate this email with any account in our portal, check your email and try again', 'error')
+            
+             })
+             
           }
          }
         

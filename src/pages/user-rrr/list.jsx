@@ -6,8 +6,8 @@ import {AuthContext} from "../../context/authContext";
 import moment from "moment";
 import { Pagination, Stack } from '@mui/material';
 import { startIndex, per_page } from '../../helpers/paging_indexes';
-import { trackPromise } from 'react-promise-tracker';
 import showToastMessage from '../../components/toast';
+
 import {
   CButton,
   CButtonGroup,
@@ -28,6 +28,9 @@ import {
   CTableRow,
 } from '@coreui/react'
 import { DocsExample } from '../../components'
+import DeleteIcon from '../../components/deleteIcon';
+import EditIcon from '../../components/editIcon';
+import ViewIcon from '../../components/viewIcon';
 
 
 const ListRRR = () =>{
@@ -127,8 +130,9 @@ const loadItem = async e =>{
        {
        <CTableDataCell>
        <CButtonGroup>
-      {permissions.indexOf("EDIT_RRR") > -1? <CButton color="secondary" size="sm" > <Link to={`/user-rrr/`} state={item.id} className="edit" style={{color:'white', textDecoration:'none'}}> Edit</Link> </CButton>:'' }
-       {permissions.indexOf("DELETE_RRR") > -1? <CButton color="danger" size="sm" ><Link to={`/delete`}  state={item.id +'&/user-rrr/&/user-rrr/'} className="delete" style={{color:'white', textDecoration:'none'}}>Delete</Link></CButton> : ''}
+       {permissions.indexOf("VIEW_RRR") > -1?  <ViewIcon to={`/user-rrr/dependants`} state={item.id} />:'' }
+      {permissions.indexOf("EDIT_RRR") > -1?  <EditIcon to={`/user-rrr/`} state={item.id} />:'' }
+       {permissions.indexOf("DELETE_RRR") > -1? <DeleteIcon to={`/delete`}  state={item.id +'&/user-rrr/&/user-rrr/'} /> : ''}
        </CButtonGroup> </CTableDataCell>
         }
        </CTableRow>

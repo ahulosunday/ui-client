@@ -237,8 +237,8 @@ const calculate = async ()=>{
      <InputLabel id="Payment">Payment Options</InputLabel>
      <Select labelId="pay" id="pay" name="pay" label="Payment Option" onChange={handleChanged}>
    
-     <MenuItem value={0}>Online/Web Transfer</MenuItem>
-     <MenuItem value={1}>Enter RRR Number</MenuItem>
+    <MenuItem value={0}>Direct Payment through Remeta</MenuItem>
+     <MenuItem value={1}>I have Paid, then verify payment</MenuItem>
      </Select>
      </FormControl>
      {inputs.pay===1?<>

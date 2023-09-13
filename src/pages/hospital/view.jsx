@@ -3,6 +3,26 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Goback from "../../components/goback";
+import {
+  CButton,
+  CButtonGroup,
+  CCard,
+  CCardBody,
+  CCardHeader,
+  CCardImage,
+  CCardText,
+  CCardTitle,
+  CCol,
+  CRow,
+  CTable,
+  CTableBody,
+  CTableCaption,
+  CTableDataCell,
+  CTableHead,
+  CTableHeaderCell,
+  CTableRow,
+} from '@coreui/react'
+import { DocsExample } from '../../components'
 
 const ViewHospital = () =>{
    const {currentUser, permissions } = useContext(AuthContext);
@@ -41,64 +61,71 @@ const ViewHospital = () =>{
       formData()
 
     return (
-       <div className="form-horizontal">
-        
-        <div className="gifship" style={{marginTop:'30px'}}>
-       
-         <form>
-         <h1><u>{inputs.name}</u></h1>
-         <div className="input-label">
-       <div htmlFor="name">Hospital Code:</div> 
-       <span>{inputs.hospitalCode}</span>
-         
-       </div>
-       <div className="input-label">
-       <div htmlFor="code">Hospital Name:</div> 
-        <span>{inputs.name}</span>
-       </div>
-         <div className="input-label">
-       <div htmlFor="name">Mobile:</div> 
-    <span>{inputs.phone}</span>
-       </div>
-       <div className="input-label">
-       <div htmlFor="code">Email Address</div> 
-        <span>{inputs.email}</span>
-       </div>
-         <div className="input-label">
-       <div htmlFor="name">Address:</div> 
-       <span>{inputs.address}</span>
-        
-       </div>
-       <div className="input-label">
-       <div htmlFor="code">Contact Address:</div> 
-     <span>{inputs.contactAddress}</span>
-       </div>
-        <div className="input-label">
-       <div htmlFor="code">Lga:</div> 
-     <span>{lgas}</span>
-       </div>
-       <div className="input-label">
-       <div htmlFor="code">State:</div> 
-     <span>{states}</span>
-       </div>
-       <div className="input-label">
-       <div htmlFor="code">Region:</div> 
-     <span>{regions}</span>
-       </div>
-       <div className="input-label">
-       <div htmlFor="code">Country:</div> 
-     <span>{countries}</span>
-       </div>
-        <div className="input-label">
-       <div htmlFor="buttton"></div> 
-          <Goback url='/hospitals' />
-        </div>
-    
-         </form>
-        
-        </div>
+            <CRow >
+<CCol xs={12} xl={12} >
+        <CCard className="mb-12" >
+         <CCardHeader style={{backgroundColor:'skyblue'}}>
+            <strong style={{color:'white'}}>ACCREDITED PRIMARY HEALTHCARE</strong>
+          </CCardHeader>
+          <CCardBody>
+            <p className="text-medium-emphasis small">
+              This page display the details of the selected hospital
+            </p>
            
-       </div>
+            <DocsExample  add="Hospital">
+         <h1>{inputs.name}</h1>
+         <CRow xs={6} xl={4}>
+       <CCol >Hospital Code:</CCol> 
+       <CCol>{inputs.hospitalCode}</CCol>
+         
+       </CRow>
+       <CRow  xs={6} xl={4}>
+       <CCol htmlFor="code">Hospital Name:</CCol> 
+        <CCol>{inputs.name}</CCol>
+       </CRow>
+         <CRow  xs={6} xl={4}>
+       <CCol htmlFor="name">Mobile:</CCol> 
+    <CCol>{inputs.phone}</CCol>
+       </CRow>
+       <CRow  xs={6} xl={4}>
+       <CCol htmlFor="code">Email Address</CCol> 
+        <CCol>{inputs.email}</CCol>
+       </CRow>
+         <CRow  xs={6} xl={4}>
+       <CCol htmlFor="name">Address:</CCol> 
+       <CCol>{inputs.address}</CCol>
+        
+       </CRow>
+       <CRow  xs={6} xl={4}>
+       <CCol htmlFor="code">Contact Address:</CCol> 
+     <CCol>{inputs.contactAddress}</CCol>
+       </CRow>
+        <CRow  xs={6} xl={4}>
+       <CCol htmlFor="code">Lga:</CCol> 
+     <CCol>{lgas}</CCol>
+       </CRow>
+       <CRow  xs={6} xl={4}>
+       <CCol htmlFor="code">State:</CCol> 
+     <CCol>{states}</CCol>
+       </CRow>
+       <CRow  xs={6} xl={4}>
+       <CCol htmlFor="code">Region:</CCol> 
+     <CCol>{regions}</CCol>
+       </CRow>
+       <CRow  xs={6} xl={4}>
+       <CCol htmlFor="code">Country:</CCol> 
+     <CCol>{countries}</CCol>
+       </CRow>
+       
+          <Goback url='/hospitals' />
+      
+    
+        </DocsExample>
+        </CCardBody>
+        </CCard>
+        </CCol>
+        </CRow>
+        
        
     )
 }
