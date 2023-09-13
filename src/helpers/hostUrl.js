@@ -1,3 +1,3 @@
-const hostUrl = 'https://www.google.com';
+const hostUrl = 'https://nhia.onrender.com';
 const emailFrom = 'ahulosunday@gmail.com'
 export default hostUrl;
