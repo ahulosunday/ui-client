@@ -17,7 +17,7 @@ import { CButton } from '@coreui/react';
 import { AuthContext } from '../../../context/authContext';
 
 export default function PayOptions (){
- const [open, setOpen] = React.useState(false);
+ const [open, setOpen] = React.useState(true);
    const [valids, setValid] = React.useState(false)
     const [ inputs, setInputs ] = React.useState({username:'', password:''})
     const  navigate = useNavigate();
@@ -26,6 +26,7 @@ export default function PayOptions (){
 
     const handleClose = () => {
     setOpen(false);
+    navigate('/login')
   };
   const handleClickOpen = () => {
     setOpen(true);
@@ -47,7 +48,7 @@ export default function PayOptions (){
 return (
      <div>
       
-      <CButton onClick={handleClickOpen} color='info' style={{textDecoration:'none', color:'white'}}>Payment</CButton>
+      
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Authentication inprogress ...</DialogTitle>
         <DialogContent>

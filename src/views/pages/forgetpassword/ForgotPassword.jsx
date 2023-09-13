@@ -31,7 +31,8 @@ const Page404 = () => {
                 showToastMessage('Unable to associate this email with any account in our portal, check your email and try again', 'error')
               }
               else{
-             const emailHtml = render(<><h2>Recovery password request!</h2><p>Your password has been reset successfully.<br />Username: {inputs.email} <br />password: ****** <br /> Visit <a href={hostUrl}> here</a> to login. <br /> <hr /> Thanks.<br /> Management Team.</p></>);
+             await app.put(`/Resetpassword/${res.data.id}/1/0`, {username:res.data.username, password: pin})
+             const emailHtml = render(<><h2>Recovery password request!</h2><p>Dear {res.data.surname}, <br />Your password has been reset successfully.<br />Username: {inputs.email} <br />New password: {pin} <br />Note: Your are adviced to change the password after logged in.<br /> Visit <a href={hostUrl}> here</a> to login. <br /> <hr /> Thanks.<br /> Management Team.</p></>);
              await app.post('/sendmail/user/auth/email/send',{to: inputs.email, msg: emailHtml, subject: 'Reset password'})
               showToastMessage('The password link has been sent to your email. Kindly follow the instruction therein to reset your password.', 'success')
                navigate('/login')

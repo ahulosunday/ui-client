@@ -23,7 +23,7 @@ export default function ToggleClick (props){
   const [ amount, setAmount ] = React.useState(0)
   const [gifship, setGifship] = React.useState([])
   const [valids, setValid] = React.useState(false)
-
+ 
   let date = new Date().toJSON().slice(0, 10);
   const [ inputs, setInputs ] = React.useState({
         pay:0,
@@ -193,13 +193,14 @@ const calculate = async ()=>{
         <DialogTitle>[{props.name}] inprogress ...</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Please enter the Number of enrolee ...
+            Please enter the Number of enrolee ..., Note: {'Maximum number is '}
           </DialogContentText>
           <TextField
             autoFocus
             margin="dense"
             id="number"
             name="number"
+            placeholder={'Maximum number is '}
             label="Number of Enrolee "
             type="number"
             onChange={calculate}

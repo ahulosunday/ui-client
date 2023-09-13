@@ -73,17 +73,16 @@ const loadItem = async e =>{
     }
     const checkUser_rrr_code = async e =>{
         await app.get(`/${currentUser.id}/user-rrr/getuserid/rrr/rrr/`)
-        .then(res=>{
+        .then( async res=>{
           const exp = moment(res.data.expired_date).format('YYYY MM')
           const today = moment()
           const diff = today.diff(exp, 'days')
          if(diff < 0){
-          app.get(`/codes/${res.data.id}/code/rrr/`).then(res1=>{
+          await app.get(`/codes/${res.data.id}/code/rrr/`).then(res1=>{
             setCount(res.data.maxNumber)
            if(res1.data.count < res.data.maxNumber) setShowUpload(true)
            setRrrId(res1.data.rows[0].user_rrrId)
           }).catch(err=>{
-
           })
          }
           
@@ -126,7 +125,7 @@ const loadItem = async e =>{
             </p>
            
             <DocsExample href="" add="Enrolee List"></DocsExample>
-            <span style={{width:'100%', display:'flex', flexDirection:'row', gap:'10px'}}>{ newreg > 0 ?'':<FormDialog /> }   {showUpload && <FormDialogCsv user_rrrId={rrrId} count ={count}/>} </span>
+            <span style={{width:'100%', display:'flex', flexDirection:'row', gap:'10px'}}>{ newreg > 0 ?'':<FormDialog /> }   {showUpload? <FormDialogCsv user_rrrId={rrrId} count ={count}/>:''} </span>
     
        <CTable striped style={{fontSize:'12px'}} align="middle" responsive>
        <CTableHead>
