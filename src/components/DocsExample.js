@@ -4,6 +4,8 @@ import { CButton, CNav, CNavItem, CNavLink, CTabContent, CTabPane } from '@coreu
 import CIcon from '@coreui/icons-react'
 import { cibFoursquare, cilCode, cilMediaPause, cilMediaPlay } from '@coreui/icons'
 import { Link } from 'react-router-dom'
+import Icon from '@mui/material/Icon';
+import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 
 const DocsExample = (props) => {
   const { children, href, add, showAdd} = props
@@ -20,10 +22,10 @@ const DocsExample = (props) => {
            {_add}
           </CNavLink>
         </CNavItem>
-        <CNavItem>
-      { !_showAdd? '': <CButton color="light" size="sm">
+        <CNavItem >
+      { !_showAdd? '': <CButton size="md" style={{backgroundColor:'teal'}}>
         <Link  to={_href} style={{cursor:'pointer', textDecoration:'none', color:'white'}}>
-          ADD NEW
+         <AddCircleOutlineRoundedIcon />
           </Link></CButton>} 
         </CNavItem>
       </CNav>

@@ -217,7 +217,7 @@ const handleChange = e =>{
             <strong style={{color:'white'}}>MANAGE ENROLEE PAYMENT VIA RRR</strong>
           </CCardHeader>
           <CCardBody>
-            <DocsExample add="States"> 
+            <DocsExample add="Payment Capturing ..."> 
             <CRow>
             <CCol xs={12} xl={4}>
         RRR NO#

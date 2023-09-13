@@ -56,7 +56,9 @@ import WidgetsDropdown from '../widgets/WidgetsDropdown'
 
 import { useNavigation } from 'react-router-dom'
 
+
 const Dashboard = () => {
+  
 
   const random = (min, max) => Math.floor(Math.random() * (max - min + 1) + min)
 
@@ -458,6 +460,7 @@ const Dashboard = () => {
           </CCard>
         </CCol>
       </CRow>
+     
     </>
     
  )
