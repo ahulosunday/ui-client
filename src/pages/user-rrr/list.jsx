@@ -96,6 +96,7 @@ const loadItem = async e =>{
        <CTableHead>
        <CTableRow>      
        <CTableHeaderCell>RRR_NO#</CTableHeaderCell>
+       <CTableHeaderCell>PAYMENT VERIFICATION NO#</CTableHeaderCell>
         <CTableHeaderCell>ENROLEE_NAME</CTableHeaderCell>
        <CTableHeaderCell>EMAIL_ADDR</CTableHeaderCell>
        <CTableHeaderCell>PROGRAMME</CTableHeaderCell>
@@ -116,6 +117,7 @@ const loadItem = async e =>{
             getrrr.length === 0? '': getrrr.map((item)=>(
             <CTableRow>
        <CTableDataCell>{item.rrr_number}</CTableDataCell>
+        <CTableDataCell>{item.authNumber}</CTableDataCell>
        <CTableDataCell>{item.user.surname} {item.user.othername}</CTableDataCell>
         <CTableDataCell>{item.user.email}</CTableDataCell>
         <CTableDataCell>{item.gifship.name}</CTableDataCell>

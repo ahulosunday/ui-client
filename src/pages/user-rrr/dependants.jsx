@@ -92,6 +92,8 @@ const loadItem = async e =>{
        <CTableRow>      
        <CTableHeaderCell>S/N</CTableHeaderCell>
       <CTableHeaderCell>REG CODE</CTableHeaderCell>
+      <CTableHeaderCell>RRR NO#</CTableHeaderCell>
+      <CTableHeaderCell>PAYMENT VERIFICATION NUMBER</CTableHeaderCell>
         <CTableHeaderCell>ENROLEE_NAME</CTableHeaderCell>
        <CTableHeaderCell>EMAIL_ADDR</CTableHeaderCell>
        <CTableHeaderCell>PHONE NO#</CTableHeaderCell>
@@ -104,6 +106,8 @@ const loadItem = async e =>{
             <CTableRow key={item.id}>
             <CTableDataCell>{index+1}</CTableDataCell>
        <CTableDataCell>{item.code}</CTableDataCell>
+          <CTableDataCell>{item.user_rrr.rrr_number}</CTableDataCell>
+             <CTableDataCell>{item.user_rrr.authNumber}</CTableDataCell>
        <CTableDataCell>{item.user.surname} {item.user.othername}</CTableDataCell>
         <CTableDataCell>{item.user.email}</CTableDataCell>
         <CTableDataCell>{item.user.phone}</CTableDataCell>
