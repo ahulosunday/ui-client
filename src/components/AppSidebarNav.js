@@ -1,11 +1,20 @@
-import React from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { CBadge } from '@coreui/react'
-
+import { AuthContext } from "../context/authContext";
 export const AppSidebarNav = ({ items }) => {
+  const {currentUser, permissions } = useContext(AuthContext);
+  const [show, setShow] = useState(true)
   const location = useLocation()
-  const navLink = (name, icon, badge) => {
+  //Logins for Role with id 3, that is Guest
+  
+  const arr = [3, 4, 5, 12]
+  useEffect(()=>{
+ if(currentUser?.roleid === 3) setShow(false)
+  }, [currentUser])
+
+  const navLink = (name, icon, badge, ok) => {
     return (
       <>
         {icon && icon}
@@ -55,8 +64,10 @@ export const AppSidebarNav = ({ items }) => {
 
   return (
     <React.Fragment>
-      {items &&
-        items.map((item, index) => (item.items ? navGroup(item, index) : navItem(item, index)))}
+      {items? show?
+        items.map((item, index) => (item.items ? navGroup(item, index) : navItem(item, index)))
+        : items.map((item, index) => ((!arr.includes(index))? navItem(item, index): ''))
+         : null}
     </React.Fragment>
   )
 }

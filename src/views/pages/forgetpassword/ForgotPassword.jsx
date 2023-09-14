@@ -21,24 +21,40 @@ const Page404 = () => {
     const [inputs, setInputs]=useState({email: ''})
     const navigate = useNavigate()
     const handleReset = async e =>{
+      var doc = document.getElementById('wait');
+   doc.innerHTML ="please wait ...";
+   doc.disabled = true;
         if(inputs.email === ''){
             showToastMessage('Invalid email address', 'error')
+            doc.innerHTML ="Search";
+            doc.disabled = false;
         }
         else{
              await app.get(`/find/email/1/${inputs.email}/1/1/1/1`)
              .then(async res=>{
               if(res.data.length === 0){
+                doc.innerHTML ="Search";
+            doc.disabled = false;
                 showToastMessage('Unable to associate this email with any account in our portal, check your email and try again', 'error')
               }
               else{
-             await app.put(`/Resetpassword/${res.data.id}/1/0`, {username:res.data.username, password: pin})
-             const emailHtml = render(<><h2>Recovery password request!</h2><p>Dear {res.data.surname}, <br />Your password has been reset successfully.<br />Username: {inputs.email} <br />New password: {pin} <br />Note: Your are adviced to change the password after logged in.<br /> Visit <a href={hostUrl}> here</a> to login. <br /> <hr /> Thanks.<br /> Management Team.</p></>);
+                const newpass = pin;
+             await app.put(`/Resetpassword/${res.data.id}/1/0`, {username:res.data.username, password: newpass})
+             .then( async change=>{
+              const emailHtml = render(<><h2>Recovery password request!</h2><p>Dear {res.data.surname}, <br />Your password has been reset successfully.<br />Username: {res.data.username} <br />New password: {newpass} <br />Note: Your are adviced to change the password after logged in.<br /> Visit <a href={hostUrl}> here</a> to login. <br /> <hr /> Thanks.<br /> Management Team.</p></>);
              await app.post('/sendmail/user/auth/email/send',{to: inputs.email, msg: emailHtml, subject: 'Reset password'})
+             .then(pss=>{
               showToastMessage('The password link has been sent to your email. Kindly follow the instruction therein to reset your password.', 'success')
                navigate('/login')
+             })
+              
+             })
+        
               }
              })
              .catch(err=>{
+              doc.innerHTML ="Search";
+            doc.disabled = false;
               showToastMessage('Internal Error: unable to associate this email with any account in our portal, check your email and try again', 'error')
             
              })
@@ -66,7 +82,7 @@ const handleChange = e =>{
             @
               </CInputGroupText>
               <CFormInput type="email" name='email' placeholder="Enter your registered email address ..." onChange={handleChange} />
-              <CButton color="info" style={{cursor:'pointer'}} onClick={handleReset}>Search</CButton>
+              <CButton color="info" style={{cursor:'pointer'}} onClick={handleReset} id = "wait">Search</CButton>
             </CInputGroup>
           </CCol>
         </CRow>

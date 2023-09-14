@@ -10,23 +10,25 @@ import PersonAddAltSharpIcon from '@mui/icons-material/PersonAddAltSharp';
 import LockSharpIcon from '@mui/icons-material/LockSharp';
 const images = [
   {
-    url: '/payment/',
-    title: 'PAYMENT',
-    width: '40%',
-    icon: <NumbersSharpIcon />,
+    url: '/register',
+    title: 'REGISTER',
+    width: '30%',
+    icon: <PersonAddAltSharpIcon />,
   },
-  {
+   {
     url: '/logins',
     title: 'LOGIN',
     width: '30%',
     icon: <LockSharpIcon />,
   },
   {
-    url: '/register',
-    title: 'REGISTER',
-    width: '30%',
-    icon: <PersonAddAltSharpIcon />,
+    url: '/payment/',
+    title: 'PAYMENT',
+    width: '40%',
+    icon: <NumbersSharpIcon />,
   },
+ 
+  
 ];
 
 const ImageButton = styled(ButtonBase)(({ theme }) => ({

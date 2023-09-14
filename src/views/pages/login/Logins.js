@@ -55,13 +55,12 @@ const Logins = () => {
           
         try{ 
              e.preventDefault()
-            setLoading(true)
+            
            login(inputs)
-             setLoading(false)
+            
            }
         catch(errs){
-            setLoading(false)
-            setError("Invalid username or password");
+           
             navigate("/login")
 
         }

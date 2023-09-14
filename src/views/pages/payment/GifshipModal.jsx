@@ -193,14 +193,14 @@ const calculate = async ()=>{
         <DialogTitle>[{props.name}] inprogress ...</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Please enter the Number of enrolee ..., Note: {'Maximum number is '}
+            Please enter the Number of enrolee ...
           </DialogContentText>
           <TextField
             autoFocus
             margin="dense"
             id="number"
             name="number"
-            placeholder={'Maximum number is '}
+            placeholder={'Number of Enrolee '}
             label="Number of Enrolee "
             type="number"
             onChange={calculate}
@@ -238,8 +238,8 @@ const calculate = async ()=>{
      <InputLabel id="Payment">Payment Options</InputLabel>
      <Select labelId="pay" id="pay" name="pay" label="Payment Option" onChange={handleChanged}>
    
-    <MenuItem value={0}>Direct Payment through Remeta</MenuItem>
-     <MenuItem value={1}>I have Paid, then verify payment</MenuItem>
+    <MenuItem value={0}>Direct Payment through Remita</MenuItem>
+     <MenuItem value={1}>I have Paid, enter RRR & verification number </MenuItem>
      </Select>
      </FormControl>
      {inputs.pay===1?<>

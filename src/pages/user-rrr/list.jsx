@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {AuthContext} from "../../context/authContext";
 import moment from "moment";
-import { Pagination, Stack } from '@mui/material';
+import { Button, Pagination, Stack } from '@mui/material';
 import { startIndex, per_page } from '../../helpers/paging_indexes';
 import showToastMessage from '../../components/toast';
 
@@ -18,6 +18,9 @@ import {
   CCardText,
   CCardTitle,
   CCol,
+  CFormInput,
+  CInputGroup,
+  CInputGroupText,
   CRow,
   CTable,
   CTableBody,
@@ -87,7 +90,13 @@ const loadItem = async e =>{
           </CCardHeader>
           <CCardBody>
             <p className="text-medium-emphasis small">
-              Using the Add New button to create new Enrolee Payment.
+              Enter the Date range to view payment by expiring date <br />
+           
+           <CInputGroup name="sdate" className="input-prepend" xs={12} xl={12}>
+              <CInputGroupText>
+                     Start Date
+                    </CInputGroupText><CFormInput type='date' name='edate' placeholder='Ending date' />  <CInputGroupText>End Date</CInputGroupText><CFormInput type='date' /> <Button >Filter</Button>
+              </CInputGroup>
             </p>
            
             <DocsExample href="user-rrr/add" add="Enrolee Payment List" showAdd={permissions.indexOf("ADD_RRR") > -1? true: false}>

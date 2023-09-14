@@ -377,7 +377,7 @@ const loadItem = async e =>{
        <CFormInput type="text" value={inputs.lastname} readOnly name="lastname" placeholder="Last Name" onChange={handleChange}  />
         </CCol>
         <CCol xl={6} xs={12}>
-        <label htmlFor="code">Phone</label> 
+        <label htmlFor="code">Phone Number</label> 
         <CFormInput type="text" value={inputs.phone} readOnly name="phone" placeholder="Phone" onChange={handleChange} />
        </CCol>
        </CRow>
@@ -402,11 +402,11 @@ const loadItem = async e =>{
          </CRow>
           <CRow>
           <CCol xl={6} xs={12}>
-       <label htmlFor="name">DoB</label> 
+       <label htmlFor="name">Date of Birth</label> 
        <CFormInput type="date" value={moment(inputs.dob).format('YYYY-MM-DD')} name="dob" placeholder="Date of birth" onChange={handleChange}  />
         </CCol>
         <CCol xl={6} xs={12}>
-        <label htmlFor="code">Email</label>
+        <label htmlFor="code">Email Address</label>
         <CFormInput type="email" value={inputs.email} readOnly name="email" placeholder="Email Address" onChange={handleChange} />
        </CCol>
        </CRow>
@@ -416,7 +416,7 @@ const loadItem = async e =>{
        <CFormInput type="text" value={inputs.bloodGroup} name="bloodGroup" placeholder="Blood Group" onChange={handleChange}  />
         </CCol>
         <CCol xl={6} xs={12}>   
-        <label htmlFor="name">Address</label> 
+        <label htmlFor="name">Contact Address</label> 
        <CFormTextarea value={inputs.address} name="address"  placeholder="Address" onChange={handleChange}  ></CFormTextarea>
        </CCol>
        </CRow>
@@ -424,7 +424,7 @@ const loadItem = async e =>{
       <DocsExample add='Citizenship Information'>
          <CRow>
          <CCol xl={6} xs={12}>
-       <label htmlFor="name">Country</label> 
+       <label htmlFor="name">Country of Origin</label> 
        <CFormSelect name="countryOrigin"  onChange={handleChange} onBlur={loadRegionOrigin} >
        <option value={0} >--select--</option>
       { 
@@ -436,7 +436,7 @@ const loadItem = async e =>{
        </CFormSelect>
        </CCol>
         <CCol xl={6} xs={12}>
-       <label htmlFor="name">Region</label> 
+       <label htmlFor="name">Region of Origin</label> 
          <CFormSelect name="regionOrigin"  onChange={handleChange} onBlur={loadStatesOrigin} >
        <option value={0} >--select--</option>
       { 
@@ -450,7 +450,7 @@ const loadItem = async e =>{
        
        <CRow>
        <CCol xl={6} xs={12}>
-       <label htmlFor="name">State</label> 
+       <label htmlFor="name">State of Origin</label> 
          <CFormSelect name="stateOrigin"  onChange={handleChange} onBlur={loadLgasOrigin}>
         <option value={0} >--select--</option>
       
@@ -463,7 +463,7 @@ const loadItem = async e =>{
        </CFormSelect>
        </CCol>
        <CCol xl={6} xs={12}>
-       <label htmlFor="name">LGA</label> 
+       <label htmlFor="name">LGA of Origin</label> 
          <CFormSelect name="lgaOrigin"  onChange={handleChange} onBlur={loadWardOrigin} >
         <option value={0} >--select--</option>
       { 
@@ -478,7 +478,7 @@ const loadItem = async e =>{
 
        <CRow>
        <CCol xl={6} xs={12}>
-       <label htmlFor="name">Ward</label> 
+       <label htmlFor="name">Ward of Origin</label> 
          <CFormSelect name="wardOrigin"  onChange={handleChange} >
         <option value={0} >--select--</option>
       { 
@@ -559,7 +559,7 @@ const loadItem = async e =>{
  <CRow>
  <CCol xl={6} xs={12}>
         
-       <label htmlFor="name">Country</label> 
+       <label htmlFor="name">Country of Residence</label> 
        <CFormSelect name="residentCountry"  onChange={handleChange} onBlur={loadRegionResident} >
        <option value={0} >--select--</option>
       { 
@@ -571,7 +571,7 @@ const loadItem = async e =>{
        </CFormSelect>
     </CCol>
     <CCol xl={6} xs={12}>
-       <label htmlFor="name">Region</label> 
+       <label htmlFor="name">Region of Residence</label> 
          <CFormSelect name="residentRegion"  onChange={handleChange} onBlur={loadStatesResident} >
        <option value={0} >--select--</option>
       { 
@@ -586,7 +586,7 @@ const loadItem = async e =>{
        <CRow>
        
        <CCol xl={6} xs={12}>
-       <label htmlFor="name">State</label> 
+       <label htmlFor="name">State of Residence</label> 
          <CFormSelect name="residentState"  onChange={handleChange} onBlur={loadLgasResident}>
        <option value={0} >--select--</option>
       { 
@@ -598,7 +598,7 @@ const loadItem = async e =>{
        </CFormSelect>
        </CCol>
        <CCol xl={6} xs={12}>
-       <label htmlFor="name">LGA</label> 
+       <label htmlFor="name">LGA of Residence</label> 
          <CFormSelect name="residentLga"  onChange={handleChange} onBlur={loadWardResident} >
        <option value={0} >--select--</option>
       { 
@@ -611,7 +611,7 @@ const loadItem = async e =>{
        </CRow>
        <CRow>
        <CCol xl={6} xs={12}>
-       <label htmlFor="name">Ward</label> 
+       <label htmlFor="name">Ward of Residence</label> 
          <CFormSelect name="residentWard"  onChange={handleChange} onBlur={loadHospital} >
         <option value={0} >--select--</option>
       { 
@@ -644,7 +644,7 @@ const loadItem = async e =>{
       <DocsExample add="Place of Registration">
         <CRow>
         <CCol xl={6} xs={12}>
-       <label htmlFor="name">Country</label> 
+       <label htmlFor="name">Country of Registration</label> 
        <CFormSelect name="regiteredCountry"  onChange={handleChange} onBlur={loadRegionRegister} >
       <option value={0} >--select--</option>
       { 
@@ -656,7 +656,7 @@ const loadItem = async e =>{
        </CFormSelect>
        </CCol>
        <CCol xl={6} xs={12}>        
-       <label htmlFor="name">Region</label> 
+       <label htmlFor="name">Region of Registration</label> 
          <CFormSelect name="regiteredRegion"  onChange={handleChange} onBlur={loadStatesRegister} >
        <option value={0} >--select--</option>
       { 
@@ -671,7 +671,7 @@ const loadItem = async e =>{
        
        <CRow>
        <CCol xl={6} xs={12}>
-       <label htmlFor="name">State</label> 
+       <label htmlFor="name">State of Registration</label> 
          <CFormSelect name="regiteredState"  onChange={handleChange} onBlur={loadLgasRegister}>
       <option value={0} >--select--</option>
       { 
@@ -683,7 +683,7 @@ const loadItem = async e =>{
        </CFormSelect>
        </CCol>
        <CCol xl={6} xs={12}>
-       <label htmlFor="name">Lga</label> 
+       <label htmlFor="name">Lga of Registration</label> 
          <CFormSelect name="regiteredLga"  onChange={handleChange}  onBlur={loadWardRegister}>
       <option value={0} >--select--</option>
       { 
@@ -696,7 +696,7 @@ const loadItem = async e =>{
        </CRow>
        <CRow>
        <CCol xl={6} xs={12}>
-              <label htmlFor="name">Ward</label> 
+              <label htmlFor="name">Ward of Registration</label> 
          <CFormSelect name="registeredWard"  onChange={handleChange} >
         <option value={0} >--select--</option>
       { 

@@ -198,10 +198,10 @@ const Register = () => {
           loadingPosition="end"
           variant="contained"
         >
-         Create Account
+         Create
         </LoadingButton> 
 
-        <Link style={{textDecoration:'none', textAlign:'right'}} to="/login">Already have account?</Link>
+        <Link style={{textDecoration:'none', textAlign:'right'}} to="/login">Already have an account?</Link>
         </Stack>
             
                   </div>

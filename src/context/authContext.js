@@ -8,13 +8,17 @@ export const AuthContext = createContext();
 export const AuthContextProvider = ({children}) =>{
  const [currentUser, setCurrentUser ] = useState(JSON.parse(localStorage.getItem("user")) || null);
     const [permissions, setPermissions ] = useState([]);
+    const [loading, setLoading] = useState(false)
  const login = async(inputs)=>{
         try{
+            setLoading(true)
            await app.post("/login", inputs)
          .then(res =>{
              setCurrentUser(res.data)
+             setLoading(false)
          })
          .catch(errs=>{
+            setLoading(true)
         showToastMessage(errs+'!', 'error')
          });
     

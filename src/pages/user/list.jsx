@@ -60,7 +60,7 @@ if(!(permissions.indexOf("VIEW_USERS") > -1)){
     e.preventDefault()
     setPage(value);
       try{
-       await app.get(`/users/${page}/${per_page}/0/1`).then(res=>{
+       await app.get(`/users/${page}/${per_page}/0/1`).then( async res=>{
            setStates(res.data.res)
            setData(res.data)
         }).catch(err=>{
@@ -85,10 +85,11 @@ if(!(permissions.indexOf("VIEW_USERS") > -1)){
             </p>
            
             <DocsExample add="List of Users" >
-            <Link to='/user/activate/0/1'>Activate User</Link>
+            <Link to='/user/activate/0/1'>Activate User</Link> 
        <CTable striped style={{fontSize:'12px'}} align="middle" responsive>
        <CTableHead>
        <CTableRow>
+       <CTableHeaderCell></CTableHeaderCell>
        <CTableHeaderCell>S/N</CTableHeaderCell>
        <CTableHeaderCell>USERNAME</CTableHeaderCell>
         <CTableHeaderCell>EMAIL</CTableHeaderCell>
@@ -107,6 +108,7 @@ if(!(permissions.indexOf("VIEW_USERS") > -1)){
         
             users.length===0? '': users.map((item, index)=>(
             <CTableRow key={item.id}>
+            <CTableDataCell><Link to={`/deactivate/${item.id}}/1/1`}>Deactivate</Link></CTableDataCell>
              <CTableDataCell>{index+1}</CTableDataCell>
        <CTableDataCell>{item.username}</CTableDataCell>
        <CTableDataCell>{item.email}</CTableDataCell>
