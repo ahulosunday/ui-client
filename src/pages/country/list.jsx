@@ -7,6 +7,7 @@ import { trackPromise } from 'react-promise-tracker';
 import showToastMessage from '../../components/toast';
 import { Pagination, Stack } from '@mui/material';
 import { per_page, startIndex } from '../../helpers/paging_indexes';
+import DataTable from 'datatables.net-dt';
 import {
   CButton,
   CButtonGroup,
@@ -84,7 +85,7 @@ const loadItem = async e =>{
         }
 
  }
-    
+//let table = new DataTable('#myTable');
     return (
            <CRow >
 <CCol xs={12} >
@@ -98,7 +99,8 @@ const loadItem = async e =>{
             </p>
            
             <DocsExample href="country/add" add="Country List" showAdd={canAdd}></DocsExample>
-       <CTable striped style={{fontSize:'12px'}} align="middle" responsive>
+
+       <CTable striped style={{fontSize:'12px'}} align="middle" responsive >
        <CTableHead>
        <CTableRow >
        <CTableHeaderCell>COUNTRY</CTableHeaderCell>
@@ -135,11 +137,14 @@ const loadItem = async e =>{
         }
       </CTableBody>
        </CTable>
-       <p>
+    <p>
        <Stack spacing={2}>
       <Pagination count={data.totalPages} page={page} onChange={handleChange} variant="outlined" shape="rounded"  color="secondary" />
     </Stack>
        </p>
+       
+
+
       </CCardBody>
       </CCard>
       </CCol>

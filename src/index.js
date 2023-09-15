@@ -12,7 +12,7 @@ import {usePromiseTracker } from 'react-promise-tracker';
 import ClipLoader from 'react-spinners/ClipLoader';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import 'datatables.net-responsive-dt';
 
 const LoadingIndicator = props => {
   const { promiseInProgress } = usePromiseTracker();
@@ -33,6 +33,8 @@ root.render(
   // <React.StrictMode> 
    <Provider store={store}>
  <AuthContextProvider> 
+ <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
   <ToastContainer
 position="top-right"
 autoClose={5000}

@@ -7,6 +7,7 @@ import moment from "moment";
 import { Button, Pagination, Stack } from '@mui/material';
 import { startIndex, per_page } from '../../helpers/paging_indexes';
 import showToastMessage from '../../components/toast';
+import DataTable from 'datatables.net-dt';
 
 import {
   CButton,
@@ -42,7 +43,7 @@ const ListRRR = () =>{
     const [data, setData] = useState([])
     const {currentUser, permissions } = useContext(AuthContext);
    const navigate = useNavigate()
-   
+     let table = new DataTable('#myTable');
 useEffect(()=>{
     if(!(permissions.indexOf("VIEW_RRR") > -1) ){
         navigate('/')
@@ -89,16 +90,6 @@ const loadItem = async e =>{
             <strong style={{color:'white'}}>LISTS OF ENROLEES PAYMENTS</strong>
           </CCardHeader>
           <CCardBody>
-            <p className="text-medium-emphasis small">
-              Enter the Date range to view payment by expiring date <br />
-           
-           <CInputGroup name="sdate" className="input-prepend" xs={12} xl={12}>
-              <CInputGroupText>
-                     Start Date
-                    </CInputGroupText><CFormInput type='date' name='edate' placeholder='Ending date' />  <CInputGroupText>End Date</CInputGroupText><CFormInput type='date' /> <Button >Filter</Button>
-              </CInputGroup>
-            </p>
-           
             <DocsExample href="user-rrr/add" add="Enrolee Payment List" showAdd={permissions.indexOf("ADD_RRR") > -1? true: false}>
            
        <CTable striped style={{fontSize:'12px'}} align="middle" responsive>
