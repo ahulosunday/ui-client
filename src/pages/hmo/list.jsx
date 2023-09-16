@@ -17,6 +17,8 @@ import {
   CCardText,
   CCardTitle,
   CCol,
+  CInputGroup,
+  CInputGroupText,
   CRow,
   CTable,
   CTableBody,
@@ -74,6 +76,15 @@ if(!(permissions.indexOf("VIEW_HMOS") > -1) || !currentUser){
         showToastMessage('Unable to load data, reason:'+err, 'error')
        })
     };
+     const [search, setSearch] = React.useState('');
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+  };
+const datas = {
+  nodes: hmo.filter((item) =>
+    item.name.toLowerCase().includes(search.toLowerCase())
+  ),
+};
     return (
        <CRow >
 <CCol xs={12} >
@@ -85,6 +96,10 @@ if(!(permissions.indexOf("VIEW_HMOS") > -1) || !currentUser){
             <p className="text-medium-emphasis small">
               Using the Add New button to create new HMO.
             </p>
+             <CInputGroup>
+        <CInputGroupText> Search</CInputGroupText>
+        <input id="search" placeholder='Search by HMO NAME' className='form-control' type="text" onChange={handleSearch} />
+      </CInputGroup>
             <DocsExample href="hmo/add" add="HMO LIST" showAdd={permissions.indexOf("ADD_HMOS") > -1? true: false}>
       <CTable striped style={{fontSize:'12px'}} align="middle" responsive>
        <CTableHead>
@@ -106,7 +121,7 @@ if(!(permissions.indexOf("VIEW_HMOS") > -1) || !currentUser){
        <CTableBody>
        {
         
-            (hmo.length ===0?'':hmo.map((item)=>(
+            (datas.nodes.length ===0?'':datas.nodes.map((item)=>(
             <CTableRow key={item.id}>
             <CTableDataCell>{item.code}</CTableDataCell>
        <CTableDataCell>{item.name}</CTableDataCell>

@@ -30,7 +30,7 @@ const LoadingIndicator = props => {
 //npm install pg sequelize-cli body-parser xlsx cors express cookie-parser sequelize bcryptjs jsonwebtoken multer mysql2 --save && sequelize db:migrate
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  // <React.StrictMode> 
+  <React.StrictMode> 
    <Provider store={store}>
  <AuthContextProvider> 
  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.css" />
@@ -53,7 +53,7 @@ theme="light"
     <App />
      </AuthContextProvider>
      </Provider>
- // </React.StrictMode>
+ </React.StrictMode>
 )
 
 // If you want to start measuring performance in your app, pass a function

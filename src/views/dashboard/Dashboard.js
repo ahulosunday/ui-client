@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import DefaultLogo from '../../img/logo2.png'
 
 import {
   CAvatar,
@@ -59,7 +60,7 @@ import { useNavigation } from 'react-router-dom'
 
 const Dashboard = () => {
   
-
+/*
   const random = (min, max) => Math.floor(Math.random() * (max - min + 1) + min)
 
   const progressExample = [
@@ -463,6 +464,14 @@ const Dashboard = () => {
      
     </>
     
+ )
+ */
+ return(
+ <CRow>
+ <CCol xl={12} xs={12} style={{textAlign:'center'}}>
+{/* <p style={{fontSize:40}}>WELCOME TO NHIA PORTAL</p>*/}
+ </CCol>
+ </CRow>
  )
 }
 

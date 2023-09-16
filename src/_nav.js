@@ -35,11 +35,11 @@ const _nav = [
   },
   {
     component: CNavTitle,
-    name: 'REGISTRATION',
+    name: '',
   },
   {
     component: CNavItem,
-    name: 'Enrolee',
+    name: 'Enrolement',
     to: '/form/register',
     icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
   },

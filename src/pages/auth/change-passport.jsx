@@ -6,6 +6,7 @@ import showToastMessage from '../../components/toast';
 import { AuthContext } from '../../context/authContext';
 import { CButton, CCard, CCardBody, CCardHeader, CCol, CFormInput, CFormLabel, CFormSelect, CFormTextarea, CRow } from '@coreui/react';
 import { DocsExample } from '../../components';
+import validateForm from '../../components/validateForm';
 
 
 const style ={
@@ -22,6 +23,7 @@ const style ={
 };
 export default function ChangePort(){
  const [opens, setOpen ] = React.useState(false)
+ const [err, setError ] = React.useState('')
  const [imgUrl, setImgUrl] = React.useState("")
   const handleOpen =() => setOpen(true)
    const [file, setFile] = React.useState(null)
@@ -35,6 +37,8 @@ export default function ChangePort(){
     handleOpen()
   })
   const uploadPaaport = async e=>{
+    try{
+      if(validateForm('upload')){
     const ext = file.name.split('.')[1]
           if(file.length === 0){
             showToastMessage('Please upload passport size photograph', 'error')
@@ -58,6 +62,11 @@ export default function ChangePort(){
           else{
             showToastMessage('Invalid image format ...', 'error')
           }
+    }
+    }
+    catch(err){
+     setError(err)
+    }
 
   }
     return(
@@ -68,15 +77,16 @@ export default function ChangePort(){
          <CCardHeader style={{backgroundColor:'skyblue'}}>
             <strong style={{color:'white'}}>CHANGE PROFILE PICTURE</strong>
           </CCardHeader>
-          <CCardBody>
+          <CCardBody className='upload'>
             <DocsExample add="Upload Profile picture">   
       <Typography className='changePassport' id="modal-modal-description" sx={{mt:2}}>
-      <div style={{textAlign:'right'}}><img height={100} width={100} src={imgUrl} />
+      <div style={{textAlign:'right'}}><img height={60} width={60} src={imgUrl} />
       <br />
       <span style={{color: 'red', fontSize: 9}}>Image size: 40kb, type: png, jpeg, jpg, gif</span>
       </div>
+      
       <CRow>
-      <CCol xs>
+      <CCol xs={12} xl={7}><p>{err}</p>
        <label>Passport</label>
       <CFormInput type="file" name="file" onChange={e =>{
             setFile(e.target.files[0])
@@ -88,7 +98,7 @@ export default function ChangePort(){
       </CCol>
       </CRow>
       <CRow>
-      <CCol xs>
+      <CCol xs={12} xl={12}>
       <br />
        <CButton onClick={uploadPaaport}>Upload</CButton>
        <div style={{textAlign:'right'}}><Link style={{textDecoration:'none', color:'red'}} to="/" >Close</Link></div>

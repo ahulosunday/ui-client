@@ -5,6 +5,7 @@ import app from '../../../helpers/axiosConfig'
 import {AuthContext} from "../../../context/authContext";
 //import { trackPromise } from "react-promise-tracker";
 import SendIcon from '@mui/icons-material/Send';
+import validateForm from "../../../components/validateForm";
 import {
   CButton,
   CCard,
@@ -51,22 +52,28 @@ const Register = () => {
     const [ imgurl , setImgUrl] = useState("")
     const img = ['png', 'jpeg', 'jpg', 'gif']
 
-    
+
    const handleSummit = async e =>{
         e.preventDefault()
         try{
+       if(validateForm('register')){
           setLoading(true)
          if(conpassword !== password){
           showToastMessage('Password mismatch found !', 'error')
           setLoading(false)
+          setError('Password mismatch found !')
          }
          else{ 
           const ext = file.name.split('.')[1]
           if(file.length === 0){
             showToastMessage('Please upload passport size photograph', 'error')
+            setError('Please upload passport size photograph', 'error')
+            setLoading(false)
           }
           else if((file.size/1024) > 40){
             showToastMessage('Image size must not be greater than 40kb', 'error')
+            setLoading(false)
+            setError('Image size must not be greater than 40kb')
           }
           else if(img.includes(ext)){
             const formData = new FormData();
@@ -88,11 +95,14 @@ const Register = () => {
          }
          else{
           showToastMessage('Invalid image format ...', 'error')
+          setLoading(false)
          }
          }
         }
+        }
         catch(errs){
-            setError("Something went wrong. All fields are required. please check your entry and try again" + errs) 
+          setLoading(false)
+            setError("Something went wrong. All fields are required. please check your entry and try again") 
            
         }
         
@@ -104,7 +114,7 @@ const Register = () => {
           <CCol md={12} xs={12} xl={8}>
             <CCard className="p-6">
               <CCardBody className="p-6" style={{backgroundColor:'AppWorkspace', border: '0.5px solid darkgreen'}}>
-                <CForm>
+                <CForm className="register">
                 
                     <p className="text-medium-emphasis" style={{textAlign:'center'}}>
                      <img style={{marginTop:0, borderRadius:'30px'}} src={DefaultLogo} alt='' />
@@ -127,68 +137,93 @@ const Register = () => {
                             <div style={{textAlign:'right'}} ><img className="uploadImg" alt="" src={imgurl} style={{height:'100px', width:'100px'}}  id="cxfileimg" />
            <br /> <span style={{color: 'red', fontSize: 9}}>Image size: 40kb, type: png, jpeg, jpg, gif</span>
            </div>
-           
-                     <CInputGroup className="mb-4">
-                    <CInputGroupText>
-                      <AiFillFolderOpen />
-                    </CInputGroupText>
-                    <CFormInput
-                      type="file" name="file" onChange={e =>{
-            setFile(e.target.files[0])
-            setImgUrl(URL.createObjectURL(e.target.files[0]));}}
-                    />
-                  </CInputGroup>
+           <CRow>
+            <CCol xl={6} xs={12}>
                    <CInputGroup className="mb-3 sm-12">
                     <CInputGroupText>
                       <AiTwotonePicture />
                     </CInputGroupText>
-                    <CFormInput placeholder="Surname" name="surname" autoComplete="surname" onChange={e =>setSurname(e.target.value)}  />
-  </CInputGroup> <CInputGroup className="mb-3 sm-12">
+                    <CFormInput placeholder="Surname" title="Surname" name="surname" autoComplete="surname" onChange={e =>setSurname(e.target.value)}  />
+  </CInputGroup>
+  </CCol>
+           <CCol xl={6} xs={12}>
+                     <CInputGroup className="mb-4">
+          
+                    <CFormInput title="Upload passport" type="file" name="file" onChange={e =>{
+            setFile(e.target.files[0])
+            setImgUrl(URL.createObjectURL(e.target.files[0]));}}
+                    />
+                  </CInputGroup>
+                  </CCol>
+                 
+           </CRow>
+           <CRow>
+           <CCol xl={6} xs={12}>
+   <CInputGroup className="mb-3 sm-12">
                     <CInputGroupText>
                       <AiFillAlert />
                     </CInputGroupText>
-                    <CFormInput placeholder="Othername" name="othername" autoComplete="othername" onChange={e =>setOthername(e.target.value)}  />
+                    <CFormInput placeholder="Othername" title="Othername" name="othername" autoComplete="othername" onChange={e =>setOthername(e.target.value)}  />
                   </CInputGroup>
+                  </CCol>
+                   <CCol xl={6} xs={12}>
                   <CInputGroup className="mb-3 sm-12">
                     
                     <CInputGroupText>
                       <AiFillPhone />
                     </CInputGroupText>
-                    <CFormInput placeholder="Phone Number" name="phone" autoComplete="phone" onChange={e =>setPhone(e.target.value)}  />
-                  </CInputGroup> <CInputGroup className="mb-3 sm-12">
-                    <CInputGroupText>@</CInputGroupText>
-                    <CFormInput placeholder="Email" type="email" name="email" autoComplete="email" onChange={e =>setEmail(e.target.value)}  />
+                    <CFormInput placeholder="Phone Number" title="Phone number" name="phone" autoComplete="phone" onChange={e =>setPhone(e.target.value)}  />
                   </CInputGroup>
+                  </CCol>
+                  </CRow>
+                  <CRow>
+                   <CCol xl={6} xs={12}>
+                   <CInputGroup className="mb-3 sm-12">
+                    <CInputGroupText>@</CInputGroupText>
+                    <CFormInput placeholder="Email" title="Email address" type="email" name="email" autoComplete="email" onChange={e =>setEmail(e.target.value)}  />
+                  </CInputGroup>
+                  </CCol>
+                   <CCol xl={6} xs={12}>
                     <CInputGroup className="mb-3 sm-12">
                     <CInputGroupText>
                       <AiFillEye />
                     </CInputGroupText>
-                    <CFormInput placeholder="Username" name="username" autoComplete="username" onChange={e =>setUsername(e.target.value)}  />
+                    <CFormInput placeholder="Username" title="Username" name="username" autoComplete="username" onChange={e =>setUsername(e.target.value)}  />
                   </CInputGroup>
+                  </CCol>
+                  </CRow>
+                  <CRow>
+                   <CCol xl={6} xs={12}>
                   <CInputGroup className="mb-3 sm-12">
                     <CInputGroupText>
                       <AiFillCompass />
                     </CInputGroupText>
                     <CFormInput
-                      type="password"
+                      type="password" title="Password"
                       placeholder="Password"
                       name="password"
                       autoComplete="new-password"
                       onChange={e =>setPassword(e.target.value)} 
                     />
-              </CInputGroup> <CInputGroup className="mb-3 sm-12">
+              </CInputGroup> 
+              </CCol>
+               <CCol xl={6} xs={12}>
+               <CInputGroup className="mb-3 sm-12">
                     <CInputGroupText>
                       <AiFillCompass />
                     </CInputGroupText>
                     <CFormInput
-                      type="password"
+                      type="password" title="Confirm password"
                       placeholder="Repeat password"
                       autoComplete="new-password"
                       onChange={e =>setConpassword(e.target.value)} 
                       name="conpassword"
                     />
                   </CInputGroup>
-                 
+                 </CCol>
+                 </CRow>
+                 <CRow>
+                  <CCol xl={6} xs={12}>
                   <div className="d-grid">
                    <Stack direction="row" spacing={1} > <LoadingButton size="small"
           onClick={(e) => handleSummit(e)
@@ -200,15 +235,22 @@ const Register = () => {
         >
          Create
         </LoadingButton> 
-
-        <Link style={{textDecoration:'none', textAlign:'right'}} to="/login">Already have an account?</Link>
         </Stack>
-            
-                  </div>
+            </div>
+            </CCol>
+             <CCol xl={6} xs={12}>
+              <Link style={{textDecoration:'none', textAlign:'right'}} to="/login">Already have an account?</Link>
+       
+             </CCol>
+             </CRow>
                   </DocsExample>
             </CCardBody>
             </CCard>
 </CCol>
+</CRow>
+<CRow>
+ <CCol xl={12} xs={12} style={{textAlign:'center', color:'red'}}>{err}
+ </CCol>
 </CRow>
                 </CForm>
               </CCardBody>

@@ -22,6 +22,8 @@ import {
   CCardText,
   CCardTitle,
   CCol,
+  CInputGroup,
+  CInputGroupText,
   CRow,
   CTable,
   CTableBody,
@@ -111,6 +113,15 @@ const loadItem = async e =>{
         }
 
   }
+  const [search, setSearch] = React.useState('');
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+  };
+const datas = {
+  nodes: gforms.filter((item) =>
+    item.surname.toLowerCase().includes(search.toLowerCase())
+  ),
+};
   
     return (
        <CRow >
@@ -123,7 +134,10 @@ const loadItem = async e =>{
             <p className="text-medium-emphasis small">
               Using the Add New button to create new Enrolee.
             </p>
-           
+             <CInputGroup>
+        <CInputGroupText> Search</CInputGroupText>
+        <input id="search" placeholder='Search by Surname' className='form-control' type="text" onChange={handleSearch} />
+      </CInputGroup>
             <DocsExample href="" add="Enrolee List"></DocsExample>
             <span style={{width:'100%', display:'flex', flexDirection:'row', gap:'10px'}}>{ newreg > 0 ?'':<FormDialog /> }   {showUpload? <FormDialogCsv user_rrrId={rrrId} count ={count}/>:''} </span>
     
@@ -145,7 +159,7 @@ const loadItem = async e =>{
        <CTableBody>
        {
         permissions?.indexOf('VIEW_ALL_MEMBERS') > -1?
-        gforms.length === 0? '': gforms.map((item)=>{
+        datas.nodes.length === 0? '': datas.nodes.map((item)=>{
        return  (         
             <CTableRow key={item.id}>
             <CTableDataCell>{item.idCode}</CTableDataCell>
@@ -169,7 +183,7 @@ const loadItem = async e =>{
             )
               })
               :
-              gforms.length === 0? '': gforms.map((item)=>{
+              datas.nodes.length === 0? '': datas.nodes.map((item)=>{
                     if(currentUser?.id !== item.userId) return null
                return(
 

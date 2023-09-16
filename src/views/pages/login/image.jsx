@@ -9,17 +9,18 @@ import NumbersSharpIcon from '@mui/icons-material/NumbersSharp';
 import PersonAddAltSharpIcon from '@mui/icons-material/PersonAddAltSharp';
 import LockSharpIcon from '@mui/icons-material/LockSharp';
 const images = [
-  {
-    url: '/register',
-    title: 'REGISTER',
-    width: '30%',
-    icon: <PersonAddAltSharpIcon />,
-  },
+  
    {
     url: '/logins',
     title: 'LOGIN',
     width: '30%',
     icon: <LockSharpIcon />,
+  },
+  {
+    url: '/register',
+    title: 'REGISTER',
+    width: '30%',
+    icon: <PersonAddAltSharpIcon />,
   },
   {
     url: '/payment/',

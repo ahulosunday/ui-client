@@ -11,7 +11,7 @@ import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
 import SendIcon from '@mui/icons-material/Send';
 import { CCard, CCardBody, CCardHeader, CCol, CFormInput, CFormLabel, CFormSelect, CFormTextarea, CRow } from '@coreui/react';
 import { DocsExample } from '../../components';
-
+import validateForm from '../../components/validateForm';
 
 const EDITCountry = () =>{
     const [msg, setMsg] = useState('');
@@ -63,6 +63,8 @@ const handleChange = e =>{
     }
     const handleUpdate = async e =>{
         try{
+        if(validateForm('country')){
+
          setLoading(true)
        await app.put(`/country/${inputs.id}`, inputs)
        .then(res=>{
@@ -71,9 +73,11 @@ const handleChange = e =>{
           navigate('/country')
        })
        .catch(err=>{
+         console.log(err)
          setLoading(false)
         showToastMessage('Updation failed ...' + err, 'error')
        }) 
+        }
         }
         catch(errs){
          setLoading(false)
@@ -90,15 +94,16 @@ const handleChange = e =>{
          <CCardHeader style={{backgroundColor:'skyblue'}}>
             <strong style={{color:'white'}}>UPDATE COUNTRY</strong>
           </CCardHeader>
-          <CCardBody>
+          <CCardBody >
             
             <DocsExample add="Update Country"> 
+            <form className='country'>
          <CRow>
          <CCol xs={12}>
        Country
-       <CFormInput type="text" value={inputs.name} name="name" placeholder={inputs.name} onChange={handleChange} />
+       <CFormInput required type="text" value={inputs.name} name="name" placeholder={inputs.name} onChange={handleChange}  />
          </CCol>
-         <CCol sx>
+         <CCol sx={12}>
          Code
         <CFormInput type="text" value={inputs.code} name="code" placeholder={inputs.code} onChange={handleChange} />
         </CCol>
@@ -106,9 +111,9 @@ const handleChange = e =>{
         <CRow>
         <CCol xs={12}>
         Shortname
-        <CFormInput type="text" name="shortname" value={inputs.shortname} placeholder={inputs.shortname} onChange={handleChange} />
+        <CFormInput type="text" value={inputs.shortname} name="shortname"  placeholder={inputs.shortname} onChange={handleChange} />
         </CCol>
-        <CCol sx>
+        <CCol xs={12}>
         Currency
         <CFormInput type="text" value={inputs.currency} name="currency"  placeholder={inputs.currency} onChange={handleChange} />
                </CCol>
@@ -128,6 +133,7 @@ const handleChange = e =>{
          <Goback url='/country' />
         </Stack> : <Goback url='/country' />}
         <br />
+        </form>
         </DocsExample>
         </CCardBody>
         </CCard>

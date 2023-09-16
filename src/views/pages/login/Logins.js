@@ -21,7 +21,7 @@ import SendIcon from '@mui/icons-material/Send';
 import { AuthContext } from '../../../context/authContext';
 import DefaultLogo from '../../../img/logo2.png'
 import PayOptions from '../payment/payOptions'
-
+import validateForm from '../../../components/validateForm';
 
 const Logins = () => {
       const {currentUser, login } = useContext(AuthContext);
@@ -55,13 +55,16 @@ const Logins = () => {
           
         try{ 
              e.preventDefault()
-            
-           login(inputs)
+            if(validateForm('login')){
+           if(login(inputs)){
+           setError("Invalid Username or Password")
+           }
+            }
             
            }
         catch(errs){
+           setError("Invalid Username or Password")
            
-            navigate("/login")
 
         }
 
@@ -80,7 +83,7 @@ const Logins = () => {
                  
                 <CCardBody style={{backgroundColor:'AppWorkspace', border: '1px solid darkgreen'}}>
                
-                  <CForm>
+                  <CForm className="login">
                    
                     <p className="text-medium-emphasis" style={{textAlign:'center'}}>
                      <img style={{marginTop:0, borderRadius:'30px', width:'20%'}} src={DefaultLogo} alt='' />
@@ -88,7 +91,7 @@ const Logins = () => {
                     <span style={{color:'teal'}}> e-NHIA PORTAL</span> 
                    
                 </p>
-                <span style={{color:'red'}}>{msg}</span>
+                <span style={{color:'red'}}>{err}</span>
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
                         <CIcon icon={cilUser} />
@@ -118,10 +121,14 @@ const Logins = () => {
           variant="contained"
         >
           Login
-        </LoadingButton> 
+        </LoadingButton>  <Link to={'/register'}>Click here for new User</Link>
         </Stack>
+       
+
+       
                       </CCol>
-                      <CCol xs={5} className="text-right">
+                      <CCol xs={5}>
+                       
                         <CButton color="link" className="px-0" style={{textDecoration:'none'}} onClick={handleForgot}>
                           Forgot password?
                         </CButton>

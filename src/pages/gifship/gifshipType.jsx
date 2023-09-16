@@ -9,7 +9,7 @@ import SendIcon from '@mui/icons-material/Send';
 import showToastMessage from '../../components/toast';
 import { CCard, CCardBody, CCardHeader, CCol, CFormInput, CFormSelect, CRow } from '@coreui/react';
 import { DocsExample } from '../../components';
-
+import validateForm from '../../components/validateForm';
 const GifshipType = () =>{
     const [getGifship, setGifship] = useState([]);
      const [loading, setLoading] = useState(false);
@@ -53,6 +53,7 @@ const handleChange = e =>{
        e.preventDefault()
        setLoading(true)
         try{
+          if(validateForm('gifshipm')){
        await app.post('/gifship-type', inputs).then(res=>{
          setLoading(false)
          showToastMessage('Transaction completed with status:' + res.statusText, 'success')
@@ -61,7 +62,7 @@ const handleChange = e =>{
          setLoading(false)
          showToastMessage('Transaction failed, reason:' + err, 'error')
        })
-     }
+     }}
         catch(errs){
          setLoading(false)
          showToastMessage('Transaction failed ...', 'error')
@@ -77,7 +78,7 @@ const handleChange = e =>{
          <CCardHeader style={{backgroundColor:'skyblue'}}>
             <strong style={{color:'white'}}>SUB-PROGRAMMES</strong>
           </CCardHeader>
-          <CCardBody>
+          <CCardBody className='gifshipm'>
             
             <DocsExample add="SUB-PROGRAMME"> 
        <CRow>

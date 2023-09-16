@@ -8,6 +8,7 @@ import { AppSidebarNav } from './AppSidebarNav'
 
 import { logoNegative } from '../assets/brand/logo-negative'
 import { sygnet } from '../assets/brand/sygnet'
+import DefaultLogo from '../img/logo2.png'
 
 import SimpleBar from 'simplebar-react'
 import 'simplebar/dist/simplebar.min.css'
@@ -31,8 +32,10 @@ const AppSidebar = () => {
       }}
     >
       <CSidebarBrand className="d-none d-md-flex" to="/">
-        <CIcon className="sidebar-brand-full" icon={logoNegative} height={35} />
-        <CIcon className="sidebar-brand-narrow" icon={sygnet} height={35} />
+       {/* <CIcon className="sidebar-brand-full" icon={logoNegative} height={35} />
+        <CIcon className="sidebar-brand-narrow" icon={sygnet} height={35} /> */}
+<img className="sidebar-brand-full" src={DefaultLogo} height={48} style={{borderRadius:50}} />
+        <img className="sidebar-brand-narrow" src={DefaultLogo} height={48} style={{borderRadius:50}} />
       </CSidebarBrand>
       <CSidebarNav>
         <SimpleBar>

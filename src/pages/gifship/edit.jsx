@@ -9,6 +9,7 @@ import SendIcon from '@mui/icons-material/Send';
 import showToastMessage from '../../components/toast';
 import { CCard, CCardBody, CCardHeader, CCol, CFormInput, CFormSelect, CRow } from '@coreui/react';
 import { DocsExample } from '../../components';
+import validateForm from '../../components/validateForm';
 
 const GifshipEdit = () =>{
   const location = useLocation()
@@ -68,12 +69,14 @@ if(!(permissions.indexOf("EDIT_GIFSHIP_TYPE") > -1)){
     const handleUpdate = async e =>{
         try{
             e.preventDefault()
+            if(validateForm('gifshipm')){
             setLoading(true)
        await app.put(`/gifshipList/${inputs.id}`, inputs).then(res=>{
         setLoading(false)
         showToastMessage('Transaction completed with status: '+ res.statusText, 'success')
         navigate('/gifship-list')
        })
+        }
         }
         catch(errs){
          setLoading(false)
@@ -90,7 +93,7 @@ if(!(permissions.indexOf("EDIT_GIFSHIP_TYPE") > -1)){
          <CCardHeader style={{backgroundColor:'skyblue'}}>
             <strong style={{color:'white'}}>EDIT [{inputs.name}]</strong>
           </CCardHeader>
-          <CCardBody>
+          <CCardBody className='gifshipm'>
             
             <DocsExample add="Country"> 
             <CRow>

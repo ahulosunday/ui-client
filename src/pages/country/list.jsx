@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import {AuthContext} from "../../context/authContext";
 import { trackPromise } from 'react-promise-tracker';
 import showToastMessage from '../../components/toast';
-import { Pagination, Stack } from '@mui/material';
+import { Pagination, Stack, Table } from '@mui/material';
 import { per_page, startIndex } from '../../helpers/paging_indexes';
 import DataTable from 'datatables.net-dt';
 import {
@@ -18,6 +18,8 @@ import {
   CCardText,
   CCardTitle,
   CCol,
+  CInputGroup,
+  CInputGroupText,
   CRow,
   CTable,
   CTableBody,
@@ -36,6 +38,7 @@ const ListCountry = () =>{
    const {currentUser, permissions } = useContext(AuthContext);
    const navigate = useNavigate()
    const [canAdd, setcanAdd]= useState(false)
+  
    
 useEffect(()=>{
     if(!(permissions.indexOf("VIEW_COUNTRY") > -1) ){
@@ -55,7 +58,7 @@ const loadItem = async e =>{
      .then(res =>{
         setCountry(res.data.res)
         setData(res.data)
-        
+      
      })
      .catch(err=>{
         showToastMessage('Error occured while trying to load data! :' + err, 'error')
@@ -85,7 +88,16 @@ const loadItem = async e =>{
         }
 
  }
-//let table = new DataTable('#myTable');
+
+const [search, setSearch] = React.useState('');
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+  };
+const datas = {
+  nodes: country.filter((item) =>
+    item.name.toLowerCase().includes(search.toLowerCase())
+  ),
+};
     return (
            <CRow >
 <CCol xs={12} >
@@ -97,7 +109,11 @@ const loadItem = async e =>{
             <p className="text-medium-emphasis small">
               Using the Add New button to create new Country.
             </p>
-           
+          <CInputGroup>
+        <CInputGroupText> Search</CInputGroupText>
+        <input id="search" placeholder='Search by country name' className='form-control' type="text" onChange={handleSearch} />
+      </CInputGroup>
+
             <DocsExample href="country/add" add="Country List" showAdd={canAdd}></DocsExample>
 
        <CTable striped style={{fontSize:'12px'}} align="middle" responsive >
@@ -116,7 +132,7 @@ const loadItem = async e =>{
        <CTableBody>
        {
         
-         country.length===0? '': country.map((item)=>(
+         datas.nodes.length===0? '': datas.nodes.map((item)=>(
             <CTableRow key={item.id}>
        <CTableHeaderCell>{item.name}</CTableHeaderCell>
        <CTableHeaderCell>{item.shortname}</CTableHeaderCell>
@@ -142,7 +158,6 @@ const loadItem = async e =>{
       <Pagination count={data.totalPages} page={page} onChange={handleChange} variant="outlined" shape="rounded"  color="secondary" />
     </Stack>
        </p>
-       
 
 
       </CCardBody>

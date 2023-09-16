@@ -11,7 +11,7 @@ import showToastMessage from "../../components/toast";
 import {Stack } from "@mui/material";
 import { CCard, CCardBody, CCardHeader, CCol, CFormInput, CFormLabel, CFormSelect, CFormTextarea, CRow } from '@coreui/react';
 import { DocsExample } from '../../components';
-
+import validateForm from "../../components/validateForm";
 
 
 
@@ -39,6 +39,7 @@ const handleChange = e =>{
     }
     const handleSubmit = async e =>{
         try{
+         if(validateForm('country')){
          setLoading(true)
        await app.post('/country', inputs)
        .then(res=>{
@@ -51,6 +52,7 @@ const handleChange = e =>{
         showToastMessage('Error occured while submitting the data ...: ', 'error')
        })
       
+        }
         }
         catch(errs){
          setLoading(false)
@@ -70,7 +72,7 @@ const handleChange = e =>{
           <CCardBody>
             
             <DocsExample add="Country"> 
-         <form>
+         <form className="country">
          <CRow>
          <CCol xs={12}>
          Country

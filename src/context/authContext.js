@@ -19,7 +19,7 @@ export const AuthContextProvider = ({children}) =>{
          })
          .catch(errs=>{
             setLoading(true)
-        showToastMessage(errs+'!', 'error')
+       // showToastMessage(errs+'!', 'error')
          });
     
          }

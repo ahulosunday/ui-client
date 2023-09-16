@@ -9,7 +9,7 @@ export const AppSidebarNav = ({ items }) => {
   const location = useLocation()
   //Logins for Role with id 3, that is Guest
   
-  const arr = [3, 4, 5, 12]
+  const arr = [3, 4, 5, 10, 12]
   useEffect(()=>{
  if(currentUser?.roleid === 3) setShow(false)
   }, [currentUser])

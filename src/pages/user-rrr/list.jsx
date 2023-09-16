@@ -80,7 +80,15 @@ const loadItem = async e =>{
         })
 
   }
-    
+    const [search, setSearch] = React.useState('');
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+  };
+const datas = {
+  nodes: getrrr.filter((item) =>
+    item.user.surname.toLowerCase().includes(search.toLowerCase())
+  ),
+};
     return (
       
               <CRow >
@@ -91,7 +99,10 @@ const loadItem = async e =>{
           </CCardHeader>
           <CCardBody>
             <DocsExample href="user-rrr/add" add="Enrolee Payment List" showAdd={permissions.indexOf("ADD_RRR") > -1? true: false}>
-           
+           <CInputGroup>
+        <CInputGroupText> Search</CInputGroupText>
+        <input id="search" placeholder='Search by User Surname' className='form-control' type="text" onChange={handleSearch} />
+      </CInputGroup>
        <CTable striped style={{fontSize:'12px'}} align="middle" responsive>
        <CTableHead>
        <CTableRow>      
@@ -114,7 +125,7 @@ const loadItem = async e =>{
        </CTableHead>
        <CTableBody>
        {
-            getrrr.length === 0? '': getrrr.map((item)=>(
+            datas.nodes.length === 0? '': datas.nodes.map((item)=>(
             <CTableRow>
        <CTableDataCell>{item.rrr_number}</CTableDataCell>
         <CTableDataCell>{item.authNumber}</CTableDataCell>

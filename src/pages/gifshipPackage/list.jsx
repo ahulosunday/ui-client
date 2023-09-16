@@ -17,6 +17,8 @@ import {
   CCardText,
   CCardTitle,
   CCol,
+  CInputGroup,
+  CInputGroupText,
   CRow,
   CTable,
   CTableBody,
@@ -73,7 +75,15 @@ if(!(permissions.indexOf("VIEW_GIFSHIP_PACKAGE") > -1)){
        })
 
   }
-   
+   const [search, setSearch] = React.useState('');
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+  };
+const datas = {
+  nodes: getGifship.filter((item) =>
+    item.name.toLowerCase().includes(search.toLowerCase())
+  ),
+};
     return (
       
        <CRow >
@@ -86,7 +96,10 @@ if(!(permissions.indexOf("VIEW_GIFSHIP_PACKAGE") > -1)){
             <p className="text-medium-emphasis small">
               Using the Add New button to create new Item.
             </p>
-           
+               <CInputGroup>
+        <CInputGroupText> Search</CInputGroupText>
+        <input id="search" placeholder='Search by package' className='form-control' type="text" onChange={handleSearch} />
+      </CInputGroup>
             <DocsExample href="gifshipPackage/add" add="PROGRAMME PACKAGE" showAdd={permissions.indexOf("VIEW_GIFSHIP_PACKAGE") > -1? true : false}>
       <CTable striped style={{fontSize:'12px'}} align="middle" responsive>
        <CTableHead>
@@ -104,7 +117,7 @@ if(!(permissions.indexOf("VIEW_GIFSHIP_PACKAGE") > -1)){
        </CTableHead>
        <CTableBody>
        {
-            getGifship.map((item)=>(
+            datas.nodes.map((item)=>(
             <CTableRow>
        <CTableDataCell>{item.gifship.name}</CTableDataCell>
          <CTableDataCell>{item.gifshiptype.name}</CTableDataCell>

@@ -17,6 +17,8 @@ import {
   CCardText,
   CCardTitle,
   CCol,
+  CInputGroup,
+  CInputGroupText,
   CRow,
   CTable,
   CTableBody,
@@ -79,7 +81,15 @@ if(!(permissions.indexOf("VIEW_GIFSHIP_TYPE") > -1)){
           showToastMessage('Error occured while trying loading data', 'error')
         })
    }
-    
+    const [search, setSearch] = React.useState('');
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+  };
+const datas = {
+  nodes: getGifship.filter((item) =>
+    item.name.toLowerCase().includes(search.toLowerCase())
+  ),
+};
     return (
                   <CRow >
 <CCol xs={12} >
@@ -91,7 +101,10 @@ if(!(permissions.indexOf("VIEW_GIFSHIP_TYPE") > -1)){
             <p className="text-medium-emphasis small">
               Using the Add New button to create new Item.
             </p>
-           
+               <CInputGroup>
+        <CInputGroupText> Search</CInputGroupText>
+        <input id="search" placeholder='Search by Sub-Programme' className='form-control' type="text" onChange={handleSearch} />
+      </CInputGroup>
             <DocsExample href="gifshipt" add="PROGRAMME" showAdd={canAdd}>
       <CTable striped style={{fontSize:'12px'}} align="middle" responsive>
        <CTableHead>
@@ -106,7 +119,7 @@ if(!(permissions.indexOf("VIEW_GIFSHIP_TYPE") > -1)){
        </CTableHead>
        <CTableBody>
        {
-            getGifship.length ===0? '': getGifship.map((item)=>(
+            datas.nodes.length ===0? '': datas.nodes.map((item)=>(
             <CTableRow key={item.id}>
        <CTableDataCell>{item.gifship.name}</CTableDataCell>
          <CTableDataCell>{item.name}</CTableDataCell>

@@ -16,6 +16,8 @@ import {
   CCardText,
   CCardTitle,
   CCol,
+  CInputGroup,
+  CInputGroupText,
   CRow,
   CTable,
   CTableBody,
@@ -83,7 +85,15 @@ const handleChange = async (e, value) => {
 
  }
 
-    
+     const [search, setSearch] = React.useState('');
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+  };
+const datas = {
+  nodes: hositals.filter((item) =>
+    item.name.toLowerCase().includes(search.toLowerCase())
+  ),
+};
     return (
    
       <CRow >
@@ -96,7 +106,10 @@ const handleChange = async (e, value) => {
             <p className="text-medium-emphasis small">
               Using the Add New button to create new hospital.
             </p>
-           
+            <CInputGroup>
+        <CInputGroupText> Search</CInputGroupText>
+        <input id="search" placeholder='Search by HOSPITAL NAME' className='form-control' type="text" onChange={handleSearch} />
+      </CInputGroup>
             <DocsExample href="hospital/add" add="Hospital List" showAdd={canAdd}>
                <CTable striped style={{fontSize:'12px'}} align="middle" responsive>
        <CTableHead>
@@ -118,7 +131,7 @@ const handleChange = async (e, value) => {
        <CTableBody>
        {
         
-            hositals.length === 0? '':hositals.map((item)=>(
+            datas.nodes.length === 0? '':datas.nodes.map((item)=>(
             <CTableRow>
        <CTableDataCell>{item.hospitalCode}</CTableDataCell>
        <CTableDataCell>{item.name}</CTableDataCell>

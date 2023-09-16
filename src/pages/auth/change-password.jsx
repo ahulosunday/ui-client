@@ -9,7 +9,7 @@ import SendIcon from '@mui/icons-material/Send';
 import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
 import showToastMessage from '../../components/toast';
 import Goback from '../../components/goback';
-
+import validateForm from '../../components/validateForm'
 const ChangePassword = () =>{
     const [msg, setMsg] = useState('');
     const [loading, setLoading] = useState(false)
@@ -27,7 +27,7 @@ const [ inputs, setInputs ] = useState({
     }
     const handleUpdate = async e =>{
     try{
-       
+       if(validateForm('password')){
         if(!(inputs.password === inputs.conpassword)) {
            showToastMessage("Password mismatch found!", 'error')
         }
@@ -46,7 +46,7 @@ const [ inputs, setInputs ] = useState({
             navigate("/")
            } }
 
-      
+       }
     }
     catch(errs){
         setMsg("Unable to change the password!. Reason: " + errs.code)
@@ -60,9 +60,10 @@ return(
          <CCardHeader style={{backgroundColor:'skyblue'}}>
             <strong style={{color:'white'}}>CHANGE PASSWORD</strong>
           </CCardHeader>
-          <CCardBody>
+          <CCardBody className='password'>
             
             <DocsExample add="Change Password"> 
+
             <CRow>
             <CCol xs={12} xl={12}>
             Username

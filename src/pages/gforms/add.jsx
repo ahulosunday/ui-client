@@ -12,6 +12,7 @@ import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
 import SendIcon from '@mui/icons-material/Send';
 import { CCard, CCardBody, CCardHeader, CCol, CFormInput, CFormLabel, CFormSelect, CFormTextarea, CRow } from '@coreui/react';
 import { DocsExample } from '../../components';
+import validateForm from '../../components/validateForm';
 
 const AddRegister = () =>{
     const [msg, setMsg] = useState('');
@@ -62,6 +63,7 @@ const handleChange = e =>{
     const handleSubmit = async e =>{
        e.preventDefault()
         try{
+          if(validateForm('form')){
          setLoading(true)
          await app.post('/register/add/', inputs)
          .then(res=>{
@@ -89,7 +91,7 @@ const handleChange = e =>{
          showToastMessage('Something went wrong ...', 'error')
          setLoading(false)
          })
-                 
+          }      
         }
         catch(errs){
           setLoading(false)
@@ -322,7 +324,7 @@ const loadItem = async e =>{
          <CCardHeader style={{backgroundColor:'skyblue'}}>
             <strong style={{color:'white'}}>MEMBERSHIP REGISTRATION FORM</strong>
           </CCardHeader>
-          <CCardBody>
+          <CCardBody className='form'>
             <DocsExample add="Personal Information"> 
          
          
