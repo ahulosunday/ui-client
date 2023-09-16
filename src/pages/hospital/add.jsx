@@ -9,7 +9,7 @@ import { Stack } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import { CCard, CCardBody, CCardHeader, CCol, CFormInput, CFormLabel, CFormSelect, CFormTextarea, CRow } from '@coreui/react';
 import { DocsExample } from '../../components';
-
+import validateForm from '../../components/validateForm';
 const AddHospital = () =>{
     const [loading, setLoading] = useState(false);
     const [country, setCountry] = useState([])
@@ -46,6 +46,7 @@ const handleChange = e =>{
    
         try{
             e.preventDefault()
+            if(validateForm('validateForm') === 0){
             setLoading(true)
      await app.post('/hospital', inputs)
         .then(res=>{
@@ -60,7 +61,7 @@ const handleChange = e =>{
            showToastMessage('Operation failed. Reason: Duplicate data might be found or all fields are required ... ', 'error')
         })
        
-     
+            }
          
         }
         catch(errs){
@@ -148,7 +149,7 @@ const loadItem = async e =>{
          <CCardHeader style={{backgroundColor:'skyblue'}}>
             <strong style={{color:'white'}}>ADD ACCREDITED PRIMARY HEALTHCARE</strong>
           </CCardHeader>
-          <CCardBody>
+          <CCardBody className='validateForm'>
             
             <DocsExample add="Update Hospital"> 
             <form>

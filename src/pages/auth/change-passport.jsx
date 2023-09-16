@@ -38,7 +38,7 @@ export default function ChangePort(){
   })
   const uploadPaaport = async e=>{
     try{
-      if(validateForm('upload')){
+      if(validateForm('upload') === 0){
     const ext = file.name.split('.')[1]
           if(file.length === 0){
             showToastMessage('Please upload passport size photograph', 'error')

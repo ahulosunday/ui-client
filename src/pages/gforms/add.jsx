@@ -63,7 +63,7 @@ const handleChange = e =>{
     const handleSubmit = async e =>{
        e.preventDefault()
         try{
-          if(validateForm('form')){
+          if(validateForm('form') === 0){
          setLoading(true)
          await app.post('/register/add/', inputs)
          .then(res=>{

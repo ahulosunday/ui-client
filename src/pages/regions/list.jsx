@@ -16,6 +16,8 @@ import {
   CCardText,
   CCardTitle,
   CCol,
+  CInputGroup,
+  CInputGroupText,
   CRow,
   CTable,
   CTableBody,
@@ -77,6 +79,15 @@ const loadItem = async e =>{
     }
 
     }
+     const [search, setSearch] = React.useState('');
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+  };
+const datas = {
+  nodes: region.filter((item) =>
+    item.name.toLowerCase().includes(search.toLowerCase())
+  ),
+};
     return (
              <CRow >
 <CCol xs={12} xl={12} >
@@ -88,7 +99,10 @@ const loadItem = async e =>{
             <p className="text-medium-emphasis small">
               Using the Add New button to create new regions.
             </p>
-           
+           <CInputGroup>
+        <CInputGroupText> Search</CInputGroupText>
+        <input id="search" placeholder='Search by Region Name' className='form-control' type="text" onChange={handleSearch} />
+      </CInputGroup>
             <DocsExample href="region/add" add="Regions List" showAdd={permissions.indexOf("ADD_REGIONS") > -1? true:false}>
        <CTable striped style={{fontSize:'12px'}} align="middle" responsive>
        <CTableHead>
@@ -104,7 +118,7 @@ const loadItem = async e =>{
 <CTableBody>
        {
         
-            region.length === 0? '': region.map((item)=>(
+            datas.nodes.length === 0? '': datas.nodes.map((item)=>(
             <CTableRow key={item.id}>
        <CTableDataCell>{item.name}</CTableDataCell>
        <CTableDataCell>{item.country.name}</CTableDataCell>

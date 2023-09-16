@@ -27,6 +27,7 @@ const Logins = () => {
       const {currentUser, login } = useContext(AuthContext);
     const [loading, setLoading] = useState(false)
     const  navigate = useNavigate();
+   
     //=========================
      const [ err, setError ] = useState(null)
     const msg = useLocation().state
@@ -55,7 +56,7 @@ const Logins = () => {
           
         try{ 
              e.preventDefault()
-            if(validateForm('login')){
+            if(validateForm('login') === 0){
            if(login(inputs)){
            setError("Invalid Username or Password")
            }

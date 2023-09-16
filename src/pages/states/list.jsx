@@ -15,6 +15,8 @@ import {
   CCardText,
   CCardTitle,
   CCol,
+  CInputGroup,
+  CInputGroupText,
   CRow,
   CTable,
   CTableBody,
@@ -73,7 +75,15 @@ if(!(permissions.indexOf("VIEW_STATES") > -1)){
        showToastMessage('Internal error !', 'error')
       }
   }
-    
+     const [search, setSearch] = React.useState('');
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+  };
+const datas = {
+  nodes: stated.filter((item) =>
+    item.name.toLowerCase().includes(search.toLowerCase())
+  ),
+};
     return (
        <CRow >
 <CCol xs={12} >
@@ -85,7 +95,10 @@ if(!(permissions.indexOf("VIEW_STATES") > -1)){
             <p className="text-medium-emphasis small">
               Using the Add New button to create new States.
             </p>
-           
+           <CInputGroup>
+        <CInputGroupText> Search</CInputGroupText>
+        <input id="search" placeholder='Search by State Name' className='form-control' type="text" onChange={handleSearch} />
+      </CInputGroup>
             <DocsExample href="state/add" add="States List" showAdd={permissions.indexOf("ADD_STATES") > -1? true:false}>
        <CTable striped style={{fontSize:'12px'}} align="middle" responsive>
        <CTableHead>
@@ -103,7 +116,7 @@ if(!(permissions.indexOf("VIEW_STATES") > -1)){
        <CTableBody>
        {
         
-            stated.length===0? '': stated.map((item)=>(
+            datas.nodes.length===0? '': datas.nodes.map((item)=>(
             <CTableRow key={item.id}>
        <CTableDataCell>{item.name}</CTableDataCell>
        <CTableDataCell>{item.code}</CTableDataCell>

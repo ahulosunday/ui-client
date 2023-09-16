@@ -56,7 +56,7 @@ const Register = () => {
    const handleSummit = async e =>{
         e.preventDefault()
         try{
-       if(validateForm('register')){
+       if(validateForm('register') === 0){
           setLoading(true)
          if(conpassword !== password){
           showToastMessage('Password mismatch found !', 'error')

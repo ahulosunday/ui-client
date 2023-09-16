@@ -9,7 +9,7 @@ import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
 import showToastMessage from '../../components/toast';
 import { CCard, CCardBody, CCardHeader, CCol, CFormInput, CFormLabel, CFormSelect, CFormTextarea, CRow } from '@coreui/react';
 import { DocsExample } from '../../components';
-
+import validateForm from '../../components/validateForm';
 
 const AddStates = () =>{
     const [loading, setLoading] = useState(false);
@@ -34,6 +34,7 @@ const handleChange = e =>{
     const handleSubmit = async e =>{
        e.preventDefault()
         try{
+          if(validateForm('validateForm') === 0){
           setLoading(true)
      await app.post('/state', inputs).then(res=>{
         setLoading(false)
@@ -43,6 +44,7 @@ const handleChange = e =>{
         setLoading(false)
         showToastMessage('Unable to add record. Reason: All fields are required ...', 'error')
       })
+        }
         }
         catch(errs){
         setLoading(false)
@@ -90,7 +92,7 @@ const loadItem = async e =>{
          <CCardHeader style={{backgroundColor:'skyblue'}}>
             <strong style={{color:'white'}}>ADD STATES</strong>
           </CCardHeader>
-          <CCardBody>
+          <CCardBody className='validateForm'>
             <DocsExample add="States"> 
             <CRow>
             <CCol xs>

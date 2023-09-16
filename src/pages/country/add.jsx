@@ -39,7 +39,7 @@ const handleChange = e =>{
     }
     const handleSubmit = async e =>{
         try{
-         if(validateForm('country')){
+         if(validateForm('country') === 0){
          setLoading(true)
        await app.post('/country', inputs)
        .then(res=>{

@@ -10,7 +10,7 @@ import {Stack } from "@mui/material";
 import { trackPromise } from 'react-promise-tracker';
 import { CCard, CCardBody, CCardHeader, CCol, CFormInput, CFormLabel, CFormSelect, CFormTextarea, CRow } from '@coreui/react';
 import { DocsExample } from '../../components';
-
+import validateForm from '../../components/validateForm';
 const Add = () =>{
     const [loading, setLoading] = useState(false)
     const {currentUser, permissions } = useContext(AuthContext);
@@ -39,6 +39,7 @@ const handleChange = e =>{
     const handleSubmit = async e =>{
         try{
             e.preventDefault() 
+            if(validateForm('validateForm') === 0){
             setLoading(true) 
             await app.post('/role', inputs)
             .then(res=>{
@@ -54,6 +55,7 @@ const handleChange = e =>{
                 showToastMessage('Operation failed. Check your entries and try agin' +err, 'error')
             })    
        }
+        }
         catch(errs){
             setLoading(false)
        showToastMessage('Operation failed. Check your entries and try agin', 'error')
@@ -66,7 +68,7 @@ const handleChange = e =>{
          <CCardHeader style={{backgroundColor:'skyblue'}}>
             <strong style={{color:'white'}}>ADD ROLES</strong>
           </CCardHeader>
-          <CCardBody>
+          <CCardBody className='validateForm'>
             <DocsExample add="ADD ROLES"> 
         <CRow>
         <CCol xs={12} xl={12}>

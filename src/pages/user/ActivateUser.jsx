@@ -14,10 +14,10 @@ import { pin } from '../../helpers/customAlphabet';
 import { render } from "@react-email/render";
 import hostUrl from '../../helpers/hostUrl';
 import { AuthContext } from '../../context/authContext';
-
+import validateForm from '../../components/validateForm';
 
 export default function ActivateUser (){
- const [open, setOpen] = React.useState(false);
+ const [open, setOpen] = React.useState(true);
    const [valids, setValid] = React.useState(false)
     const {currentUser } = React.useContext(AuthContext);
 
@@ -35,6 +35,7 @@ export default function ActivateUser (){
     }
   }
   const handleSubmit = async()=>{
+    if(validateForm('validateForm') === 0){
     const username = document.getElementById('username').value
   await app.get(`/findUserByUsername/${username}/1/1/1/1`).then(async res =>{
       await app.put(`/activate/${res.data.id}/`, {}).then(res1=>{
@@ -46,8 +47,10 @@ export default function ActivateUser (){
 showToastMessage('Username not found.', 'error')
   })
   }
+  }
+
 return (
-     <div>
+     <div className='validateForm'>
       
       <Link onClick={handleClickOpen} style={{textDecoration:'none', color:'red'}}>Please click here to activate enrolle/user</Link>
       <Dialog open={open} onClose={handleClose}>

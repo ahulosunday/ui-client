@@ -9,7 +9,7 @@ import SendIcon from '@mui/icons-material/Send';
 import showToastMessage from '../../components/toast';
 import { CCard, CCardBody, CCardHeader, CCol, CFormInput, CFormLabel, CFormSelect, CFormTextarea, CRow } from '@coreui/react';
 import { DocsExample } from '../../components';
-
+import validateForm from '../../components/validateForm';
 const EditWard = () =>{
     const [loading, setLoading] = useState(false);
      const location = useLocation()
@@ -79,6 +79,7 @@ const handleChange = e =>{
      const handleUpdate = async e =>{
         try{
           e.preventDefault()
+          if(validateForm('validateForm') === 0){
           setLoading(true)
        await app.put(`/ward/${inputs.id}`, inputs).then(res=>{
         if(res.status === 200){
@@ -89,6 +90,7 @@ const handleChange = e =>{
         }).catch(err=>{
           showToastMessage('Transaction failed: ' + err, 'error')
         })}
+        }
         catch(errs){
           showToastMessage('Internal error occured ...', 'error')
         }
@@ -133,7 +135,7 @@ const loadItem = async e =>{
          <CCardHeader style={{backgroundColor:'skyblue'}}>
             <strong style={{color:'white'}}>EDIT WARDS</strong>
           </CCardHeader>
-          <CCardBody>
+          <CCardBody className='validateForm'>
             <DocsExample add="WARD"> 
              <CRow>
             <CCol xs={12} xl={6}>

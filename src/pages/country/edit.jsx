@@ -63,7 +63,7 @@ const handleChange = e =>{
     }
     const handleUpdate = async e =>{
         try{
-        if(validateForm('country')){
+        if(validateForm('country') === 0 ){
 
          setLoading(true)
        await app.put(`/country/${inputs.id}`, inputs)

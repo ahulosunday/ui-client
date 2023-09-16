@@ -10,7 +10,7 @@ import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
 import SendIcon from '@mui/icons-material/Send';
 import { CCard, CCardBody, CCardHeader, CCol, CFormInput, CFormLabel, CFormSelect, CFormTextarea, CRow } from '@coreui/react';
 import { DocsExample } from '../../components';
-
+import validateForm from '../../components/validateForm';
 
 const EditStates = () =>{
  const [loading, setLoading] = useState(false);
@@ -50,6 +50,7 @@ const handleChange = e =>{
      const handleUpdate = async e =>{
        e.preventDefault()
         try{
+          if(validateForm('validateForm') === 0){
           setLoading(true)
        await app.put(`/state/${inputs.id}`, inputs)
        .then(res=>{
@@ -63,6 +64,7 @@ const handleChange = e =>{
         setLoading(false)
        showToastMessage('Unable to perform the operation ..., ' + err, 'error')
        })
+        }
         }
         catch(errs){
           setLoading(false)
@@ -112,7 +114,7 @@ const loadItem = async e =>{
          <CCardHeader style={{backgroundColor:'skyblue'}}>
             <strong style={{color:'white'}}>EDIT STATES</strong>
           </CCardHeader>
-          <CCardBody>
+          <CCardBody className='validateForm'>
             <DocsExample add="States"> 
             <CRow>
             <CCol xs>

@@ -60,18 +60,7 @@ const loadItem = async e =>{
          loadItem()
         
   }, [currentUser, permissions, navigate])
-/*
-  const handleChange = async (e, value) => {
-    setPage(value);
-    await app.get(`user-rrr/${page}/${per_page}/0`).then(res=>{
-            setGetrrr(res.data.res)
-            setData(res.data)
-        }).catch(err=>{
-            showToastMessage(err, 'error')
-        })
 
-  }
-    */
     return (
       
               <CRow >

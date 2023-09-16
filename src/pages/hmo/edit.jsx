@@ -11,7 +11,7 @@ import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
 import SendIcon from '@mui/icons-material/Send';
 import { CCard, CCardBody, CCardHeader, CCol, CFormInput, CFormLabel, CFormSelect, CFormTextarea, CRow } from '@coreui/react';
 import { DocsExample } from '../../components';
-
+import validateForm from '../../components/validateForm';
 
 const EditHmo
  = () =>{
@@ -114,6 +114,7 @@ const handleChange = e =>{
     const handleUpdate = async e =>{
         try{
           e.preventDefault()
+          if(validateForm('validateForm') === 0){
           setLoading(true)
     await app.put(`/hmo/${inputs.id}`, inputs)
     .then(res=>{
@@ -125,6 +126,7 @@ const handleChange = e =>{
       setLoading(false)
       showToastMessage('Updation failed !.', 'error')
     })
+          }
         }
         catch(errs){
           setLoading(false)
@@ -143,7 +145,7 @@ const handleChange = e =>{
          <CCardHeader style={{backgroundColor:'skyblue'}}>
             <strong style={{color:'white'}}>EDIT HMO</strong>
           </CCardHeader>
-          <CCardBody>
+          <CCardBody className='validateForm'>
             <DocsExample add="HMO"> 
             <CRow>
             <CCol xs={12} xl={6}>

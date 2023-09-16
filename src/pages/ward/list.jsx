@@ -16,6 +16,8 @@ import {
   CCardText,
   CCardTitle,
   CCol,
+  CInputGroup,
+  CInputGroupText,
   CRow,
   CTable,
   CTableBody,
@@ -73,7 +75,15 @@ const loadItem = async e =>{
        showToastMessage('Internal error !', 'error')
       }
   }
-   
+   const [search, setSearch] = React.useState('');
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+  };
+const datas = {
+  nodes: ward.filter((item) =>
+    item.name.toLowerCase().includes(search.toLowerCase())
+  ),
+};
     return (
         <CRow >
         <CCol xs={12} xl={12} >
@@ -85,7 +95,10 @@ const loadItem = async e =>{
             <p className="text-medium-emphasis small">
               Using the Add New button to create new Wards.
             </p>
-           
+           <CInputGroup>
+        <CInputGroupText> Search</CInputGroupText>
+        <input id="search" placeholder='Search by Ward Name' className='form-control' type="text" onChange={handleSearch} />
+      </CInputGroup>
             <DocsExample href="ward/add" add="Wards List" showAdd={permissions.indexOf("ADD_WARDS") > -1? true:false}>
        <CTable striped style={{fontSize:'12px'}} align="middle" responsive>
        <CTableHead>
@@ -105,7 +118,7 @@ const loadItem = async e =>{
        <CTableBody>
        {
         
-            ward.length===0? '' : ward.map((item)=>(
+            datas.nodes.length===0? '' : datas.nodes.map((item)=>(
             <CTableRow>
        <CTableDataCell>{item.name}</CTableDataCell>
        <CTableDataCell>{item.code}</CTableDataCell>

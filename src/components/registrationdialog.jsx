@@ -11,7 +11,7 @@ import { trackPromise } from 'react-promise-tracker';
 import app from '../helpers/axiosConfig';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
-
+import validateForm from './validateForm';
 export default function FormDialog() {
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate()
@@ -25,6 +25,7 @@ export default function FormDialog() {
   };
   const handleSubmit = async e =>{
     try{
+      if(validateForm('validateForm') === 0){
       const code = document.getElementById('code').value
       if(code === '' || code === null){
         showToastMessage('Please enter valid registration Code','error')
@@ -49,7 +50,7 @@ export default function FormDialog() {
           })
         )
       }
-
+      }
     }
     catch(err){
  showToastMessage(err, 'error')
@@ -58,6 +59,7 @@ export default function FormDialog() {
 
   return (
     <div>
+    <form className='validateForm'>
       <Button variant="outlined" onClick={handleClickOpen}>
         Registration
       </Button>
@@ -82,6 +84,7 @@ export default function FormDialog() {
           <Button onClick={handleSubmit}>Continue</Button>
         </DialogActions>
       </Dialog>
+      </form>
     </div>
   );
 }

@@ -16,6 +16,8 @@ import {
   CCardText,
   CCardTitle,
   CCol,
+  CInputGroup,
+  CInputGroupText,
   CRow,
   CTable,
   CTableBody,
@@ -73,7 +75,15 @@ const loadItem = async e =>{
        showToastMessage('Internal error !', 'error')
       }
   }
-   
+     const [search, setSearch] = React.useState('');
+  const handleSearch = (event) => {
+    setSearch(event.target.value);
+  };
+const datas = {
+  nodes: lgas.filter((item) =>
+    item.name.toLowerCase().includes(search.toLowerCase())
+  ),
+};
     return (
   
         <CRow >
@@ -86,7 +96,10 @@ const loadItem = async e =>{
             <p className="text-medium-emphasis small">
               Using the Add New button to create new LGA.
             </p>
-           
+             <CInputGroup>
+        <CInputGroupText> Search</CInputGroupText>
+        <input id="search" placeholder='Search by LGA Name' className='form-control' type="text" onChange={handleSearch} />
+      </CInputGroup>
             <DocsExample href="lga/add" add="LGAs List" showAdd={permissions.indexOf("ADD_LGAS") > -1? true:false}>
        <CTable striped style={{fontSize:'12px'}} align="middle" responsive>
        <CTableHead>
@@ -107,7 +120,7 @@ const loadItem = async e =>{
        <CTableBody>
        {
         
-            lgas.length ===0? '' : lgas.map((item)=>(
+            datas.nodes.length ===0? '' : datas.nodes.map((item)=>(
             <CTableRow key={item.id}>
        <CTableDataCell>{item.name}</CTableDataCell>
        <CTableDataCell>{item.code}</CTableDataCell>

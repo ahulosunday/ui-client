@@ -16,6 +16,7 @@ import 'datatables.net-responsive-dt';
 
 const LoadingIndicator = props => {
   const { promiseInProgress } = usePromiseTracker();
+
   return promiseInProgress &&
     <div style={{ 
        marginTop:'3%',

@@ -11,7 +11,7 @@ import { Stack } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
 import { CButton, CButtonGroup, CCard, CCardBody, CCardHeader, CCol, CFormInput, CFormLabel, CFormSelect, CFormTextarea, CRow, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow } from '@coreui/react';
 import { DocsExample } from '../../components';
-
+import validateForm from '../../components/validateForm';
 
 const AssignPermissions = () =>{
   const location = useLocation()
@@ -95,6 +95,7 @@ const AssignPermissions = () =>{
         
         try{
           e.preventDefault()
+          if(validateForm('validateForm') === 0){
           setLoading(true)
             var permlist = document.getElementById('permlist').value;
             var arr = [];
@@ -115,6 +116,7 @@ const AssignPermissions = () =>{
         setLoading(false)
         showToastMessage(err, 'error')
        })
+        }
         }
         catch(errs){
         showToastMessage( "Invalid data entry, check the entry and try again", "error")
@@ -156,7 +158,7 @@ const AssignPermissions = () =>{
          <CCardHeader style={{backgroundColor:'skyblue'}}>
             <strong style={{color:'white'}}>ASSIGN PERMISSIONS</strong>
           </CCardHeader>
-          <CCardBody>
+          <CCardBody className='validateForm'>
             <DocsExample add="Assign Permissions"> 
         <CRow>
         <CCol xs={12} xl={12}>

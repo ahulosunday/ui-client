@@ -53,7 +53,7 @@ const handleChange = e =>{
        e.preventDefault()
        setLoading(true)
         try{
-          if(validateForm('gifshipm')){
+          if(validateForm('gifshipm') === 0){
        await app.post('/gifship-type', inputs).then(res=>{
          setLoading(false)
          showToastMessage('Transaction completed with status:' + res.statusText, 'success')

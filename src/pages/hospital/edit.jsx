@@ -10,7 +10,7 @@ import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
 import SendIcon from '@mui/icons-material/Send';
 import { CCard, CCardBody, CCardHeader, CCol, CFormInput, CFormLabel, CFormSelect, CFormTextarea, CRow } from '@coreui/react';
 import { DocsExample } from '../../components';
-
+import validateForm from '../../components/validateForm';
 const EditHospital = () =>{
     const [loading, setLoading] = useState(false);
     const [mgs, setMsg] = useState('')
@@ -87,6 +87,7 @@ const loadItem = async e =>{
        const handleUpdate = async e =>{
         try{
          e.preventDefault()
+         if(validateForm('validateForm') === 0){
          setLoading(true)
      await app.put(`/hospital/${inputs.id}`, inputs)
       .then(res=>{
@@ -101,7 +102,7 @@ const loadItem = async e =>{
         showToastMessage('Updation failed ...', 'error')
       })
 
-      
+         }
        
         }
         catch(errs){
@@ -161,7 +162,7 @@ const loadItem = async e =>{
          <CCardHeader style={{backgroundColor:'skyblue'}}>
             <strong style={{color:'white'}}>UPDATE ACCREDITED PRIMARY HEALTHCARE</strong>
           </CCardHeader>
-          <CCardBody>
+          <CCardBody className='validateForm'>
             
             <DocsExample add="Update Hospital"> 
             <form>

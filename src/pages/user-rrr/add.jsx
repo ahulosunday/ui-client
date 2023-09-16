@@ -15,7 +15,7 @@ import hostUrl from '../../helpers/hostUrl';
 import { CCard, CCardBody, CCardHeader, CCol, CFormInput, CFormLabel, CFormSelect, CFormTextarea, CRow } from '@coreui/react';
 import { DocsExample } from '../../components';
 import { pin } from '../../helpers/customAlphabet';
-
+import validateForm from '../../components/validateForm';
 
 const AddUserRRR = () =>{ 
   const {currentUser, permissions } = useContext(AuthContext);
@@ -153,8 +153,10 @@ const handleChange = e =>{
        
     const handleSubmit = async e =>{
       e.preventDefault()
-      setLoading(true)
+      
         try{
+          if(validateForm('validateForm') === 0){
+            setLoading(true)
         let  rrr_number= document.getElementById('rrr_number').value
        	let  userId= document.getElementById('userId').value
         let  activated= true
@@ -200,6 +202,7 @@ const handleChange = e =>{
         showToastMessage(err, 'error')
        })
         }
+        }
         catch(errs){
           setLoading(false)
         setMsg("Invalid data entry, check the entry and try again.")
@@ -216,7 +219,8 @@ const handleChange = e =>{
          <CCardHeader style={{backgroundColor:'skyblue'}}>
             <strong style={{color:'white'}}>MANAGE ENROLEE PAYMENT VIA RRR</strong>
           </CCardHeader>
-          <CCardBody>
+          <CCardBody className='validateForm'>
+          <span style={{color:'red'}}>{msg}</span>
             <DocsExample add="Payment Capturing ..."> 
             <CRow>
             <CCol xs={12} xl={4}>

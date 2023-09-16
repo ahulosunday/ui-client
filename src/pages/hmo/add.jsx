@@ -11,7 +11,7 @@ import { Stack } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import { CCard, CCardBody, CCardHeader, CCol, CFormInput, CFormLabel, CFormSelect, CFormTextarea, CRow } from '@coreui/react';
 import { DocsExample } from '../../components';
-
+import validateForm from '../../components/validateForm';
 
 const AddHmo = () =>{
     const [msg, setMsg] = useState('');
@@ -38,6 +38,7 @@ const handleChange = e =>{
     const handleSubmit = async e =>{
         try{
           e.preventDefault()
+          if(validateForm('validateForm') === 0){
           setLoading(true)
        await app.post('/hmo', inputs)
        .then(res=>{
@@ -49,7 +50,7 @@ const handleChange = e =>{
         setLoading(false)
         showToastMessage('Can not perform the operation.Reaso: All fields are required', 'error')
        })
-      
+          }
         }
         catch(errs){
           setLoading(false)
@@ -120,7 +121,7 @@ loadcountry()
          <CCardHeader style={{backgroundColor:'skyblue'}}>
             <strong style={{color:'white'}}>ADD HMO</strong>
           </CCardHeader>
-          <CCardBody>
+          <CCardBody className='validateForm'>
             <DocsExample add="HMO"> 
             <CRow>
             <CCol xs={12} xl={6}>

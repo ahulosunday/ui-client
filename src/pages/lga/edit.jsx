@@ -10,7 +10,7 @@ import showToastMessage from '../../components/toast';
 import { trackPromise } from 'react-promise-tracker';
 import { CCard, CCardBody, CCardHeader, CCol, CFormInput, CFormLabel, CFormSelect, CFormTextarea, CRow } from '@coreui/react';
 import { DocsExample } from '../../components';
-
+import validateForm from '../../components/validateForm';
 const EditLga = () =>{
     const [loading, setLoading] = useState(false);
      const location = useLocation()
@@ -65,6 +65,7 @@ const handleChange = e =>{
      const handleUpdate = async e =>{
         try{
           e.preventDefault()
+          if(validateForm('validateForm') === 0){
           setLoading(true)
           await app.put(`/lga/${inputs.id}`, inputs).then(res=>{
             setLoading(false)
@@ -74,6 +75,7 @@ const handleChange = e =>{
             setLoading(false)
             showToastMessage('Transaction failed with status: ' +err, 'error')
           })
+        }
         }
         catch(errs){
           setLoading(false)
@@ -125,7 +127,7 @@ const loadItem = async e =>{
          <CCardHeader style={{backgroundColor:'skyblue'}}>
             <strong style={{color:'white'}}>EDIT LGAs</strong>
           </CCardHeader>
-          <CCardBody>
+          <CCardBody className='validateForm'>
             <DocsExample add="LGA"> 
              <CRow>
             <CCol xs={12} xl={6}>

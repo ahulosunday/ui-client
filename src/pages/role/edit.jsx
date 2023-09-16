@@ -10,7 +10,7 @@ import { Stack } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
 import { CCard, CCardBody, CCardHeader, CCol, CFormInput, CFormLabel, CFormSelect, CFormTextarea, CRow } from '@coreui/react';
 import { DocsExample } from '../../components';
-
+import validateForm from '../../components/validateForm';
 const Edit = () =>{
   const location = useLocation()
     const [loading, setLoading] = useState(false);
@@ -54,6 +54,7 @@ const Edit = () =>{
     const handleUpdate = async e =>{
         try{
           e.preventDefault()
+          if(validateForm('validateForm') === 0){
           setLoading(true)
          await app.put(`/role/${inputs.id}`, inputs)
         .then(res=>{
@@ -65,6 +66,7 @@ const Edit = () =>{
           setLoading(false)
           showToastMessage('Unable to edit the selected record.', 'error')
         })
+        }
         }
         catch(errs){
           setLoading(false)
@@ -80,7 +82,7 @@ const Edit = () =>{
          <CCardHeader style={{backgroundColor:'skyblue'}}>
             <strong style={{color:'white'}}>ADD ROLES</strong>
           </CCardHeader>
-          <CCardBody>
+          <CCardBody className='validateForm'>
             <DocsExample add="Regions"> 
         <CRow>
         <CCol xs={12} xl={12}>  

@@ -10,6 +10,7 @@ import { Stack } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import { CCard, CCardBody, CCardHeader, CCol, CFormInput, CFormSelect, CRow } from '@coreui/react';
 import { DocsExample } from '../../components';
+import validateForm from '../../components/validateForm';
 
 const AddGifshipPackage = () =>{
     const [getGifship, setGifship] = useState([]);
@@ -71,6 +72,7 @@ const handleChange = e =>{
        e.preventDefault()
        setLoading(true)
         try{
+            if(validateForm('validateForm') === 0){
         await app.post('/gifshipPackage', inputs)
        .then(res =>{
         setLoading(false)
@@ -82,7 +84,7 @@ const handleChange = e =>{
         setLoading(false)
         showToastMessage('Unable to perform the operation. Reason: '+ err, 'error');
        })
-       
+            }
        }
         catch(errs){
             setLoading(false)
@@ -100,7 +102,7 @@ const handleChange = e =>{
          <CCardHeader style={{backgroundColor:'skyblue'}}>
             <strong style={{color:'white'}}>Programme Packages</strong>
           </CCardHeader>
-          <CCardBody>
+          <CCardBody className='validateForm'>
             
             <DocsExample add="Programme Packages"> 
        <CRow>

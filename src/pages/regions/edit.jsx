@@ -10,7 +10,7 @@ import { Stack } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
 import { CCard, CCardBody, CCardHeader, CCol, CFormInput, CFormLabel, CFormSelect, CFormTextarea, CRow } from '@coreui/react';
 import { DocsExample } from '../../components';
-
+import validateForm from '../../components/validateForm';
 const EditRegion = () =>{
     const [loading, setLoading] = useState(false);
      const [country, setCountry] = useState([]);
@@ -30,7 +30,9 @@ const handleChange = e =>{
     }
     const handleUpdate = async e =>{
         try{
+
         e.preventDefault();
+        if(validateForm('validateForm') === 0){
         setLoading(true)
        await app.put(`/region/${inputs.id}`, inputs)
        .then(res=>{
@@ -44,6 +46,7 @@ const handleChange = e =>{
         setLoading(false)
         showToastMessage('Update failed ...: ' + err, 'error')
        })  
+        }
         }
         catch(errs){
             showToastMessage('Update failed ...: ', 'error')
@@ -95,7 +98,7 @@ const loadItem = async e =>{
          <CCardHeader style={{backgroundColor:'skyblue'}}>
             <strong style={{color:'white'}}>EDIT REGIONS</strong>
           </CCardHeader>
-          <CCardBody>
+          <CCardBody className='validateForm'>
             <DocsExample add="Regions"> 
        <CRow>
        <CCol xs={12} xl={6}>

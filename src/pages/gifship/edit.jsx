@@ -69,7 +69,7 @@ if(!(permissions.indexOf("EDIT_GIFSHIP_TYPE") > -1)){
     const handleUpdate = async e =>{
         try{
             e.preventDefault()
-            if(validateForm('gifshipm')){
+            if(validateForm('gifshipm') === 0){
             setLoading(true)
        await app.put(`/gifshipList/${inputs.id}`, inputs).then(res=>{
         setLoading(false)

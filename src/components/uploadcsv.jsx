@@ -16,7 +16,7 @@ import hostUrl from '../helpers/hostUrl';
 import { render } from '@react-email/render';
 import { Link } from '@mui/material';
 import { nanoid, pin } from '../helpers/customAlphabet';
-
+import validateForm from './validateForm';
 
 export default function FormDialogCsv(props) {
   const [open, setOpen] = React.useState(false);
@@ -62,7 +62,7 @@ export default function FormDialogCsv(props) {
   const handleSubmit = async e =>{
     e.preventDefault() 
     try{
-    
+    if(validateForm('validateForm') === 0){
      if(file.length !== 0) {
       const ext = file.name.split('.')[1]
       if((ext === 'csv') || (ext === 'xlsx') || (ext === 'xls')) {
@@ -104,7 +104,7 @@ export default function FormDialogCsv(props) {
                 code:  pin+index
                 })
                  })
-                 console.log(obj2)
+            
                  app.post('/codes/', obj2).then(res2=>{
                 //send email here console.log(res2.data)
                 obj.map((ob)=>{
@@ -149,7 +149,7 @@ export default function FormDialogCsv(props) {
             else{
               showToastMessage('Invalid file format (csv, xlxs, xls only)...', 'error')
             }
-    }
+    }}
     }
     catch(err){
   showToastMessage(err, 'error')
@@ -175,6 +175,7 @@ export default function FormDialogCsv(props) {
 //<Link to='/form/register/add' className="addnew">Registration</Link>
   return (
     <div xs={12} xl={6}>
+    <form className='validateForm'>
       <Button variant="outlined" onClick={handleClickOpen}>
         Upload
       </Button>
@@ -202,6 +203,7 @@ export default function FormDialogCsv(props) {
         
         </DialogActions>
       </Dialog>
+      </form>
     </div>
   );
 }

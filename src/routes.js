@@ -11,6 +11,7 @@ const ViewHospital = React.lazy(() => import('./pages/hospital/view'))
 
 const ListUsers = React.lazy(() => import('./pages/user/list'))
 
+
 const PrintForm = React.lazy(()=> import('./pages/printout'))
 const GifshipList = React.lazy(() => import('./pages/gifship/listall'));
 const  GifshipType  = React.lazy(() => import( './pages/gifship/gifshipType'));

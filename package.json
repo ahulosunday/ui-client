@@ -53,6 +53,7 @@
     "js-tokens": "^8.0.1",
     "json-schema-traverse": "^1.0.0",
     "json-stable-stringify-without-jsonify": "^1.0.1",
+    "just-validate": "^4.2.0",
     "mdbreact": "^5.2.0",
     "moment": "^2.29.4",
     "nanoid": "^4.0.2",

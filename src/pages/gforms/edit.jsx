@@ -68,7 +68,7 @@ const handleChange = e =>{
       
         try{
         e.preventDefault()
-        if(validateForm('form')){
+        if(validateForm('form') === 0){
         setLoading(true)
         trackPromise(app.put(`/register/${inputs.id}/`, inputs).then(res=>{
           if(res.status === 200){

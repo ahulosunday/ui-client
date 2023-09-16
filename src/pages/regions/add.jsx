@@ -10,7 +10,7 @@ import SendIcon from '@mui/icons-material/Send';
 import showToastMessage from '../../components/toast';
 import { CCard, CCardBody, CCardHeader, CCol, CFormInput, CFormLabel, CFormSelect, CFormTextarea, CRow } from '@coreui/react';
 import { DocsExample } from '../../components';
-
+import validateForm from '../../components/validateForm';
 
 const AddRegion = () =>{
     const [loading, setLoading] = useState(false);
@@ -29,6 +29,7 @@ const handleChange = e =>{
     }
     const handleSubmit = async e =>{
        e.preventDefault()
+       if(validateForm('validateForm') === 0){
        setLoading(true)
         try{
          await app.post('/region', inputs)
@@ -46,6 +47,7 @@ const handleChange = e =>{
           setLoading(false)
         showToastMessage('Error occured ...' +errs, 'error')
         }
+       }
     }
      useEffect(()=>{
 const loadItem = async e =>{

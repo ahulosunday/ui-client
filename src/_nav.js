@@ -35,7 +35,7 @@ const _nav = [
   },
   {
     component: CNavTitle,
-    name: '',
+    name: 'CATEGORIES',
   },
   {
     component: CNavItem,
@@ -43,7 +43,7 @@ const _nav = [
     to: '/form/register',
     icon: <CIcon icon={cilUser} customClassName="nav-icon" />,
   },
-  //========================
+  
   {
     component: CNavItem,
     name: 'PHC',

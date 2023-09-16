@@ -9,7 +9,7 @@ import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
 import SendIcon from '@mui/icons-material/Send';
 import { CCard, CCardBody, CCardHeader, CCol, CFormInput, CFormLabel, CFormSelect, CFormTextarea, CRow } from '@coreui/react';
 import { DocsExample } from '../../components';
-
+import validateForm from '../../components/validateForm';
 const AddLga = () =>{
     const [loading, setLoading] = useState(false);
     const [country, setCountry] = useState([])
@@ -35,6 +35,7 @@ const handleChange = e =>{
     const handleSubmit = async e =>{
        e.preventDefault()
         try{
+          if(validateForm('validateForm') === 0){
       setLoading(true)
       await app.post('/lga', inputs).then(res=>{
         if(res.status === 200){
@@ -47,6 +48,7 @@ const handleChange = e =>{
         showToastMessage('Transaction failed with status: '+ err, 'error')
       })
       }
+        }
         catch(errs){
         showToastMessage('Transaction failed with internal error ', 'error')
         }
@@ -107,7 +109,7 @@ const loadItem = async e =>{
          <CCardHeader style={{backgroundColor:'skyblue'}}>
             <strong style={{color:'white'}}>ADD LGAs</strong>
           </CCardHeader>
-          <CCardBody>
+          <CCardBody className='validateForm'>
             <DocsExample add="LGA"> 
              <CRow>
             <CCol xs={12} xl={6}>

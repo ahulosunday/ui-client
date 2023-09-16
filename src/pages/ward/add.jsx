@@ -9,7 +9,7 @@ import SendIcon from '@mui/icons-material/Send';
 import showToastMessage from '../../components/toast';
 import { CCard, CCardBody, CCardHeader, CCol, CFormInput, CFormLabel, CFormSelect, CFormTextarea, CRow } from '@coreui/react';
 import { DocsExample } from '../../components';
-
+import validateForm from '../../components/validateForm';
 const AddWard = () =>{
     const [loading, setLoading] = useState(false);
     const [country, setCountry] = useState([])
@@ -37,6 +37,7 @@ const handleChange = e =>{
     const handleSubmit = async e =>{
         try{
             e.preventDefault()
+            if(validateForm('validateForm') === 0){
             setLoading(true)
           await app.post('/ward', inputs).then(res=>{
           if(res.status === 200){
@@ -48,6 +49,7 @@ const handleChange = e =>{
             setLoading(false)
             showToastMessage('Transaction failed with status: '+ err, 'error')
           })
+        }
         }
         catch(errs){
           setLoading(false)
@@ -124,7 +126,7 @@ const loadItem = async e =>{
          <CCardHeader style={{backgroundColor:'skyblue'}}>
             <strong style={{color:'white'}}>ADD WARD</strong>
           </CCardHeader>
-          <CCardBody>
+          <CCardBody className='validateForm'>
             <DocsExample add="WARD"> 
              <CRow>
             <CCol xs={12} xl={6}>

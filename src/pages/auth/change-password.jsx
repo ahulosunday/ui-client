@@ -27,7 +27,7 @@ const [ inputs, setInputs ] = useState({
     }
     const handleUpdate = async e =>{
     try{
-       if(validateForm('password')){
+       if(validateForm('password') === 0){
         if(!(inputs.password === inputs.conpassword)) {
            showToastMessage("Password mismatch found!", 'error')
         }
