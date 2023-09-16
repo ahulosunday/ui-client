@@ -35,6 +35,7 @@ import { DocsExample } from '../../components'
 import DeleteIcon from '../../components/deleteIcon';
 import EditIcon from '../../components/editIcon';
 import ViewIcon from '../../components/viewIcon';
+import { formatCurreny } from '../../components/formatCurrency';
 
 
 const ListRRR = () =>{
@@ -43,7 +44,6 @@ const ListRRR = () =>{
     const [data, setData] = useState([])
     const {currentUser, permissions } = useContext(AuthContext);
    const navigate = useNavigate()
-     let table = new DataTable('#myTable');
 useEffect(()=>{
     if(!(permissions.indexOf("VIEW_RRR") > -1) ){
         navigate('/')
@@ -86,7 +86,7 @@ const loadItem = async e =>{
   };
 const datas = {
   nodes: getrrr.filter((item) =>
-    item.user.surname.toLowerCase().includes(search.toLowerCase())
+    (item.user.surname.toLowerCase().includes(search.toLowerCase()) || item.user.othername.toLowerCase().includes(search.toLowerCase()))
   ),
 };
     return (
@@ -101,7 +101,7 @@ const datas = {
             <DocsExample href="user-rrr/add" add="Enrolee Payment List" showAdd={permissions.indexOf("ADD_RRR") > -1? true: false}>
            <CInputGroup>
         <CInputGroupText> Search</CInputGroupText>
-        <input id="search" placeholder='Search by User Surname' className='form-control' type="text" onChange={handleSearch} />
+        <input id="search" placeholder='Search by name' className='form-control' type="text" onChange={handleSearch} />
       </CInputGroup>
        <CTable striped style={{fontSize:'12px'}} align="middle" responsive>
        <CTableHead>
@@ -134,7 +134,7 @@ const datas = {
         <CTableDataCell>{item.gifship.name}</CTableDataCell>
         <CTableDataCell>{item.gifshiptype.name}</CTableDataCell>
          <CTableDataCell>{item.gifshipPackage.name}</CTableDataCell>
-          <CTableDataCell>{item.amount}</CTableDataCell>
+          <CTableDataCell>{formatCurreny.format(item.amount)}</CTableDataCell>
           <CTableDataCell>{item.minNumber}</CTableDataCell>
           <CTableDataCell>{item.maxNumber}</CTableDataCell>
           <CTableDataCell>{moment(item.activated_date).format('Do MMMM YYYY')}</CTableDataCell>

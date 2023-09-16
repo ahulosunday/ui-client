@@ -93,7 +93,7 @@ setErrExp('Something went wrong, try again later, if error persists then contact
  const status = 'OK'
  if(status === 'OK' && inputs.pay === 0){
   let  expired_date= moment(Date.parse(sdate) + ((gifship.duration * 1000 * 60 * 60 * 24))).format('YYYY-MM-DD')
-  await app.post('/user-rrr/', {rrr_number:code, userId:user.id, activated:1, activatedby:user.id,	amount:amount,	duration:gifship.duration,	gifshipId:gifship.gifshipId,	gifshipTypeId:gifship.gifshipTypeId,	gifshipPackageId:gifship.id,	activated_date:sdate,	expired_date:expired_date, maxNumber:num, minNumber:num, authNumber: code})
+  await app.post('/user-rrr/', {rrr_number:code, userId:user.id, activated:0, activatedby:user.id,	amount:amount,	duration:gifship.duration,	gifshipId:gifship.gifshipId,	gifshipTypeId:gifship.gifshipTypeId,	gifshipPackageId:gifship.id,	activated_date:sdate,	expired_date:expired_date, maxNumber:num, minNumber:num, authNumber: code})
        .then(async res =>{
         showToastMessage('Transaction completed with status: OK, Registration details has been sent to your email ...', 'success')
         const emailHtml = render(<><h2>Congratulations!</h2><p>We are pleased to inform you that your account has been created successfully.<br />Username: {user.username} <br />Password: ******** <br /> You will be notified appropriately when your registration is activated.<br /> If you encounter any further issues or have any questions, please do not hesitate to reach out to our customer support team via our customer support channels.<br /> Visit <a href={hostUrl}> here</a> to login. <br /> <hr /> Thanks.<br /> Management Team.</p></>);
@@ -132,7 +132,7 @@ if(RRRValid === 'OK'){
     return
   }
 let  expired_date= moment(Date.parse(sdate) + ((gifship.duration * 1000 * 60 * 60 * 24))).format('YYYY-MM-DD')
-  await app.post('/user-rrr/', {rrr_number:inputs.rrr, userId:user.id, activated:1, activatedby:user.id,	amount:amount,	duration:gifship.duration,	gifshipId:gifship.gifshipId,	gifshipTypeId:gifship.gifshipTypeId,	gifshipPackageId:gifship.id,	activated_date:sdate,	expired_date:expired_date, maxNumber:num, minNumber:num, authNumber:inputs.authNumber})
+  await app.post('/user-rrr/', {rrr_number:inputs.rrr, userId:user.id, activated:0, activatedby:user.id,	amount:amount,	duration:gifship.duration,	gifshipId:gifship.gifshipId,	gifshipTypeId:gifship.gifshipTypeId,	gifshipPackageId:gifship.id,	activated_date:sdate,	expired_date:expired_date, maxNumber:num, minNumber:num, authNumber:inputs.authNumber})
        .then(async res =>{
         showToastMessage('Transaction completed with status: OK, Registration details has been sent to your email ...', 'success')
         const emailHtml = render(<><h2>Congratulations!</h2><p>We are pleased to inform you that your account has been created successfully.<br />Username: {user.username} <br />Password: ******** <br /> You will be notified appropriately when your registration is activated.<br /> If you encounter any further issues or have any questions, please do not hesitate to reach out to our customer support team via our customer support channels.<br /> Visit <a href={hostUrl}> here</a> to login. <br /> <hr /> Thanks.<br /> Management Team.</p></>);
