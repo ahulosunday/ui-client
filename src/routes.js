@@ -43,6 +43,7 @@ const EditHmo  = React.lazy(() => import( './pages/hmo/edit'));
 const EditRegister  = React.lazy(() => import( './pages/gforms/edit'));
 const ViewForm  = React.lazy(() => import( './pages/gforms/view'));
 //const PrintForm  = React.lazy(() => import( './pages/printout'));
+const GeneratePayment  = React.lazy(() => import( './pages/user-rrr/generatePayment'));
 const ListRRR  = React.lazy(() => import( './pages/user-rrr/list'));
 const ListDependants  = React.lazy(() => import( './pages/user-rrr/dependants'));
 const AddUserRRR  = React.lazy(() => import( './pages/user-rrr/add'));
@@ -120,6 +121,7 @@ const routes = [
 {path: '/print/form/:id', name : 'PrintForm', element: PrintForm },
 {path: '/user-rrr/', name: 'User_RRR', element: ListRRR},
 {path: '/user-rrr/dependants', name: 'List_dependants', element: ListDependants},
+{path: '/user-rrr/generate/payment', name: 'Generate_Payment', element: GeneratePayment},
 {path: '/user-rrr/add', name: 'User_RRR', element:AddUserRRR },
 {path: '/delete', name:'Delete', element: Delete},
 {path: '/change-passport', name: 'Change_password', element: ChangePassword },

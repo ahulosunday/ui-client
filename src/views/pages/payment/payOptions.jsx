@@ -15,6 +15,7 @@ import { render } from "@react-email/render";
 import hostUrl from '../../../helpers/hostUrl';
 import { CButton } from '@coreui/react';
 import { AuthContext } from '../../../context/authContext';
+import validateForm from '../../../components/validateForm';
 
 export default function PayOptions (){
  const [open, setOpen] = React.useState(true);
@@ -22,6 +23,7 @@ export default function PayOptions (){
     const [ inputs, setInputs ] = React.useState({username:'', password:''})
     const  navigate = useNavigate();
          const {currentUser, login } = React.useContext(AuthContext);
+         const [errExp, setErrExp] = React.useState('')
 
 
     const handleClose = () => {
@@ -37,21 +39,26 @@ export default function PayOptions (){
      setValid(true)
   }
   const handleSubmit = async()=>{
+    try{
+      if(validateForm('validateForm') === 0){
    await app.post('/signin/0', inputs).then(res=>{
     navigate("/payment/option", {state:inputs.username});
    }).catch(err=>{
-    showToastMessage('Unable to identify the user', 'error')
+    //showToastMessage('Unable to identify the user', 'error')
+    setErrExp('Username or Password is incorrect')
    })
-
-    
+      }
+    }
+    catch(errExpl){
+      setErrExp(errExpl)
+    }
   }
 return (
-     <div>
-      
-      
+     <div className='validateForm'>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Authentication inprogress ...</DialogTitle>
+        <DialogTitle>User authentication</DialogTitle>
         <DialogContent>
+        
           <DialogContentText>
             Enter your username and password
           </DialogContentText>
@@ -82,6 +89,7 @@ return (
           {valids? <Button onClick={handleSubmit} id="continue">Continue</Button>:''}
           
         </DialogActions>
+        <p style={{color:'red', textAlign:'center'}}>{errExp}</p>
       </Dialog>
     </div>
   );

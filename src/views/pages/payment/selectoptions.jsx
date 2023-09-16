@@ -23,9 +23,14 @@ import { cibAmericanExpress, cilArrowBottom, cilArrowTop, cilOptions } from '@co
 import { DocsExample } from '../../../components'
 import DefaultLogo from '../../../img/logo2.png'
 import ToggleClick from './GifshipModal'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import app from '../../../helpers/axiosConfig'
 import { nanoid, pin } from '../../../helpers/customAlphabet';
+import DeckIcon from '@mui/icons-material/Deck';
+import CleanHandsIcon from '@mui/icons-material/CleanHands';
+import DataSaverOnIcon from '@mui/icons-material/DataSaverOn';
+import Filter5Icon from '@mui/icons-material/Filter5';
+import FlipCameraAndroidIcon from '@mui/icons-material/FlipCameraAndroid';
 
 const SelectOptions = () => {
    const state = useLocation().state
@@ -67,7 +72,7 @@ const SelectOptions = () => {
       <CRow className="justify-content-center">
       <CCol xl={8} xs={12}>
       <p className="text-medium-emphasis" style={{textAlign:'center'}}>
-                     <img style={{marginTop:0, borderRadius:'30px'}} src={DefaultLogo} alt='' />
+                     <img style={{marginTop:0, borderRadius:'30px', width:'20%'}} src={DefaultLogo} alt='' />
                      <br />
                     <span style={{color:'teal'}}> e-NHIA PORTAL</span> 
 
@@ -84,13 +89,13 @@ const SelectOptions = () => {
               <DocsExample add="SELECT THE PROGRAMMES"> 
 <CRow>
 
-     <CCol sm={6} lg={3}>
+     <CCol xs={12} xl={3}>
         <CWidgetStatsA
           className="mb-4"
           color="primary"
           value={
             <>
-         <CIcon icon={cibAmericanExpress} />
+        <DeckIcon />
             </>
           }
           title="GIFSHIP"
@@ -116,7 +121,112 @@ const SelectOptions = () => {
       />
       </CCol>
    
+   <CCol xs={12} xl={3}>
+        <CWidgetStatsA
+          className="mb-4"
+          color="success"
+          value={
+            <>
+         <CleanHandsIcon />
+            </>
+          }
+          title="ADD DEPENDANT"
+          action={
+            <CDropdown alignment="end">
+              <CDropdownToggle color="transparent" caret={false} className="p-0">
+                <CIcon icon={cilOptions} className="text-high-emphasis-inverse" />
+              </CDropdownToggle>
+              <CDropdownMenu>
+              {
+                
+              }
+                
+               
+              </CDropdownMenu>
+            </CDropdown>
+          }
+      />
+      </CCol>
+   <CCol xs={12} xl={3}>
+        <CWidgetStatsA
+          className="mb-4"
+          color="warning"
+          value={
+            <>
+        <DataSaverOnIcon />
+            </>
+          }
+          title="EXTRA DEPENDANT"
+          action={
+            <CDropdown alignment="end">
+              <CDropdownToggle color="transparent" caret={false} className="p-0">
+                <CIcon icon={cilOptions} className="text-high-emphasis-inverse" />
+              </CDropdownToggle>
+              <CDropdownMenu>
+              {
+                
+              }
+                
+               
+              </CDropdownMenu>
+            </CDropdown>
+          }
+      />
+      </CCol>
+      <CCol xs={12} xl={3}>
+        <CWidgetStatsA
+          className="mb-4"
+          color="secondary"
+          value={
+            <>
+        <Filter5Icon />
+            </>
+          }
+          title="ACREDITATION"
+          action={
+            <CDropdown alignment="end">
+              <CDropdownToggle color="transparent" caret={false} className="p-0">
+                <CIcon icon={cilOptions} className="text-high-emphasis-inverse" />
+              </CDropdownToggle>
+              <CDropdownMenu>
+              {
+                
+              }
+                
+               
+              </CDropdownMenu>
+            </CDropdown>
+          }
+      />
+      </CCol>
+      <CCol xs={12} xl={3}>
+        <CWidgetStatsA
+          className="mb-4"
+          color="info"
+          value={
+            <>
+        <FlipCameraAndroidIcon />
+            </>
+          }
+          title="REACCREDITATION"
+          action={
+            <CDropdown alignment="end">
+              <CDropdownToggle color="transparent" caret={false} className="p-0">
+                <CIcon icon={cilOptions} className="text-high-emphasis-inverse" />
+              </CDropdownToggle>
+              <CDropdownMenu>
+              {
+                
+              }
+                
+               
+              </CDropdownMenu>
+            </CDropdown>
+          }
+      />
+      </CCol>
 </CRow>
+<Link to={'/login'}>Back</Link>
 </DocsExample>
 </CCardBody>
 </CCard>

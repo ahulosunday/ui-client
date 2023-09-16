@@ -9,6 +9,7 @@ export const AuthContextProvider = ({children}) =>{
  const [currentUser, setCurrentUser ] = useState(JSON.parse(localStorage.getItem("user")) || null);
     const [permissions, setPermissions ] = useState([]);
     const [loading, setLoading] = useState(false)
+    const [action , setAction] = useState(false)
  const login = async(inputs)=>{
         try{
             setLoading(true)
@@ -16,17 +17,19 @@ export const AuthContextProvider = ({children}) =>{
          .then(res =>{
              setCurrentUser(res.data)
              setLoading(false)
+             setAction(true)
          })
          .catch(errs=>{
             setLoading(true)
-       // showToastMessage(errs+'!', 'error')
+           setAction(false)
          });
     
          }
         catch(error){
+            setAction(false)
            showToastMessage("Unidentified error occured ...", 'error')
         }
-        
+        return action
     }
     //logout ====================admin@gmail.com
     const logout = async()=>{

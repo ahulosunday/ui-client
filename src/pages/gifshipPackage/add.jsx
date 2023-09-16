@@ -70,9 +70,10 @@ const handleChange = e =>{
     }
     const handleSubmit = async e =>{
        e.preventDefault()
-       setLoading(true)
+      
         try{
             if(validateForm('validateForm') === 0){
+                 setLoading(true)
         await app.post('/gifshipPackage', inputs)
        .then(res =>{
         setLoading(false)

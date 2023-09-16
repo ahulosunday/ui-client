@@ -32,7 +32,7 @@ return (
       
       <Link onClick={handleClickOpen} style={{textDecoration:'none', color:'gray'}}>Payment</Link>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Validation inprogress ...</DialogTitle>
+        <DialogTitle>User Authentication</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Enter your username and password

@@ -8,8 +8,7 @@ export const AppSidebarNav = ({ items }) => {
   const [show, setShow] = useState(true)
   const location = useLocation()
   //Logins for Role with id 3, that is Guest
-  
-  const arr = [3, 4, 5, 10, 12]
+   const arr = ['Payment', 'Change Password', 'Enrolement', 'Profile Pix', 'Dashboard']
   useEffect(()=>{
  if(currentUser?.roleid === 3) setShow(false)
   }, [currentUser])
@@ -66,8 +65,11 @@ export const AppSidebarNav = ({ items }) => {
     <React.Fragment>
       {items? show?
         items.map((item, index) => (item.items ? navGroup(item, index) : navItem(item, index)))
-        : items.map((item, index) => ((!arr.includes(index))? navItem(item, index): ''))
+        : items.map((item, index) => ((!arr.includes(item.name))? navItem(item, index): ''))
          : null}
+         {
+         
+         }
     </React.Fragment>
   )
 }

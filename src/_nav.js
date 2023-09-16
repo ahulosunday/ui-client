@@ -57,6 +57,13 @@ const _nav = [
     to: '/user-rrr/',
     icon: <CIcon icon={cilMoney} customClassName="nav-icon" />,
   },
+  
+  {
+    component: CNavItem,
+    name: 'Generate Payment',
+    to: '/user-rrr/generate/payment',
+    icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />,
+  },
     {
     component: CNavItem,
     name: 'HMOs',

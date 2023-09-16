@@ -16,7 +16,7 @@ import { cilLockLocked, cilUser } from '@coreui/icons'
 import React, {useContext, useEffect, useState} from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
-import { Stack } from "@mui/material";
+import { Alert, Stack } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 import { AuthContext } from '../../../context/authContext';
 import DefaultLogo from '../../../img/logo2.png'
@@ -53,24 +53,23 @@ const Logins = () => {
         }
       
    const handleSummit = async e =>{
-          
         try{ 
              e.preventDefault()
             if(validateForm('login') === 0){
-           if(login(inputs)){
-           setError("Invalid Username or Password")
+           if(login(inputs) === true){
+           setError(<Alert severity="success">Redirecting, please wait ...</Alert>)
+           }
+           else{
+            setError(<Alert severity="error">Invalid Username/Password</Alert>)
            }
             }
             
            }
         catch(errs){
-           setError("Invalid Username or Password")
+           setError(<Alert severity="error">{errs}</Alert>)
            
 
-        }
-
-
-        
+        } 
        
    }
   return (
@@ -112,7 +111,7 @@ const Logins = () => {
                       />
                     </CInputGroup>
                     <CRow>
-                      <CCol xs={7}>
+                      <CCol xs={12}>
                                    <Stack direction="row" spacing={1} > <LoadingButton size="small"
           onClick={(e) => handleSummit(e)
           }
@@ -122,17 +121,18 @@ const Logins = () => {
           variant="contained"
         >
           Login
-        </LoadingButton>  <Link to={'/register'}>Click here for new User</Link>
+        </LoadingButton>  
         </Stack>
        
 
        
                       </CCol>
-                      <CCol xs={5}>
-                       
+                      <CCol xs={12}>
+                      
+                                
                         <CButton color="link" className="px-0" style={{textDecoration:'none'}} onClick={handleForgot}>
                           Forgot password?
-                        </CButton>
+                        </CButton> | <Link to={'/register'}>Click here for new User</Link>
                       </CCol>
                     </CRow>
                   </CForm>

@@ -6,6 +6,7 @@ import {AuthContext} from "../../../context/authContext";
 //import { trackPromise } from "react-promise-tracker";
 import SendIcon from '@mui/icons-material/Send';
 import validateForm from "../../../components/validateForm";
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import {
   CButton,
   CCard,
@@ -19,7 +20,7 @@ import {
   CInputGroupText,
   CRow,
 } from '@coreui/react'
-import { AiFillAccountBook, AiFillAlert, AiFillCompass, AiFillEye, AiFillFolderOpen, AiFillPhone, AiTwotonePicture } from "react-icons/ai";
+import { AiFillAccountBook, AiFillAlert, AiFillCompass, AiFillDownCircle, AiFillEye, AiFillFolderOpen, AiFillPhone, AiTwotonePicture } from "react-icons/ai";
 import showToastMessage from "../../../components/toast";
 import DefaultLogo from '../../../img/logo2.png'
 import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
@@ -107,6 +108,22 @@ const Register = () => {
         }
         
    }
+
+    // Function will execute on click of button
+    const onButtonClick = () => {
+        // using Java Script method to get csv file
+        fetch('uploadList.csv').then(response => {
+            response.blob().then(blob => {
+                // Creating new object of csv file
+                const fileURL = window.URL.createObjectURL(blob);
+                // Setting various property values
+                let alink = document.createElement('a');
+                alink.href = fileURL;
+                alink.download = 'uploadList.csv';
+                alink.click();
+            })
+        })
+    }
   return (
    <div className="bg-light min-vh-100 d-flex flex-row align-items-center" >
       <CContainer>
@@ -239,7 +256,7 @@ const Register = () => {
             </div>
             </CCol>
              <CCol xl={6} xs={12}>
-              <Link style={{textDecoration:'none', textAlign:'right'}} to="/login">Already have an account?</Link>
+              <Link style={{textDecoration:'none', textAlign:'right'}} to="/login" title="Already have an account then go to login">Already have an account?</Link> | <Link title="Download Group Registration file Format for bulk upload" onClick={onButtonClick}>< FileDownloadIcon />Download</Link>
        
              </CCol>
              </CRow>
