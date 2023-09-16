@@ -25,7 +25,7 @@
             (x[i].style.borderBlockColor = '')
             valid = true
           }
-           alert(valid)
+          
            }
              for (var i = 0; i < y.length; i++) {
           if(y[i].value === ''){
