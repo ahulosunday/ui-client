@@ -200,7 +200,7 @@ const datas = {
           <Typography>
           <CFormInput type="hidden" name="plist" id="plist" value={checked.join(",")} />
            Sum: {formatCurreny.format(sum)} 
-           <p style={{textAlign:'right'}}><Link title='Activate the selected record(s)' onClick={getData}><AddTaskIcon /> Activate</Link></p>
+          {permissions?.indexOf("EDIT_RRR") > -1 ? <p style={{textAlign:'right'}}><Link title='Activate the selected record(s)' onClick={getData}><AddTaskIcon /> Activate</Link></p>:null}
           </Typography>
         </AccordionDetails>
       
