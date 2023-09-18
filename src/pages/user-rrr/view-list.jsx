@@ -1,7 +1,7 @@
 import app from '../../helpers/axiosConfig'
 import React, { useContext, useEffect, useState } from "react";
 //import { AuthContext } from "../../context/authContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {AuthContext} from "../../context/authContext";
 import moment from "moment";
 import { Button, Pagination, Stack } from '@mui/material';
@@ -38,23 +38,20 @@ import ViewIcon from '../../components/viewIcon';
 import { formatCurreny } from '../../components/formatCurrency';
 
 
-const ListRRR = () =>{
+const ListRRRByUser = () =>{
     const [getrrr, setGetrrr] = useState([]);
     const [page, setPage]= useState(1)
     const [data, setData] = useState([])
+    const state = useLocation().state
     const {currentUser, permissions } = useContext(AuthContext);
    const navigate = useNavigate()
 useEffect(()=>{
-    if(!(permissions.indexOf("VIEW_RRR") > -1) ){
-        navigate('/')
-    }
-
+  
 const loadItem = async e =>{
  try{
          
-        await app.get(`user-rrr/${startIndex}/${per_page}/0`).then(res=>{
-            setGetrrr(res.data.res)
-            setData(res.data)
+        await app.get(`/rrr/${state}/0/0/1`).then(res=>{
+            setGetrrr(res.data)
         }).catch(err=>{
             showToastMessage(err, 'error')
         })
@@ -68,18 +65,8 @@ const loadItem = async e =>{
    
          loadItem()
         
-  }, [currentUser, permissions, navigate])
+  }, [currentUser, state, navigate])
 
-  const handleChange = async (e, value) => {
-    setPage(value);
-    await app.get(`user-rrr/${page}/${per_page}/0`).then(res=>{
-            setGetrrr(res.data.res)
-            setData(res.data)
-        }).catch(err=>{
-            showToastMessage(err, 'error')
-        })
-
-  }
     const [search, setSearch] = React.useState('');
   const handleSearch = (event) => {
     setSearch(event.target.value);
@@ -95,10 +82,10 @@ const datas = {
 <CCol xs={12} >
         <CCard className="mb-12" >
          <CCardHeader style={{backgroundColor:'skyblue'}}>
-            <strong style={{color:'white'}}>LISTS OF ENROLEES PAYMENTS</strong>
+            <strong style={{color:'white'}}>PAYMENT</strong>
           </CCardHeader>
           <CCardBody>
-            <DocsExample href="user-rrr/add" add="Enrolee Payment List" showAdd={permissions.indexOf("ADD_RRR") > -1? true: false}>
+            <DocsExample add="Payment">
            <CInputGroup>
         <CInputGroupText> Search</CInputGroupText>
         <input id="search" placeholder='Search by name' className='form-control' type="text" onChange={handleSearch} />
@@ -143,10 +130,8 @@ const datas = {
        {
        <CTableDataCell>
        <CButtonGroup>
-       {permissions.indexOf("VIEW_RRR") > -1?  <ViewIcon to={`/user-rrr/dependants`} state={item.id} />:'' }
-      {permissions.indexOf("EDIT_RRR") > -1?  <EditIcon to={`/user-rrr/`} state={item.id} />:'' }
-       {permissions.indexOf("DELETE_RRR") > -1? <DeleteIcon to={`/delete`}  state={item.id +'&/user-rrr/&/user-rrr/'} /> : ''}
-       </CButtonGroup> </CTableDataCell>
+       <ViewIcon to={`/user-rrr/dependants`} state={item.id} />
+      </CButtonGroup> </CTableDataCell>
         }
        </CTableRow>
             ))
@@ -154,11 +139,6 @@ const datas = {
         }
       </CTableBody>
        </CTable>
-       <p>
-       <Stack spacing={2}>
-      <Pagination count={data.totalPages} page={page} onChange={handleChange} variant="outlined" shape="rounded"  color="secondary" />
-    </Stack>
-    </p>
        </DocsExample>
        </CCardBody>
        </CCard>
@@ -172,4 +152,4 @@ const datas = {
     )
 }
 
-export default ListRRR
+export default ListRRRByUser

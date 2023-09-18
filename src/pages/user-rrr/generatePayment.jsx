@@ -15,6 +15,7 @@ import showToastMessage from '../../components/toast';
 import { formatCurreny } from '../../components/formatCurrency';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import ClearIcon from '@mui/icons-material/Clear';
+import AddTaskIcon from '@mui/icons-material/AddTask';
 const GeneratePayment = ()=>{
 const [expanded, setExpanded] = React.useState(false);
  const [getrrr, setGetrrr] = React.useState([]);
@@ -70,10 +71,22 @@ const loadItem = async e =>{
    
          loadItem()
          
-        
+      
   }, [currentUser, permissions, navigate])
 
-
+const getData = async ()=>{
+var arr = [];
+const oFullResponse = ['u', 'v', 'w', 'x']
+var len = oFullResponse.length;
+for (var i = 0; i < len; i++) {
+    arr.push({
+        id: oFullResponse[i],
+        name: 'name',
+        date: 'date'
+    });
+}
+console.log(arr)
+}
    const [search, setSearch] = React.useState('');
   const handleSearch = (event) => {
     setSearch(event.target.value);
@@ -139,7 +152,7 @@ const datas = {
         <AccordionDetails>
           <Typography>
            Sum: {formatCurreny.format(sum)} 
-           <p style={{textAlign:'right'}}><Link to={''}>Activate selected payment</Link></p>
+           <p style={{textAlign:'right'}}><Link title='Activate the selected record(s)' to={'/user-rrr/'}><AddTaskIcon /> Activate</Link></p>
           </Typography>
         </AccordionDetails>
       

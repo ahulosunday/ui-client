@@ -45,6 +45,7 @@ const ViewForm  = React.lazy(() => import( './pages/gforms/view'));
 //const PrintForm  = React.lazy(() => import( './pages/printout'));
 const GeneratePayment  = React.lazy(() => import( './pages/user-rrr/generatePayment'));
 const ListRRR  = React.lazy(() => import( './pages/user-rrr/list'));
+const ListRRRByUser = React.lazy(() => import( './pages/user-rrr/view-list'));
 const ListDependants  = React.lazy(() => import( './pages/user-rrr/dependants'));
 const AddUserRRR  = React.lazy(() => import( './pages/user-rrr/add'));
 const AssignPermissions  = React.lazy(() => import( './pages/role/assign-permissions'));
@@ -120,6 +121,7 @@ const routes = [
 //================================
 {path: '/print/form/:id', name : 'PrintForm', element: PrintForm },
 {path: '/user-rrr/', name: 'User_RRR', element: ListRRR},
+{path: '/user-rrr/view-list/', name: 'RRR', element: ListRRRByUser},
 {path: '/user-rrr/dependants', name: 'List_dependants', element: ListDependants},
 {path: '/user-rrr/generate/payment', name: 'Generate_Payment', element: GeneratePayment},
 {path: '/user-rrr/add', name: 'User_RRR', element:AddUserRRR },

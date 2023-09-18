@@ -163,8 +163,7 @@ const datas = {
        return  (         
             <CTableRow key={item.id}>
             <CTableDataCell>
-            <Link to={'/view/others/users'} title='view other members of the payment' state={item.userid}>{item.idCode}</Link>
-    
+            <Link to={'/user-rrr/view-list/'}  title='view other members of the payment' state={item.userId}>{item.idCode}</Link>
             </CTableDataCell>
        <CTableDataCell>{item.surname}</CTableDataCell>
        <CTableDataCell>{item.lastname}</CTableDataCell>
@@ -194,7 +193,7 @@ const datas = {
 
             <CTableRow key={item.id}>
               <CTableDataCell>
-            <Link to={'/view/others/users'} title='view other members of the payment' state={item.userid}>{item.idCode}</Link>
+            <Link to={'/user-rrr/view-list/'}  title='view other members of the payment' state={item.userId}>{item.idCode}</Link>
     
             </CTableDataCell>
        <CTableDataCell>{item.surname}</CTableDataCell>

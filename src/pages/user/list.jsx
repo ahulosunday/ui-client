@@ -4,8 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
 import { per_page, startIndex } from '../../helpers/paging_indexes';
 import showToastMessage from '../../components/toast';
-import { Pagination, Stack } from '@mui/material';
+import { Alert, Pagination, Stack } from '@mui/material';
 import baseURLStatic from '../../helpers/imageUrl';
+import UndoIcon from '@mui/icons-material/Undo';
 import {
   CButton,
   CButtonGroup,
@@ -26,6 +27,7 @@ import { DocsExample } from '../../components'
 
 const ListUsers = () =>{
        const [users, setUsers] = useState([]);
+       const [errs, setError] = useState('')
        const [page, setPage] = useState(1)
         const [data, setData] = useState([]);
        const {currentUser, permissions } = useContext(AuthContext);
@@ -69,8 +71,10 @@ if(!(permissions.indexOf("VIEW_USERS") > -1)){
       }
       catch(err){
        showToastMessage('Internal error !', 'error')
+       setError('Internal error occured...')
       }
   }
+ 
     
     return (
        <CRow >
@@ -83,7 +87,7 @@ if(!(permissions.indexOf("VIEW_USERS") > -1)){
             <p className="text-medium-emphasis small">
               Using the Add New button to create new User.
             </p>
-           
+           {errs}
             <DocsExample add="List of Users" >
             <Link to='/user/activate/0/1'>Activate User</Link> 
        <CTable striped style={{fontSize:'12px'}} align="middle" responsive>
@@ -100,6 +104,7 @@ if(!(permissions.indexOf("VIEW_USERS") > -1)){
        <CTableHeaderCell>CREATED_DATE</CTableHeaderCell>
        <CTableHeaderCell>LAST_UPDATED</CTableHeaderCell>
        <CTableHeaderCell>IMAGE</CTableHeaderCell>
+       <CTableHeaderCell></CTableHeaderCell>
        
        </CTableRow>
        </CTableHead>
@@ -108,7 +113,7 @@ if(!(permissions.indexOf("VIEW_USERS") > -1)){
         
             users.length===0? '': users.map((item, index)=>(
             <CTableRow key={item.id}>
-            <CTableDataCell><Link to={`/deactivate/${item.id}}/1/1`}>Deactivate</Link></CTableDataCell>
+            <CTableDataCell><Link title='Deactive user' to={`/deactivate/${item.id}}/1/1`}>Deactivate</Link></CTableDataCell>
              <CTableDataCell>{index+1}</CTableDataCell>
        <CTableDataCell>{item.username}</CTableDataCell>
        <CTableDataCell>{item.email}</CTableDataCell>
@@ -119,6 +124,7 @@ if(!(permissions.indexOf("VIEW_USERS") > -1)){
         <CTableDataCell>{item.createdAt}</CTableDataCell>
         <CTableDataCell>{item.updatedAt}</CTableDataCell>
          <CTableDataCell><img  alt="" src={ `${baseURLStatic}${item.imgurl}`} height={50} width={50}  /></CTableDataCell>
+        <CTableDataCell><Link style={{color:'red'}} title='Delete this user' to={'/delete'} state={item.id + '&/users/list&/users/'} ><UndoIcon /></Link></CTableDataCell>
        </CTableRow>
             ))
            
