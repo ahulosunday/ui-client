@@ -162,7 +162,10 @@ const datas = {
         datas.nodes.length === 0? '': datas.nodes.map((item)=>{
        return  (         
             <CTableRow key={item.id}>
-            <CTableDataCell>{item.idCode}</CTableDataCell>
+            <CTableDataCell>
+            <Link to={'/view/others/users'} title='view other members of the payment' state={item.userid}>{item.idCode}</Link>
+    
+            </CTableDataCell>
        <CTableDataCell>{item.surname}</CTableDataCell>
        <CTableDataCell>{item.lastname}</CTableDataCell>
        <CTableDataCell>{item.middlename}</CTableDataCell>
@@ -177,7 +180,9 @@ const datas = {
        { permissions?.indexOf("EDIT_MEMBERSHIP_FORM") > -1? <CButton color="secondary" size="sm" > <Link to={`/${0}/register/`}  state={item.id} className="edit" style={{color:'white', textDecoration:'none'}}> <CreateOutlinedIcon /></Link></CButton> :''}
         { permissions?.indexOf("VIEW_MEMBERSHIP_FORM") > -1? <CButton color="info" size="sm" > <Link to={`/${item.id}/register/3`}  state={item.id} className="view" style={{color:'white', textDecoration:'none'}}><BrowseGalleryOutlinedIcon /></Link></CButton> :'' }
         { permissions?.indexOf("DELETE_MEMBERSHIP_FORM") > -1? <CButton color="danger" size="sm" ><Link to={'/delete'}  state={item.id +'&/form/register&/register/'} className="delete" style={{color:'white', textDecoration:'none'}}><DeleteForeverOutlinedIcon /></Link></CButton> :''}
+      
      </CButtonGroup>
+     
      </CTableDataCell>
        </CTableRow>
             )
@@ -188,7 +193,10 @@ const datas = {
                return(
 
             <CTableRow key={item.id}>
-            <CTableDataCell>{item.idCode}</CTableDataCell>
+              <CTableDataCell>
+            <Link to={'/view/others/users'} title='view other members of the payment' state={item.userid}>{item.idCode}</Link>
+    
+            </CTableDataCell>
        <CTableDataCell>{item.surname}</CTableDataCell>
        <CTableDataCell>{item.lastname}</CTableDataCell>
        <CTableDataCell>{item.middlename}</CTableDataCell>
@@ -203,7 +211,8 @@ const datas = {
        { permissions?.indexOf("EDIT_MEMBERSHIP_FORM") > -1? <CButton color="secondary" size="sm" ><Link to={`/${0}/register/`}  state={item.id} className="edit"> <CreateOutlinedIcon /></Link></CButton> :''}
         { permissions?.indexOf("VIEW_MEMBERSHIP_FORM") > -1? <CButton color="info" size="sm" ><Link to={`/${item.id}/register/3`}  state={item.id} className="view"><BrowseGalleryOutlinedIcon /></Link></CButton> :'' }
         { permissions?.indexOf("DELETE_MEMBERSHIP_FORM") > -1? <CButton color="danger" size="sm" ><Link to={'/delete'}  state={item.id +'&/form/register&/register/'} className="delete"><DeleteForeverOutlinedIcon /></Link></CButton> :''}
-        </CButtonGroup></CTableDataCell>
+        </CButtonGroup>
+          </CTableDataCell>
        </CTableRow>
             )
             })

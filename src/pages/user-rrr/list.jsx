@@ -53,6 +53,7 @@ const loadItem = async e =>{
  try{
          
         await app.get(`user-rrr/${startIndex}/${per_page}/0`).then(res=>{
+          console.log(res)
             setGetrrr(res.data.res)
             setData(res.data)
         }).catch(err=>{

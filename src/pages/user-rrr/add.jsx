@@ -159,7 +159,7 @@ const handleChange = e =>{
             setLoading(true)
         let  rrr_number= document.getElementById('rrr_number').value
        	let  userId= document.getElementById('userId').value
-        let  activated= true
+        let  activated = 0
         let  activatedby= currentUser?.id
         let  amount= document.getElementById('amount').value
         let  amt= document.getElementById('amt').value
@@ -182,10 +182,8 @@ const handleChange = e =>{
          await app.post('/code/0', {user_rrrId: insertedId, userId: user.id, code:code })
           .then(async res2 =>{
             setLoading(false)
-           
-            const emailHtml = render(<><h3>Congratulations!</h3> <br /> Your account has been created successfully.<br /> Username is your registered username <br /> password: ******<br /> Registration code: {code}<br /> Visit <a href={hostUrl}> here</a> to login. <br /> <hr /> Thanks.<br /> Management Team.</>);
-            
-             await app.post('/sendmail/user/auth/email/send',{to: email, msg: emailHtml, subject: 'Registration Confirmation'})
+           const emailHtml = render(<><h2>Congratulations!</h2><p>We are pleased to inform you that your account has been created successfully.<br />Username is your registered username <br />Password: ******** <br />Registration code: { code } <br /> You will be notified appropriately when your registration is activated.<br /> If you encounter any further issues or have any questions, please do not hesitate to reach out to our customer support team via our customer support channels.<br /> Visit <a href={hostUrl}> here</a> to login and complete your registartion <br /> <hr /> Thanks.<br /> Management Team.</p></>);
+            await app.post('/sendmail/user/auth/email/send',{to: email, msg: emailHtml, subject: 'Registration Confirmation'})
               
           })
           .catch(err =>{
@@ -194,8 +192,7 @@ const handleChange = e =>{
           })
            showToastMessage('User activated successfuly', 'success')
         })
-        showToastMessage('One record added successfuly', 'success')
-        
+      
         navigate('/user-rrr/', {state : "ok"})
        }).catch(err =>{
         setLoading(false)

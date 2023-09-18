@@ -200,8 +200,6 @@ const handleChange = e =>{
          setMsg(err.message)
         }
     }
-
-    //=====================end here
     //============load region Register=========
     const loadRegionRegister =async e =>{
       try{
@@ -247,7 +245,6 @@ const handleChange = e =>{
         }
     }
    
-   
     //load hospitals ============
     const loadHospital = async e =>{
  try{
@@ -282,7 +279,7 @@ const handleChange = e =>{
       }
      }
      activePackage()
-const loadItem = async e =>{
+    const loadItem = async e =>{
  try{
           
         const getCountry = await app.get('/country')
@@ -310,7 +307,7 @@ const loadItem = async e =>{
     }
     //======================Load Hmo
     const loadHmo = async e =>{
- try{
+      try{
          
         const hmos = await app.get('/hmos')
          setHmo(hmos.data)
@@ -334,7 +331,18 @@ const loadItem = async e =>{
     loadHmo() 
     loadItem()
     loadGifship()
-   
+
+    //other functions
+    /*
+    loadHospital()
+    loadWardRegister()
+    loadLgasRegister()
+    loadStatesRegister()
+    loadRegionRegister()
+    loadWardResident()
+    loadLgasResident()
+    loadStatesResident()
+    */
     }, [currentUser, permissions, id])
 
 

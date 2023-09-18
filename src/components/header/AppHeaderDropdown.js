@@ -53,7 +53,7 @@ const navigate = useNavigate()
   return (
     <CDropdown variant="nav-item"> <BasicSpeedDial />
       <CDropdownToggle placement="bottom-end" className="py-0" caret={false}>
-        <CAvatar alt={currentUser?.email} src={currentUser && `${baseURLStatic}${currentUser?.imgurl}`} size="md" />
+        <CAvatar alt={currentUser?.email} src={currentUser? `${baseURLStatic}${currentUser?.imgurl}` : null} size="md" />
         
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">

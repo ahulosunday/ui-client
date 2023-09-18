@@ -13,6 +13,8 @@ import { startIndex, per_page } from '../../helpers/paging_indexes';
 import app from '../../helpers/axiosConfig';
 import showToastMessage from '../../components/toast';
 import { formatCurreny } from '../../components/formatCurrency';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import ClearIcon from '@mui/icons-material/Clear';
 const GeneratePayment = ()=>{
 const [expanded, setExpanded] = React.useState(false);
  const [getrrr, setGetrrr] = React.useState([]);
@@ -21,7 +23,30 @@ const [expanded, setExpanded] = React.useState(false);
     const {currentUser, permissions } = React.useContext(AuthContext);
    const navigate = useNavigate()
    
-React.useEffect(()=>{
+
+  const handleChanged = async (e, value) => {
+    setPage(value);
+    await app.get(`/rrr/not/activate/0/1/1/`).then(res=>{
+            setGetrrr(res.data)
+        }).catch(err=>{
+            showToastMessage(err, 'error')
+        })
+
+  }
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
+  const getCount = async (user_rrrId)=>{
+    try{
+      const count = await app.get(`/codes/${user_rrrId}/code/rrr/`)
+      return(count.data.count)
+    }
+    catch(err){
+      return (0)
+    }
+    
+  }
+  React.useEffect(()=>{
     if(!(permissions.indexOf("VIEW_RRR") > -1) ){
         navigate('/')
     }
@@ -44,21 +69,10 @@ const loadItem = async e =>{
     }
    
          loadItem()
+         
         
   }, [currentUser, permissions, navigate])
 
-  const handleChanged = async (e, value) => {
-    setPage(value);
-    await app.get(`/rrr/not/activate/0/1/1/`).then(res=>{
-            setGetrrr(res.data)
-        }).catch(err=>{
-            showToastMessage(err, 'error')
-        })
-
-  }
-  const handleChange = (panel) => (event, isExpanded) => {
-    setExpanded(isExpanded ? panel : false);
-  };
 
    const [search, setSearch] = React.useState('');
   const handleSearch = (event) => {
@@ -86,12 +100,7 @@ const datas = {
       </CInputGroup>
             <DocsExample add="Payment List">
        
-      <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1bh-content"
-          id="panel1bh-header"
-        >
+  
           <CTable style={{fontSize:'12px'}} align="middle" responsive>
           <CTableHead>
           <CTableRow>
@@ -102,7 +111,7 @@ const datas = {
           <CTableDataCell>No#</CTableDataCell>
           <CTableDataCell>PACKAGE</CTableDataCell>
           <CTableDataCell>DATE PAID</CTableDataCell>
-          <CTableDataCell>ACTIVE?</CTableDataCell>
+          <CTableDataCell>STATUS</CTableDataCell>
           </CTableRow>
           </CTableHead>
           <CTableBody>
@@ -110,29 +119,30 @@ const datas = {
        
             datas.nodes.length === 0? '': datas.nodes.map((item)=>{
                 sum = sum + item.amount
+
             return(
             <CTableRow key={item.id}>
-             <CTableDataCell><input type='checkbox' name='id' id={item.id} /></CTableDataCell>
-       <CTableDataCell>{item.rrr_number}</CTableDataCell>
+             <CTableDataCell>{getCount(item.id) === item.maxNumber ? <input type='checkbox' name='id' id={item.id} />: null}</CTableDataCell>
+       <CTableDataCell><Link title='View the list of enrolees under this payment' to={`/user-rrr/dependants`} state={item.id}>{item.rrr_number}</Link></CTableDataCell>
         <CTableDataCell>{item.authNumber}</CTableDataCell>
           <CTableDataCell>{formatCurreny.format(item.amount)}</CTableDataCell>
           <CTableDataCell>{item.maxNumber}</CTableDataCell>
           <CTableDataCell>{item.gifship.name + ' '+ item.gifshiptype.name + ' '+ item.gifshipPackage.name}</CTableDataCell>
           <CTableDataCell>{formatDate(new Date(item.createdAt))}</CTableDataCell>
-<CTableDataCell>{item.activated?'Active':"Inactive"}</CTableDataCell>
-         
+<CTableDataCell>{getCount(item.id) === item.maxNumber ? <CheckBoxIcon  />:<ClearIcon />}</CTableDataCell>
+
 </CTableRow>
 )})}
 </CTableBody>
           </CTable>
-        </AccordionSummary>
+    
         <AccordionDetails>
           <Typography>
            Sum: {formatCurreny.format(sum)} 
-           <p style={{textAlign:'right'}}><Link to={''}>Activate selected item(s)</Link></p>
+           <p style={{textAlign:'right'}}><Link to={''}>Activate selected payment</Link></p>
           </Typography>
         </AccordionDetails>
-      </Accordion>
+      
    
    </DocsExample>
    </CCardBody>

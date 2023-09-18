@@ -87,10 +87,10 @@ export default function FormDialogCsv(props) {
               })
             })
                if(obj.length > props.count ){
-              showToastMessage('The minmun number NOT reached, please make sure you upload the corrent numbers of enrolees', 'error')
+              showToastMessage('The minmun number NOT reached, please make sure you upload the correct numbers of enrolees', 'error')
             }
             else if(obj.length > props.count ){
-              showToastMessage('The maximum number EXCEEDED, please make sure you upload the corrent numbers of enrolees', 'error')
+              showToastMessage('The maximum number EXCEEDED, please make sure you upload the correct numbers of enrolees', 'error')
             }
             else{
               
@@ -107,10 +107,11 @@ export default function FormDialogCsv(props) {
             
                  app.post('/codes/', obj2).then(res2=>{
                 //send email here console.log(res2.data)
-                obj.map((ob)=>{
+                res1.data.map((ob)=>{
                 res2.data.map((item)=>{
-                  if(item.userId !== 0){
-                    const msg = render(<><h3>Congratulations! </h3>Your account has been created successfully. Please visit: <a href ={ hostUrl}>here </a> to login.<br /> Username is your registered email,<br /> password: password@123,<br /> registration code: {item.code}</>);
+                  if(item.userId === ob.id){
+                  const msg = render(<><h2>Congratulations!</h2><p>We are pleased to inform you that your account has been created successfully.<br />Username: is your registered email,<br /> password: password@123 <br />Registration code: {item.code} <br /> You will be notified appropriately when your registration is activated.<br /> If you encounter any further issues or have any questions, please do not hesitate to reach out to our customer support team via our customer support channels.<br /> Visit <a href={hostUrl}> here</a> to login and complete your registration <br /> <hr /> Thanks.<br /> Management Team.</p></>);
+        
                     const to = ob.email;
                     const subject = 'Registration Code';
                     const obj3 = Object.assign({
