@@ -106,14 +106,14 @@ await app.put('/user-rrr/', arr).then(res=>{
  setErr(<Alert color='secondary'>Transaction completed successfully</Alert>)
 })
 .catch(err=>{
-
+setErr(<Alert color='danger'>{err}</Alert>)
 })
 
 }
 
   }
   catch(err){
-
+setErr(<Alert color='danger'>{err}</Alert>)
   }
 }
    const [search, setSearch] = React.useState('');
@@ -177,7 +177,7 @@ const datas = {
 
             return(
             <CTableRow key={item.id}>
-             <CTableDataCell>{getCount(item.id) !== item.maxNumber ? <input type="checkbox" id={item.id}
+             <CTableDataCell>{getCount(item.id) === item.maxNumber ? <input type="checkbox" id={item.id}
                 checked={checked.includes(item.id)}
                   onChange={(e) => handlePermissionChange(e, item)}  
                   value={item.id}
