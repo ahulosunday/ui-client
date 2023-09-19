@@ -1,6 +1,8 @@
 import React from 'react'
 import CIcon from '@coreui/icons-react'
 import {
+  cibKeybase,
+  cibKhanAcademy,
   cibPicartoTv,
   cilBell,
   cilCalculator,
@@ -150,7 +152,7 @@ component: CNavItem,
  name : 'Roles',
   to: '/role/list',
    icon: <CIcon icon={cilRouter} customClassName="nav-icon" />
-} // Index = 12========================
+}
  
 ]
 

@@ -51,10 +51,10 @@ const navigate = useNavigate()
         navigate('/change-passport')
        }
   return (
-    <CDropdown variant="nav-item"> <BasicSpeedDial />
-      <CDropdownToggle placement="bottom-end" className="py-0" caret={false}>
-        <CAvatar alt={currentUser?.email} src={currentUser? `${baseURLStatic}${currentUser?.imgurl}` : null} size="md" />
-        
+    <CDropdown variant="nav-item" title='LogOut'> <BasicSpeedDial />
+      <CDropdownToggle placement="bottom-end" className="py-0" caret={false} title='Logout'>
+        {/*<CAvatar alt={currentUser?.email} src={currentUser? `${baseURLStatic}${currentUser?.imgurl}` : null} size="md" />
+        */}{currentUser?.email}
       </CDropdownToggle>
       <CDropdownMenu className="pt-0" placement="bottom-end">
         <CDropdownHeader className="bg-light fw-semibold py-2">
