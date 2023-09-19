@@ -43,6 +43,7 @@ const ListRRR = () =>{
     const [page, setPage]= useState(1)
     const [data, setData] = useState([])
     const {currentUser, permissions } = useContext(AuthContext);
+    const [ err, setError] = useState('')
    const navigate = useNavigate()
 useEffect(()=>{
     if(!(permissions.indexOf("VIEW_RRR") > -1) ){
