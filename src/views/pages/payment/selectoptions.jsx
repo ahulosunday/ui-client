@@ -86,7 +86,7 @@ const SelectOptions = () => {
           <CCol xs={12} xl={12}>
             <CCard className="mx-4">
               <CCardBody className="p-4" style={{backgroundColor:'AppWorkspace'}}>
-              <DocsExample add="SELECT THE PROGRAMMES"> 
+              <DocsExample add="SELECT PROGRAMMES"> 
 <CRow>
 
      <CCol xs={12} xl={3}>
@@ -182,7 +182,7 @@ const SelectOptions = () => {
         <Filter5Icon />
             </>
           }
-          title="ACREDITATION"
+          title="ACCREDITATION"
           action={
             <CDropdown alignment="end">
               <CDropdownToggle color="transparent" caret={false} className="p-0">
