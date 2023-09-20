@@ -24,7 +24,6 @@ export default function FormDialog() {
     setOpen(false);
   };
   const handleSubmit = async e =>{
-    try{
       if(validateForm('validateForm') === 0){
       const code = document.getElementById('code').value
       if(code === '' || code === null){
@@ -46,15 +45,11 @@ export default function FormDialog() {
           }}
           })
           .catch(err=>{
-            showToastMessage(err, 'error')
+            showToastMessage(err.err, 'error')
           })
         )
       }
       }
-    }
-    catch(err){
- showToastMessage(err, 'error')
-    }
   }
 
   return (

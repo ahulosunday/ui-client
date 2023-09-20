@@ -88,7 +88,7 @@ const handleChange = e =>{
 
          })
          .catch(err=>{
-         showToastMessage('Something went wrong ...', 'error')
+         showToastMessage('Something went wrong ...' + err, 'error')
          setLoading(false)
          })
           }      

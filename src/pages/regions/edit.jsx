@@ -36,8 +36,15 @@ const handleChange = e =>{
         setLoading(true)
        await app.put(`/region/${inputs.id}`, inputs)
        .then(res=>{
-        if(res.statusText === 'OK'){
+
+        if(res.data.err){
           setLoading(false)
+          showToastMessage('Update failed, region ' + res.data.err, 'error')
+         navigate('/region')
+          
+      }
+      else{
+        setLoading(false)
           showToastMessage('Update complete ...', 'success')
          navigate('/region')
       }

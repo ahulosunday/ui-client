@@ -14,13 +14,14 @@ import { v1 } from "uuid";
 import { trackPromise } from 'react-promise-tracker';
 import hostUrl from '../helpers/hostUrl';
 import { render } from '@react-email/render';
-import { Link } from '@mui/material';
+import { Alert, Link } from '@mui/material';
 import { nanoid, pin } from '../helpers/customAlphabet';
 import validateForm from './validateForm';
 
 export default function FormDialogCsv(props) {
   const [open, setOpen] = React.useState(false);
   const [file, setFile] = React.useState([])
+  const [err, setError] = React.useState('')
    const [items, setItems] = React.useState({
     Surname:'', Othername:'', Email:'', Phone:'', NIN:''
    });
@@ -61,15 +62,11 @@ export default function FormDialogCsv(props) {
 //=========================================
   const handleSubmit = async e =>{
     e.preventDefault() 
-    try{
     if(validateForm('validateForm') === 0){
      if(file.length !== 0) {
       const ext = file.name.split('.')[1]
       if((ext === 'csv') || (ext === 'xlsx') || (ext === 'xls')) {
          readExcel(file);
-       
-        showToastMessage('getting data ready, click Save to effect changes ...', 'info')
-       
       let pass = ''
         await app.get(`/hashed/change/pass/${'password@123'}/ok/ww`).then( async res=>{
              const obj = items.map((d, index)=>{
@@ -86,11 +83,11 @@ export default function FormDialogCsv(props) {
                 uiid: v1()
               })
             })
-               if(obj.length > props.count ){
-              showToastMessage('The minmun number NOT reached, please make sure you upload the correct numbers of enrolees', 'error')
+               if(obj.length < props.count ){
+              setError(<Alert severity='error'>The minmun number NOT reached, please make sure you upload the correct numbers of enrolees</Alert>)
             }
             else if(obj.length > props.count ){
-              showToastMessage('The maximum number EXCEEDED, please make sure you upload the correct numbers of enrolees', 'error')
+              setError(<Alert severity='error'>The maximum number EXCEEDED, please make sure you upload the correct numbers of enrolees</Alert>)
             }
             else{
               
@@ -123,38 +120,34 @@ export default function FormDialogCsv(props) {
                   handleClose()
 
                   }).catch(err4=>{
-
+                   setError(<Alert severity='error'>Unable to send mail, Networt error ...</Alert>)
                   })
                   }
                   
                 })
                  })
                  }).catch(err2=>{
-
+setError(<Alert severity='error'>{err2.err}</Alert>)
                  })
                  ///codes/
                  //====================user_rrrId: ,
                 }).catch(err1=>{
-                 showToastMessage(err1, 'error')
+                 setError(<Alert severity='error'>{err1.err}</Alert>)
                 })
               
           }
         
         }).catch(err=>{
-          showToastMessage(err, 'error')
+          setError(<Alert severity='info'>{'Reading data ..., click Save to effect chanhes'}</Alert>)
         })
         
                    
          
             }
             else{
-              showToastMessage('Invalid file format (csv, xlxs, xls only)...', 'error')
+              setError(<Alert severity='error'>Invalid file format (csv, xlxs, xls only</Alert>)
             }
     }}
-    }
-    catch(err){
-  showToastMessage(err, 'error')
-    }
         
 
   }
@@ -186,6 +179,7 @@ export default function FormDialogCsv(props) {
           <DialogContentText>
             Please upload .xls, .xlsx, .csv only
           </DialogContentText>
+           <p> {err}</p>
           <TextField
             autoFocus
             margin="dense"
@@ -201,9 +195,10 @@ export default function FormDialogCsv(props) {
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
           <Button onClick={handleSubmit}>Save</Button>
-        
+       
         </DialogActions>
       </Dialog>
+     
       </form>
     </div>
   );

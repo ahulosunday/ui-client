@@ -89,6 +89,7 @@ const handleChange = e =>{
         }
         }).catch(err=>{
           showToastMessage('Transaction failed: ' + err, 'error')
+          setLoading(false)
         })}
         }
         catch(errs){

@@ -8,7 +8,7 @@ import app from '../../helpers/axiosConfig'
 import LoadingButton from '@mui/lab/LoadingButton';
 import SendIcon from '@mui/icons-material/Send';
 import showToastMessage from "../../components/toast";
-import {Stack } from "@mui/material";
+import {Alert, Stack } from "@mui/material";
 import { CCard, CCardBody, CCardHeader, CCol, CFormInput, CFormLabel, CFormSelect, CFormTextarea, CRow } from '@coreui/react';
 import { DocsExample } from '../../components';
 import validateForm from "../../components/validateForm";
@@ -17,6 +17,7 @@ import validateForm from "../../components/validateForm";
 
 const AddCountry = () =>{
     const [msg, setMsg] = useState('');
+    const [ err, setError] = useState('')
     const {currentUser, permissions } = useContext(AuthContext);
      const [loading, setLoading] = useState(false);
     const navigate = useNavigate()
@@ -38,7 +39,7 @@ const handleChange = e =>{
         
     }
     const handleSubmit = async e =>{
-        try{
+       
          if(validateForm('country') === 0){
          setLoading(true)
        await app.post('/country', inputs)
@@ -47,16 +48,12 @@ const handleChange = e =>{
           showToastMessage('One record added successfully.' , 'success')
           navigate('/country')
        })
-       .catch(err=>{
+       .catch(errs=>{
        setLoading(false)
-        showToastMessage('Error occured while submitting the data ...: ', 'error')
+       setError(<Alert severity='error'>Country {errs}</Alert>)
+        showToastMessage(errs, 'error')
        })
       
-        }
-        }
-        catch(errs){
-         setLoading(false)
-        showToastMessage('Error occured while submitting the data ...:', 'error')
         }
     }
 
@@ -111,7 +108,7 @@ const handleChange = e =>{
           </Stack>  :  <Goback url='/country' />}
       </CCol>
       </CRow>      
-            {msg=== ''? '': <ErrorMsg msg={msg} />}
+           <CRow><CCol>{err}</CCol></CRow>
          </form>
  </DocsExample>
  </CCardBody>

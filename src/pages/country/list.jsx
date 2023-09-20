@@ -134,19 +134,19 @@ const datas = {
         
          datas.nodes.length===0? '': datas.nodes.map((item)=>(
             <CTableRow key={item.id}>
-       <CTableHeaderCell>{item.name}</CTableHeaderCell>
-       <CTableHeaderCell>{item.shortname}</CTableHeaderCell>
-        <CTableHeaderCell>{item.code}</CTableHeaderCell>
-        <CTableHeaderCell>{item.currency}</CTableHeaderCell>
-        <CTableHeaderCell>{item.user.surname + ' ' + item.user.othername}</CTableHeaderCell>
-        <CTableHeaderCell>{item.createdAt}</CTableHeaderCell>
-        <CTableHeaderCell>{item.updatedAt}</CTableHeaderCell>
-       <CTableHeaderCell>
-        <CButtonGroup >
+       <CTableDataCell>{item.name}</CTableDataCell>
+       <CTableDataCell>{item.shortname}</CTableDataCell>
+        <CTableDataCell>{item.code}</CTableDataCell>
+        <CTableDataCell>{item.currency}</CTableDataCell>
+        <CTableDataCell>{item.user.surname + ' ' + item.user.othername}</CTableDataCell>
+        <CTableDataCell>{item.createdAt}</CTableDataCell>
+        <CTableDataCell>{item.updatedAt}</CTableDataCell>
+       <CTableDataCell>
+        <CButtonGroup>
       {permissions.indexOf("EDIT_COUNTRY") > -1? <CButton color="secondary" size="sm" ><Link to={`/0/country/`} state={item.id} className="edit" style={{color:'white', textDecoration:'none'}}> Edit</Link></CButton>:'' }
        {permissions.indexOf("DELETE_COUNTRY") > -1? <CButton color="danger" size="sm" ><Link to={'/delete'}  state={item.id +'&/country&/country/'} className="delete" style={{color:'white', textDecoration:'none'}}>Delete</Link></CButton> : ''}
        </CButtonGroup>
-        </CTableHeaderCell>
+        </CTableDataCell>
        </CTableRow>
             ))
            

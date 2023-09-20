@@ -14,7 +14,7 @@ import { DocsExample } from '../../components';
 import validateForm from '../../components/validateForm';
 
 const EDITCountry = () =>{
-    const [msg, setMsg] = useState('');
+    const [err, setError] = useState('');
     const {currentUser,permissions } = useContext(AuthContext);
     const [loading, setLoading] = useState(false)
      const state = useLocation().state
@@ -41,7 +41,7 @@ const EDITCountry = () =>{
                setInputs(res.data)
             })
             .catch(err=>{
-               showToastMessage('Error loading the data ...', 'error')
+               showToastMessage('Error loading the data ...' + err.err, 'error')
             })
          
            
@@ -62,27 +62,26 @@ const handleChange = e =>{
         setInputs(prev =>({ ...prev, [e.target.name] : e.target.value}));
     }
     const handleUpdate = async e =>{
-        try{
+      try{
         if(validateForm('country') === 0 ){
 
          setLoading(true)
        await app.put(`/country/${inputs.id}`, inputs)
        .then(res=>{
          setLoading(false)
-         showToastMessage('Updation complete', 'success')
+         if(res.data.err)
+         showToastMessage(res.data.err, 'error')
           navigate('/country')
        })
        .catch(err=>{
-         console.log(err)
-         setLoading(false)
-        showToastMessage('Updation failed ...' + err, 'error')
+        setLoading(false)
+        showToastMessage(err.err, 'error')
        }) 
         }
-        }
-        catch(errs){
-         setLoading(false)
-        showToastMessage(errs.message + ':  Duplicate entry is not allowed.', 'error')
-        }
+      }
+      catch(errs){
+         setError(errs)
+      }
     }
 
 
@@ -134,6 +133,7 @@ const handleChange = e =>{
         </Stack> : <Goback url='/country' />}
         <br />
         </form>
+        <p>{err}</p>
         </DocsExample>
         </CCardBody>
         </CCard>

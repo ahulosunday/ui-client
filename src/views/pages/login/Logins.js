@@ -53,7 +53,7 @@ const Logins = () => {
         }
       
    const handleSummit = async e =>{
-        try{ 
+    
              e.preventDefault()
             if(validateForm('login') === 0){
            if(login(inputs) === true){
@@ -64,12 +64,6 @@ const Logins = () => {
            }
             }
             
-           }
-        catch(errs){
-           setError(<Alert severity="error">{errs}</Alert>)
-           
-
-        } 
        
    }
   return (

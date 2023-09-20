@@ -113,10 +113,10 @@ if(!(permissions.indexOf("VIEW_USERS") > -1)){
         
             users.length===0? '': users.map((item, index)=>(
             <CTableRow key={item.id}>
-            <CTableDataCell><Link title='Deactive user' to={`/deactivate/${item.id}}/1/1`}>Deactivate</Link></CTableDataCell>
+            <CTableDataCell><Link title='Deactive user' to={`/user/Deactivate/0/1/0`} state={item.id+'&'+item.username+'&/users/list'}>Deactivate</Link></CTableDataCell>
              <CTableDataCell>{index+1}</CTableDataCell>
        <CTableDataCell>{item.username}</CTableDataCell>
-       <CTableDataCell>{item.email}</CTableDataCell>
+       <CTableDataCell>{item.email}</CTableDataCell> 
        <CTableDataCell>{item.surname}</CTableDataCell>
        <CTableDataCell>{item.othername}</CTableDataCell>
         <CTableDataCell>{item.phone}</CTableDataCell>

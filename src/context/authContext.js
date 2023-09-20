@@ -11,25 +11,19 @@ export const AuthContextProvider = ({children}) =>{
     const [loading, setLoading] = useState(false)
     const [action , setAction] = useState(false)
  const login = async(inputs)=>{
-        try{
+       
             setLoading(true)
            await app.post("/login", inputs)
          .then(res =>{
              setCurrentUser(res.data)
              setLoading(false)
-             setAction(true)
+             return(true)
          })
          .catch(errs=>{
             setLoading(true)
-           setAction(false)
+           return(false)
          });
-    
-         }
-        catch(error){
-            setAction(false)
-           showToastMessage("Unidentified error occured ...", 'error')
-        }
-        return action
+           
     }
     //logout ====================admin@gmail.com
     const logout = async()=>{

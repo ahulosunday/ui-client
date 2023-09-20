@@ -10,7 +10,8 @@ const EditHospital = React.lazy(() => import('./pages/hospital/edit'))
 const ViewHospital = React.lazy(() => import('./pages/hospital/view'))
 
 const ListUsers = React.lazy(() => import('./pages/user/list'))
-
+const ActivateUser  = React.lazy(() => import( './pages/user/ActivateUser'));
+const DeactivateUser  = React.lazy(() => import( './pages/user/deactivateUser'));
 
 const PrintForm = React.lazy(()=> import('./pages/printout'))
 const GifshipList = React.lazy(() => import('./pages/gifship/listall'));
@@ -56,7 +57,7 @@ const AddWard  = React.lazy(() => import( './pages/ward/add'));
 const ListWard  = React.lazy(() => import( './pages/ward/list'));
 const ChangePassword  = React.lazy(() => import( './pages/auth/change-password'));
 const ChangePort  = React.lazy(() => import( './pages/auth/change-passport'));
-const ActivateUser  = React.lazy(() => import( './pages/user/ActivateUser'));
+
 const PaymentInfo  = React.lazy(() => import( './pages/paymeninfo'));
 
 // Base
@@ -118,6 +119,9 @@ const routes = [
   {path: '/:id/hospital/view', name:'Hospital', element: ViewHospital },
 //================================
  {path: '/users/list', name:'Users', element: ListUsers },
+ {  path: "/user/activate/0/1", name:'Password',  element: ActivateUser},
+ {  path: "/user/Deactivate/0/1/0", name:'Password',  element: DeactivateUser},
+ 
 //================================
 {path: '/print/form/:id', name : 'PrintForm', element: PrintForm },
 {path: '/user-rrr/', name: 'User_RRR', element: ListRRR},
@@ -260,11 +264,7 @@ const routes = [
   name:'Password',
   element: ChangePassword
 },
- {
-  path: "/user/activate/0/1",
-  name:'Password',
-  element: ActivateUser
-},
+ 
   {
   path: "/gifship-list",
   name:'Gifship',

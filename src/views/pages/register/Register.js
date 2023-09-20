@@ -24,7 +24,7 @@ import { AiFillAccountBook, AiFillAlert, AiFillCompass, AiFillDownCircle, AiFill
 import showToastMessage from "../../../components/toast";
 import DefaultLogo from '../../../img/logo2.png'
 import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
-import { Stack } from "@mui/material";
+import { Alert, Stack } from "@mui/material";
 import { DocsExample } from "../../../components";
 
 
@@ -51,30 +51,30 @@ const Register = () => {
     const [roleid, setRolid] = useState(3)
     const [uiid, setUiid] = useState(v1())
     const [ imgurl , setImgUrl] = useState("")
-    const img = ['png', 'jpeg', 'jpg', 'gif']
+    const img = ['png', 'jpeg', 'jpg', 'gif','PNG', 'JPEG', 'JPG', 'GIF']
 
 
    const handleSummit = async e =>{
         e.preventDefault()
-        try{
+       
        if(validateForm('register') === 0){
           setLoading(true)
          if(conpassword !== password){
           showToastMessage('Password mismatch found !', 'error')
           setLoading(false)
-          setError('Password mismatch found !')
+          setError(<Alert severity="error">Password mismatch found !</Alert>)
          }
          else{ 
           const ext = file.name.split('.')[1]
           if(file.length === 0){
             showToastMessage('Please upload passport size photograph', 'error')
-            setError('Please upload passport size photograph', 'error')
+            setError(<Alert severity='error'>Please upload passport size photograph</Alert>)
             setLoading(false)
           }
-          else if((file.size/1024) > 40){
-            showToastMessage('Image size must not be greater than 40kb', 'error')
+          else if((file.size/1024) > 100){
+            showToastMessage('Image size must not be greater than 100kb', 'error')
             setLoading(false)
-            setError('Image size must not be greater than 40kb')
+            setError(<Alert severity='error'>Image size must not be greater than 100kb</Alert>)
           }
           else if(img.includes(ext)){
             const formData = new FormData();
@@ -83,29 +83,24 @@ const Register = () => {
         await app.post("/users", {username:username, password:password, email:email,uiid:uiid, roleid:roleid, imgurl:res.data.filename, surname: surname, othername: othername, phone: phone, isActive: 0})
         .then(res =>{
           setLoading(false)
-             navigate("/payment/option", {state:username});
+            navigate("/payment/option", {state:username});
         })
         .catch(errs=>{
            setLoading(false)
-             setError(errs.message )
+             setError(<Alert severity='error'>{errs}</Alert>)
         }) 
        }).catch(errs=>{
          setLoading(false)
-        showToastMessage("No image found", 'error')
+        setError(<Alert severity='error'>{errs}</Alert>)
        })
          }
          else{
-          showToastMessage('Invalid image format ...', 'error')
+          setError(<Alert severity='error'>Invalid image format ...</Alert>)
           setLoading(false)
          }
          }
         }
-        }
-        catch(errs){
-          setLoading(false)
-            setError("Something went wrong. All fields are required. please check your entry and try again") 
-           
-        }
+       
         
    }
 
@@ -152,18 +147,11 @@ const Register = () => {
             
                  
                             <div style={{textAlign:'right'}} ><img className="uploadImg" alt="" src={imgurl} style={{height:'100px', width:'100px'}}  id="cxfileimg" />
-           <br /> <span style={{color: 'red', fontSize: 9}}>Image size: 40kb, type: png, jpeg, jpg, gif</span>
+           <br /> <span style={{color: 'red', fontSize: 9}}>Image size: 100kb, type: png, jpeg, jpg, gif</span>
            </div>
            <CRow>
-            <CCol xl={6} xs={12}>
-                   <CInputGroup className="mb-3 sm-12">
-                    <CInputGroupText>
-                      <AiTwotonePicture />
-                    </CInputGroupText>
-                    <CFormInput placeholder="Surname" title="Surname" name="surname" autoComplete="surname" onChange={e =>setSurname(e.target.value)}  />
-  </CInputGroup>
-  </CCol>
-           <CCol xl={6} xs={12}>
+            <CCol xl={6} xs={12}></CCol>
+              <CCol xl={6} xs={12}>
                      <CInputGroup className="mb-4">
           
                     <CFormInput title="Upload passport" type="file" name="file" onChange={e =>{
@@ -172,6 +160,17 @@ const Register = () => {
                     />
                   </CInputGroup>
                   </CCol>
+           </CRow>
+           <CRow>
+            <CCol xl={12} xs={12}>
+                   <CInputGroup className="mb-3 sm-12">
+                    <CInputGroupText>
+                      <AiTwotonePicture />
+                    </CInputGroupText>
+                    <CFormInput placeholder="Surname" title="Surname" name="surname" autoComplete="surname" onChange={e =>setSurname(e.target.value)}  />
+  </CInputGroup>
+  </CCol>
+        
                  
            </CRow>
            <CRow>
@@ -260,15 +259,16 @@ const Register = () => {
        
              </CCol>
              </CRow>
+             <CRow>
+ <CCol xl={12} xs={12} style={{textAlign:'center'}}>{err}
+ </CCol>
+</CRow>
                   </DocsExample>
             </CCardBody>
             </CCard>
 </CCol>
 </CRow>
-<CRow>
- <CCol xl={12} xs={12} style={{textAlign:'center', color:'red'}}>{err}
- </CCol>
-</CRow>
+
                 </CForm>
               </CCardBody>
             </CCard>

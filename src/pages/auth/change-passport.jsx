@@ -1,4 +1,4 @@
-import { Box, Modal, Typography } from '@mui/material';
+import { Alert, Box, Modal, Typography } from '@mui/material';
 import * as React from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import app from '../../helpers/axiosConfig';
@@ -7,7 +7,7 @@ import { AuthContext } from '../../context/authContext';
 import { CButton, CCard, CCardBody, CCardHeader, CCol, CFormInput, CFormLabel, CFormSelect, CFormTextarea, CRow } from '@coreui/react';
 import { DocsExample } from '../../components';
 import validateForm from '../../components/validateForm';
-
+import baseURLStatic from '../../helpers/imageUrl';
 
 const style ={
   position:'absolute',
@@ -29,7 +29,9 @@ export default function ChangePort(){
    const [file, setFile] = React.useState(null)
   const navigate = useNavigate()
    const {currentUser } = React.useContext(AuthContext);
-       const img = ['png', 'jpeg', 'jpg', 'gif']
+       const img = ['png', 'jpeg', 'jpg', 'gif', 'PNG', 'JPEG', 'JPG', 'GIF']
+      
+
   const handleClose = ()=>{
     navigate('/')
   }
@@ -37,35 +39,32 @@ export default function ChangePort(){
     handleOpen()
   })
   const uploadPaaport = async e=>{
-    try{
+  
       if(validateForm('upload') === 0){
     const ext = file.name.split('.')[1]
           if(file.length === 0){
-            showToastMessage('Please upload passport size photograph', 'error')
+            setError(<Alert severity='error'>Please upload passport size photograph</Alert>)
           }
-          else if((file.size/1024) > 40){
-            showToastMessage('Image size must not be greater than 40kb', 'error')
+          else if((file.size/1024) > 100){
+            setError(<Alert severity='error'>Image size must not be greater than 100kb</Alert>)
           }
           else if(img.includes(ext)){
      const formData = new FormData();
             formData.append('file', file)
           await app.post('/uploadfile', formData).then( async res =>{
             await app.put(`/upload/${currentUser?.id}/change`,{imgurl: res.data.filename} ).then(res1=>{
-               showToastMessage('File uploaded successfully', 'success')
+              if(res1.data.err) setError(<Alert severity='error'>{res1.data.err}</Alert>)
+              else setError(<Alert severity='success'>File uploaded successfully</Alert>)
             }).catch(err2=>{
-              showToastMessage("Unable to upload file ...: " + err2, 'error')
+              setError(<Alert severity='error'>Unable to upload file ...:</Alert>)
             })
           }).catch(err=>{
-            showToastMessage("Unable to upload file ...", 'error')
+            setError(<Alert severity='error'>Unable to upload file: {err.err}</Alert>)
           })
           }
           else{
-            showToastMessage('Invalid image format ...', 'error')
+            setError(<Alert severity='error'>Invalid image format ...</Alert>)
           }
-    }
-    }
-    catch(err){
-     setError(err)
     }
 
   }
@@ -80,13 +79,13 @@ export default function ChangePort(){
           <CCardBody className='upload'>
             <DocsExample add="Upload Profile picture">   
       <Typography className='changePassport' id="modal-modal-description" sx={{mt:2}}>
-      <div style={{textAlign:'right'}}><img height={60} width={60} src={imgUrl} />
+      <div style={{textAlign:'right'}}><img height={60} width={60}  src={ imgUrl? imgUrl : `${baseURLStatic}${currentUser?.imgurl}`} />
       <br />
-      <span style={{color: 'red', fontSize: 9}}>Image size: 40kb, type: png, jpeg, jpg, gif</span>
+      <span style={{color: 'red', fontSize: 9}}>Image size: 100kb, type: png, jpeg, jpg, gif</span>
       </div>
       
       <CRow>
-      <CCol xs={12} xl={7}><p>{err}</p>
+      <CCol xs={12} xl={7}>
        <label>Passport</label>
       <CFormInput type="file" name="file" onChange={e =>{
             setFile(e.target.files[0])
@@ -104,6 +103,10 @@ export default function ChangePort(){
        <div style={{textAlign:'right'}}><Link style={{textDecoration:'none', color:'red'}} to="/" >Close</Link></div>
       </CCol>
       </CRow>
+      <CRow>
+      <CCol xl={12} xs={12}>
+      {err}
+      </CCol></CRow>
     </Typography>
       </DocsExample>
       </CCardBody>

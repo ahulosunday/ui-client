@@ -158,7 +158,7 @@ doc.innerHTML ="continue";
 const calculate = async ()=>{
  const num = document.getElementById('number').value;
  const option = props.option
-  try{
+ 
     await app.get(`/findUserByUsername/${props.user}/1/1/1/1`)
        .then(async res=>{
         setUser(res.data)
@@ -204,13 +204,10 @@ const calculate = async ()=>{
 
        })
        .catch(err=>{
-        showToastMessage(err.message, 'error')
+        showToastMessage(err, 'error')
         setErrExp(err)
        })  
-    }catch(err){
-        showToastMessage(err.message, 'error')
-        setErrExp(err)
-        }
+  
 
   }
    

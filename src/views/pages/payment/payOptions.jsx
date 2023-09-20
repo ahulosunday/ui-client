@@ -16,6 +16,7 @@ import hostUrl from '../../../helpers/hostUrl';
 import { CButton } from '@coreui/react';
 import { AuthContext } from '../../../context/authContext';
 import validateForm from '../../../components/validateForm';
+import { Alert } from '@mui/material';
 
 export default function PayOptions (){
  const [open, setOpen] = React.useState(true);
@@ -39,19 +40,15 @@ export default function PayOptions (){
      setValid(true)
   }
   const handleSubmit = async()=>{
-    try{
+   
       if(validateForm('validateForm') === 0){
    await app.post('/signin/0', inputs).then(res=>{
     navigate("/payment/option", {state:inputs.username});
    }).catch(err=>{
-    //showToastMessage('Unable to identify the user', 'error')
-    setErrExp('Username or Password is incorrect')
+    setErrExp(<Alert severity='error'>{err}</Alert>)
    })
       }
-    }
-    catch(errExpl){
-      setErrExp(errExpl)
-    }
+    
   }
 return (
      <div className='validateForm'>
@@ -89,7 +86,7 @@ return (
           {valids? <Button onClick={handleSubmit} id="continue">Continue</Button>:''}
           
         </DialogActions>
-        <p style={{color:'red', textAlign:'center'}}>{errExp}</p>
+        <p style={{textAlign:'center'}}>{errExp}</p>
       </Dialog>
     </div>
   );

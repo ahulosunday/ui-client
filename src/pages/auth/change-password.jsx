@@ -4,7 +4,7 @@ import { AuthContext } from "../../context/authContext";
 import { useNavigate } from "react-router-dom";
 import { CCard, CCardBody, CCardHeader, CCol, CFormInput, CFormLabel, CFormSelect, CFormTextarea, CRow } from '@coreui/react';
 import { DocsExample } from '../../components';
-import { Stack } from '@mui/material';
+import { Alert, Stack } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
 import showToastMessage from '../../components/toast';
@@ -13,6 +13,7 @@ import validateForm from '../../components/validateForm'
 const ChangePassword = () =>{
     const [msg, setMsg] = useState('');
     const [loading, setLoading] = useState(false)
+    const [err, setError] = useState('')
     const {currentUser, permissions, logout } = useContext(AuthContext);
     const navigate = useNavigate()
 const [ inputs, setInputs ] = useState({
@@ -29,17 +30,18 @@ const [ inputs, setInputs ] = useState({
     try{
        if(validateForm('password') === 0){
         if(!(inputs.password === inputs.conpassword)) {
-           showToastMessage("Password mismatch found!", 'error')
+           setError(<Alert severity='error'>Password mismatch found!</Alert>)
         }
         else
-        if(inputs.password ==='' || inputs.conpassword === '') showToastMessage("Password required !", 'error')
+        if(inputs.password ==='' || inputs.conpassword === '') 
+        setError(<alert severity='error'>Password required !</alert>)
          setLoading(true)
         const res = await app.put(`/changepassword/${inputs.id}`, inputs).then(res=>{
           setLoading(false)
-          showToastMessage('Password changed successfully', 'success')
+          setError(<Alert severity='success'>Password changed successfully</Alert>)
         }).catch(err=>{
           setLoading(false)
-           showToastMessage('Password change failed ...: '+ err, 'error')
+           setError(<Alert severity='error'>Password change failed ...:  {err}</Alert>)
         })
        
      if(res.status === 200){if ( logout()){
@@ -105,6 +107,8 @@ endIcon={<SendIcon />}
           </Stack> 
             </CCol>
             </CRow>
+            <CRow>
+            <CCol xl={12}>{err}</CCol></CRow>
             </DocsExample>
             </CCardBody>
             </CCard>

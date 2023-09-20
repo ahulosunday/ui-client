@@ -8,7 +8,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import showToastMessage from '../../components/toast';
 import moment from 'moment';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import app from '../../helpers/axiosConfig';
 import { pin } from '../../helpers/customAlphabet';
 import { render } from "@react-email/render";
@@ -16,71 +16,70 @@ import hostUrl from '../../helpers/hostUrl';
 import { AuthContext } from '../../context/authContext';
 import validateForm from '../../components/validateForm';
 
-export default function ActivateUser (){
+export default function DeactivateUser (){
  const [open, setOpen] = React.useState(true);
    const [valids, setValid] = React.useState(false)
     const {currentUser } = React.useContext(AuthContext);
     const navigate = useNavigate()
-
+    const states = useLocation().state
+    const id = states.split('&')[0]
+    const name = states.split('&')[1]
+    const back = states.split('&')[2]
     const handleClose = () => {
-         try{
+        try{
              setOpen(false);
-    navigate('/users/list')
+    navigate(`${back}`)
         }
         catch(err){
             return
         }
+   
   };
   const handleClickOpen = () => {
     setOpen(true);
   };
 
-  const handleChange = ()=>{
-    const username = document.getElementById('username').value
-    if(username.length !== 0){
-        setValid(true)
-    }
-  }
+  React.useEffect(()=>{
+   if(id !== 0 || id !== '')
+   setValid(true)
+  }, [id])
   const handleSubmit = async()=>{
-    if(validateForm('validateForm') === 0){
-    const username = document.getElementById('username').value
-  await app.get(`/findUserByUsername/${username}/1/1/1/1`).then(async res =>{
-      await app.put(`/activate/${res.data.id}/`, {}).then(res1=>{
- showToastMessage('User Activated successfully', 'success')
+      await app.put(`/deactivate/${id}/1/1`, {} ).then(res=>{
+        if(res.data.err)showToastMessage(res.data.err, 'error')
+  else showToastMessage('User deactivated successfully', 'success')
       }).catch(err1=>{
-         showToastMessage('User Activation Failed', 'error')
+         showToastMessage('User Deactivation Failed', 'error')
       })
-  }).catch(err=>{
-showToastMessage('Username not found.', 'error')
-  })
   }
-  }
+  
 
 return (
      <div className='validateForm'>
       
-       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Activate Enrolle/User ...</DialogTitle>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Deactivate Enrolle/User ...</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Enter the Enrolee/User username
+          You are about to deactivate this user
           </DialogContentText>
           <TextField
             autoFocus
             margin="dense"
-            id="username"
+            id={name}
             label="Username"
             type="text"
+            disabled
             fullWidth
+            value={name}
             variant="standard"
-            onChange={handleChange}
+           
           />
           
           
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Close</Button>
-          {valids? <Button onClick={handleSubmit} id="continue">Activate</Button>:''}
+          {valids? <Button onClick={handleSubmit} id="continue">Deactivate</Button>:''}
           
         </DialogActions>
       </Dialog>

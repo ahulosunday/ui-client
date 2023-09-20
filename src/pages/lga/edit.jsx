@@ -73,7 +73,7 @@ const handleChange = e =>{
             navigate('/lga')
           }).catch(err=>{
             setLoading(false)
-            showToastMessage('Transaction failed with status: ' +err, 'error')
+            showToastMessage('Transaction failed with status: ' + err, 'error')
           })
         }
         }

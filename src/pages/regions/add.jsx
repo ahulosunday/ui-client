@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Goback from "../../components/goback";
 import ErrorMsg from "../errorMsg";
 import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
-import { Stack } from '@mui/material';
+import { Alert, Stack } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import showToastMessage from '../../components/toast';
 import { CCard, CCardBody, CCardHeader, CCol, CFormInput, CFormLabel, CFormSelect, CFormTextarea, CRow } from '@coreui/react';
@@ -17,6 +17,7 @@ const AddRegion = () =>{
      const [country, setCountry] = useState([]);
     const {currentUser, permissions } = useContext(AuthContext);
     const navigate = useNavigate()
+    const [err, setError] = useState('')
     const [ inputs, setInputs ] = useState({
        name: "",
        userId: currentUser?.id,
@@ -38,9 +39,10 @@ const handleChange = e =>{
           showToastMessage('One record added successfully.', 'success')
            navigate('/region')
         })
-        .catch(err=>{
+        .catch(errs=>{
           setLoading(false)
-          showToastMessage('Error occured ...' +err, 'error')
+          setError(<Alert severity='error'>Error occured: {errs}</Alert>)
+          
         })
         }
         catch(errs){
@@ -57,7 +59,7 @@ const loadItem = async e =>{
          setCountry(getCountry.data);
        
     }catch(err){
-         showToastMessage(err.message, 'error')
+         showToastMessage(err.err, 'error')
         }
      
         
@@ -68,7 +70,8 @@ const loadItem = async e =>{
     }
     }, [permissions, navigate])
     return (
-        <CRow >
+      <form className='validateForm'>
+      <CRow >
          <CCol xs={12} xl={12} style={{fontSize:'12px'}}>
         <CCard className="mb-12" >
          <CCardHeader style={{backgroundColor:'skyblue'}}>
@@ -76,6 +79,7 @@ const loadItem = async e =>{
           </CCardHeader>
           <CCardBody>
             <DocsExample add="Regions"> 
+            <p>{err}</p>
        <CRow>
        <CCol xs={12} xl={6}>
        Country
@@ -118,6 +122,7 @@ const loadItem = async e =>{
        </CCard>
        </CCol>
        </CRow>
+       </form>
     )
 }
 

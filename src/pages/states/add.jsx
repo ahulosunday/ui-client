@@ -4,7 +4,7 @@ import { AuthContext } from "../../context/authContext";
 import { useNavigate } from "react-router-dom";
 import Goback from "../../components/goback";
 import SendIcon from '@mui/icons-material/Send';
-import { Stack } from '@mui/material';
+import { Alert, Stack } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
 import showToastMessage from '../../components/toast';
 import { CCard, CCardBody, CCardHeader, CCol, CFormInput, CFormLabel, CFormSelect, CFormTextarea, CRow } from '@coreui/react';
@@ -17,6 +17,7 @@ const AddStates = () =>{
     const [regions, setRegion] = useState([])
     const {currentUser, permissions } = useContext(AuthContext);
     const navigate = useNavigate()
+    const [err, setError] = useState('')
     const [ inputs, setInputs ] = useState({
        name: "",
        userId: currentUser?.id,
@@ -40,9 +41,10 @@ const handleChange = e =>{
         setLoading(false)
         showToastMessage('One record added successfully.', 'success')
          navigate('/state')
-      }).catch(err=>{
+      }).catch(errs=>{
         setLoading(false)
-        showToastMessage('Unable to add record. Reason: All fields are required ...', 'error')
+        showToastMessage('Unable to add record. Reason: ' + errs, 'error')
+        setError(<Alert severity='error'>Error occured: {errs}</Alert>)
       })
         }
         }
@@ -150,6 +152,8 @@ const loadItem = async e =>{
         <Goback url='/state' />}
        </CCol>
             </CRow>
+            <CRow>
+            <CCol xl={12}>{err}</CCol></CRow>
             </DocsExample>
             </CCardBody>
             </CCard>
