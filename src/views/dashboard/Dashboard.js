@@ -56,6 +56,7 @@ import WidgetsBrand from '../widgets/WidgetsBrand'
 import WidgetsDropdown from '../widgets/WidgetsDropdown'
 
 import { useNavigation } from 'react-router-dom'
+import Profile from '../../pages/auth/card'
 
 
 const Dashboard = () => {
@@ -468,8 +469,8 @@ const Dashboard = () => {
  */
  return(
  <CRow>
- <CCol xl={12} xs={12} style={{textAlign:'center'}}>
-{/* <p style={{fontSize:40}}>WELCOME TO NHIA PORTAL</p>*/}
+ <CCol xl={12} xs={12}>
+<Profile />
  </CCol>
  </CRow>
  )
