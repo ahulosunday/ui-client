@@ -203,7 +203,7 @@ const datas = {
 
             return(
             <CTableRow key={item.id}>
-             <CTableDataCell>{getCount(item.id) !== item.maxNumber ? <input type="checkbox" id={item.id}
+             <CTableDataCell>{getCount(item.id) === item.maxNumber ? <input type="checkbox" id={item.id}
                 checked={checked.includes(item.id)}
                   onChange={(e) => handlePermissionChange(e, item)}  
                   value={item.id}
