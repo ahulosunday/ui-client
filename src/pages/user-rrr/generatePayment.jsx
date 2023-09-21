@@ -18,6 +18,8 @@ import ClearIcon from '@mui/icons-material/Clear';
 import AddTaskIcon from '@mui/icons-material/AddTask';
 import moment from 'moment';
 import { Alert } from '@mui/material';
+import { render } from '@react-email/render';
+import hostUrl from '../../helpers/hostUrl';
 const GeneratePayment = ()=>{
 const [expanded, setExpanded] = React.useState(false);
  const [checked, setChecked] = React.useState([])
@@ -75,15 +77,13 @@ const [expanded, setExpanded] = React.useState(false);
       
   }, [currentUser, permissions, navigate])
 
-
-     
-
 const getData = async (e)=>{
   e.preventDefault()
   try{
   var plist = document.getElementById('plist').value;
    if(plist.length !== 0){
-    var activated_date = formatDate(new Date('2023-09-18'))//document.getElementById('activated_date').value;
+    var tdate = document.getElementById('activate_date').value;
+    var activated_date = formatDate(new Date(tdate))
             var oResponse = [];
             oResponse = plist.split(',')
            
@@ -101,19 +101,46 @@ for (var i = 0; i < len; i++) {
     }); 
  
 }
-await app.put('/user-rrr/', arr).then(res=>{
+await app.put('/user-rrr/', arr).then(async res=>{
+  //send mails ====================
+  const subject = 'Registration Activation';
+      const msg = render(<><h2>Congratulations!</h2><p>We are pleased to inform you that your subcription has been activated. You can head on to your registered hospital for your health services. <br /> If you encounter any further issues or have any questions, please do not hesitate to reach out to our customer support team via our customer support channels.<br /> Visit <a href={hostUrl}> here</a> to login<br /> <hr /> Thanks.<br /> Management Team.</p></>);
+       
+       for (var i = 0; i < len; i++) {
+        var usersEmail = [] ; 
+     const id = oResponse[i];
+     await app.get(`/${id}/codes/getuser_rrr/1/1/`)
+     .then(async resp=>{
+    resp.data.map((item)=>{
+    usersEmail.push(item.user.email)
+}) 
+//Send email here =========
+
+                    const obj3 = Object.assign({
+                      msg: msg,
+                      to: usersEmail,
+                      subject: subject
+                    })
+                   app.post('/sendmail/user/auth/email/send', obj3).then(respo=>{
+                    showToastMessage('Batch complted: = ' + i + ' completed', 'success' )
+                   })
+ })
+     .catch(errp=>{
+setErr(<Alert severity='error'>{errp}</Alert>)
+     })
+} ///loop end
   loadItem()
- setErr(<Alert color='secondary'>Transaction completed successfully</Alert>)
+ setErr(<Alert severity='success'>Transaction completed successfully</Alert>)
 })
 .catch(err=>{
-setErr(<Alert color='danger'>{err}</Alert>)
+setErr(<Alert severity='error'>{err}</Alert>)
 })
 
 }
 
   }
   catch(err){
-setErr(<Alert color='danger'>{err}</Alert>)
+setErr(<Alert severity='error'>{err}</Alert>)
   }
 }
    const [search, setSearch] = React.useState('');
@@ -152,7 +179,6 @@ const datas = {
         <input id="search" placeholder='Search by Date' className='form-control' type="text" onChange={handleSearch} />
       </CInputGroup>
             <DocsExample add="Payment List">
-       
                <p>{err}</p>
           <CTable style={{fontSize:'12px'}} align="middle" responsive>
           <CTableHead>
@@ -177,7 +203,7 @@ const datas = {
 
             return(
             <CTableRow key={item.id}>
-             <CTableDataCell>{getCount(item.id) === item.maxNumber ? <input type="checkbox" id={item.id}
+             <CTableDataCell>{getCount(item.id) !== item.maxNumber ? <input type="checkbox" id={item.id}
                 checked={checked.includes(item.id)}
                   onChange={(e) => handlePermissionChange(e, item)}  
                   value={item.id}
@@ -200,7 +226,9 @@ const datas = {
           <Typography>
           <CFormInput type="hidden" name="plist" id="plist" value={checked.join(",")} />
            Sum: {formatCurreny.format(sum)} 
-          {permissions?.indexOf("EDIT_RRR") > -1 ? <p style={{textAlign:'right'}}><Link title='Activate the selected record(s)' onClick={getData}><AddTaskIcon /> Activate</Link></p>:null}
+          {permissions?.indexOf("EDIT_RRR") > -1 ? <p style={{textAlign:'right'}}>Date:<input type='date' id='activate_date' readOnly title='Activation Date' value={formatDate(new Date())}></input><Link title='Activate the selected record(s)' onClick={getData}><AddTaskIcon /> Activate</Link></p>:null}
+         <p style={{color:'red'}}>Note: The activation activity requires strong internet connection. You are advised to run it in the night.</p>
+       
           </Typography>
         </AccordionDetails>
       

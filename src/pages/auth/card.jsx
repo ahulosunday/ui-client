@@ -24,7 +24,7 @@ export default function Profile(){
 
 React.useEffect(()=>{
     const getOne = async ()=>{
-        await app.get(`/user/get/0/${currentUser.id}/1/0/0/0/0`)
+        await app.get(`/user/get/0/${currentUser?.id}/1/0/0/0/0`)
         .then(res=>{
       setUser(res.data)
         })
