@@ -24,7 +24,7 @@ export const AuthContextProvider = ({children}) =>{
             showToastMessage('Invalid Username or password', 'error')
            //return(false)
          });
-           
+         //"@createnextapp/react-barcode": "^1.1.1",  
     }
     //logout ====================admin@gmail.com
     const logout = async()=>{
