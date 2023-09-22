@@ -56,12 +56,12 @@ const Logins = () => {
     
              e.preventDefault()
             if(validateForm('login') === 0){
-           if(login(inputs) === true){
-           setError(<Alert severity="success">Redirecting, please wait ...</Alert>)
-           }
-           else{
+           login(inputs)
+           //setError(<Alert severity="success">Redirecting, please wait ...</Alert>)
+          if(!currentUser){
             setError(<Alert severity="error">Invalid Username/Password</Alert>)
-           }
+            } 
+           
             }
             
        
@@ -86,6 +86,7 @@ const Logins = () => {
                    
                 </p>
                 <span style={{color:'red'}}>{err}</span>
+                <br />
                     <CInputGroup className="mb-3">
                       <CInputGroupText>
                         <CIcon icon={cilUser} />
