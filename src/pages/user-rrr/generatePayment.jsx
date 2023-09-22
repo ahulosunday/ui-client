@@ -20,6 +20,9 @@ import moment from 'moment';
 import { Alert } from '@mui/material';
 import { render } from '@react-email/render';
 import hostUrl from '../../helpers/hostUrl';
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
+
+
 const GeneratePayment = ()=>{
 const [expanded, setExpanded] = React.useState(false);
  const [checked, setChecked] = React.useState([])
@@ -29,33 +32,27 @@ const [expanded, setExpanded] = React.useState(false);
     const [data, setData] = React.useState([])
     const {currentUser, permissions } = React.useContext(AuthContext);
    const navigate = useNavigate()
+   const [counts, setCounts] = React.useState([])
    
-
-  const handleChanged = async (e, value) => {
-    setPage(value);
-    await app.get(`/rrr/not/activate/0/1/1/`).then(res=>{
-            setGetrrr(res.data)
-        }).catch(err=>{
-            showToastMessage(err, 'error')
-        })
-
-  }
-
-  const getCount = async (user_rrrId)=>{
-    try{
-      const count = await app.get(`/codes/${user_rrrId}/code/rrr/`)
-      return(count.data.count)
+  React.useEffect(()=>{
+    if(!(permissions.indexOf("VIEW_RRR") > -1) ){
+        navigate('/')
     }
-    catch(err){
-      return (0)
-    }
-    
-  }
-
-  const loadItem = async e =>{
+const loadItem = async e =>{
  try{
+         var arr = new Array();
          
-        await app.get(`/rrr/not/activate/0/1/1/`).then(res=>{
+        await app.get(`/rrr/not/activate/0/1/1/`).then(async res=>{
+             res.data.map(async(item)=>{
+             await app.get(`/codes/${item.id}/code/rrr/`)
+               .then( res=>{
+                arr.push({
+                  id: item.id,
+                  count: res.data.count
+                })
+                setCounts(arr)
+               })
+             })
             setGetrrr(res.data)
            
         }).catch(err=>{
@@ -68,12 +65,8 @@ const [expanded, setExpanded] = React.useState(false);
         }
         
     }
-  React.useEffect(()=>{
-    if(!(permissions.indexOf("VIEW_RRR") > -1) ){
-        navigate('/')
-    }
     loadItem()
-         
+ 
       
   }, [currentUser, permissions, navigate])
 
@@ -91,6 +84,7 @@ var arr = [];
 var len = oResponse.length;
 
 for (var i = 0; i < len; i++) {
+  if(oResponse[i] == '') continue
   const dataLog = await app.get(`/user-rrr/${oResponse[i]}/`)
        let  expired_date= moment(Date.parse(activated_date) + ((dataLog.data.duration * 1000 * 60 * 60 * 24))).format('YYYY-MM-DD')
     arr.push({
@@ -101,6 +95,7 @@ for (var i = 0; i < len; i++) {
     }); 
  
 }
+if(arr.length !== 0){
 await app.put('/user-rrr/', arr).then(async res=>{
   //send mails ====================
   const subject = 'Registration Activation';
@@ -129,15 +124,20 @@ await app.put('/user-rrr/', arr).then(async res=>{
 setErr(<Alert severity='error'>{errp}</Alert>)
      })
 } ///loop end
-  loadItem()
+ // loadItem()
  setErr(<Alert severity='success'>Transaction completed successfully</Alert>)
-})
-.catch(err=>{
+
+//navigate('/')
+}).catch(err=>{
 setErr(<Alert severity='error'>{err}</Alert>)
 })
-
+}
+else{
+  showToastMessage("No record selected, No record updated ", 'error')
+}
 }
 
+  
   }
   catch(err){
 setErr(<Alert severity='error'>{err}</Alert>)
@@ -155,15 +155,20 @@ const datas = {
   ),
 };
  var sum = 0;
-
  const handleCheckAllChange = (e) => {
           setChecked( e.target.checked ? datas.nodes.map((c) => {
-            if(getCount(c.id) === c.maxNumber)
+            var countT = 0
+                 if(counts.length !== 0){
+                 for (var i = 0; i < counts.length; i++) {
+                  if(counts[i].id === c.id)
+                  countT = (counts[i].count)
+                 }}
+                 if(c.maxNumber === countT)
             return c.id
             }) : []);
         };
 
-        const handlePermissionChange = (e, c) => {
+        const handleListChange = (e, c) => {
           setChecked((prevChecked) => e.target.checked ? [...prevChecked, c.id]: prevChecked.filter((item) => item !== c.id));
         };
   return (
@@ -189,33 +194,46 @@ const datas = {
           <CTableDataCell>RRR NUMBER</CTableDataCell>
           <CTableDataCell>AUTH. CODE</CTableDataCell>
           <CTableDataCell>AMOUNT</CTableDataCell>
-          <CTableDataCell>No#</CTableDataCell>
+          <CTableDataCell>MAX_No#</CTableDataCell>
+           <CTableDataCell>REG_No#</CTableDataCell>
           <CTableDataCell>PACKAGE</CTableDataCell>
           <CTableDataCell>DATE PAID</CTableDataCell>
-          <CTableDataCell>STATUS</CTableDataCell>
+        
           </CTableRow>
           </CTableHead>
           <CTableBody>
+         
        {
-       
+        
             datas.nodes.length === 0? '': datas.nodes.map((item)=>{
                 sum = sum + item.amount
-
+                 var countT = 0
+                 if(counts.length !== 0){
+                 for (var i = 0; i < counts.length; i++) {
+                  if(counts[i].id === item.id)
+                  countT = (counts[i].count)
+                 }}
             return(
             <CTableRow key={item.id}>
-             <CTableDataCell>{getCount(item.id) === item.maxNumber ? <input type="checkbox" id={item.id}
+            {countT !== item.maxNumber ?
+             <CTableDataCell>
+            
+              <input type="checkbox" id={item.id}
                 checked={checked.includes(item.id)}
-                  onChange={(e) => handlePermissionChange(e, item)}  
+                  onChange={(e) => handleListChange(e, item)}  
                   value={item.id}
-                  name="ck"/>: null}</CTableDataCell>
+                  
+                  name="ck"/></CTableDataCell>:
+                  <CTableDataCell style={{color:'red'}}><ClearIcon /></CTableDataCell>}
+
        <CTableDataCell>
        <Link title='View the list of enrolees under this payment' to={`/user-rrr/dependants`} state={item.id}>{item.rrr_number}</Link></CTableDataCell>
         <CTableDataCell>{item.authNumber}</CTableDataCell>
           <CTableDataCell>{formatCurreny.format(item.amount)}</CTableDataCell>
           <CTableDataCell>{item.maxNumber}</CTableDataCell>
+          <CTableDataCell>{countT}</CTableDataCell>
           <CTableDataCell>{item.gifship.name + ' '+ item.gifshiptype.name + ' '+ item.gifshipPackage.name}</CTableDataCell>
           <CTableDataCell>{formatDate(new Date(item.createdAt))}</CTableDataCell>
-<CTableDataCell>{getCount(item.id) === item.maxNumber ? <CheckBoxIcon  />:<ClearIcon />}</CTableDataCell>
 
 </CTableRow>
 )})}
