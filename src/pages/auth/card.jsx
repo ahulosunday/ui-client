@@ -6,9 +6,10 @@ import { styled } from '@mui/material/styles';
 import { AuthContext } from "../../context/authContext";
 import app from "../../helpers/axiosConfig";
 import baseURLStatic from "../../helpers/imageUrl";
-import Barcode from "../../components/barcode";
+import Barcodes from "../../components/barcode";
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
+import QrCode from "../../components/QrCode";
 const DemoPaper = styled(Paper)(({ theme }) => ({
   width: '100%',
   height: 'auto',
@@ -43,11 +44,16 @@ React.useEffect(()=>{
            
           <CCardBody>
           <DemoPaper variant="outlined">
-          <p style={{textAlign:'center'}}>ENROLEE PROFILE INFORMATION</p>
+          <p style={{textAlign:'center'}}><b>ENROLEE BASIC PROFILE INFORMATION</b></p>
           <CRow>
-          <CCol xl={12}>
+           <CCol xl={2} xs={2}>
+          <QrCode value={currentUser.uiid} />
+          </CCol>
+          <CCol xl={10} xs={10}>
           <div style={{textAlign:'right'}}><img height={60} width={60}  src={`${baseURLStatic}${user.imgurl}`} /></div>
-     </CCol></CRow>
+     </CCol>
+     </CRow>
+     <hr />
           <CRow>
           <CCol>
           NAME:
@@ -80,11 +86,7 @@ React.useEffect(()=>{
           {user.isActive === 1?<CheckIcon />:<ClearIcon />}
           </CCol>
           </CRow>
-          
-          <CRow>
-          <CCol xl={12} xs={12} style={{textAlign:'center'}}><br />
-          <Barcode value={user.uiid} />
-          </CCol></CRow>
+        
           </DemoPaper>
           </CCardBody>
           </CCard>

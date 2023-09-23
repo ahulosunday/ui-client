@@ -19,7 +19,6 @@
     "@coreui/react": "^4.9.0-rc.0",
     "@coreui/react-chartjs": "^2.1.3",
     "@coreui/utils": "^2.0.2",
-    
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.3",
@@ -69,6 +68,7 @@
     "react-icons": "^4.10.1",
     "react-papaparse": "^4.1.0",
     "react-promise-tracker": "^2.1.1",
+    "react-qr-code": "^2.0.12",
     "react-redux": "^8.1.1",
     "react-router-dom": "^6.14.0",
     "react-scripts": "^5.0.1",

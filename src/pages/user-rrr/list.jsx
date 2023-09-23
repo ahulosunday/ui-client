@@ -7,7 +7,7 @@ import moment from "moment";
 import { Button, Pagination, Stack } from '@mui/material';
 import { startIndex, per_page } from '../../helpers/paging_indexes';
 import showToastMessage from '../../components/toast';
-import DataTable from 'datatables.net-dt';
+import PrintIcon from '@mui/icons-material/Print';
 
 import {
   CButton,
@@ -107,6 +107,7 @@ const datas = {
        <CTable striped style={{fontSize:'12px'}} align="middle" responsive>
        <CTableHead>
        <CTableRow>      
+       <CTableHeaderCell></CTableHeaderCell>
        <CTableHeaderCell>RRR_NO#</CTableHeaderCell>
        <CTableHeaderCell>PAYMENT VERIFICATION NO#</CTableHeaderCell>
         <CTableHeaderCell>ENROLEE_NAME</CTableHeaderCell>
@@ -128,6 +129,7 @@ const datas = {
        {
             datas.nodes.length === 0? '': datas.nodes.map((item)=>(
             <CTableRow>
+            <CTableDataCell title='Print receipt'>    <Link to={`/receipt`} style={{color:'black'}}  state={item.id} ><PrintIcon /></Link></CTableDataCell>
        <CTableDataCell>{item.rrr_number}</CTableDataCell>
         <CTableDataCell>{item.authNumber}</CTableDataCell>
        <CTableDataCell>{item.user.surname} {item.user.othername}</CTableDataCell>
@@ -147,6 +149,7 @@ const datas = {
        {permissions.indexOf("VIEW_RRR") > -1?  <ViewIcon to={`/user-rrr/dependants`} state={item.id} />:'' }
       {permissions.indexOf("EDIT_RRR") > -1?  <EditIcon to={`/user-rrr/`} state={item.id} />:'' }
        {permissions.indexOf("DELETE_RRR") > -1? <DeleteIcon to={`/delete`}  state={item.id +'&/user-rrr/&/user-rrr/'} /> : ''}
+   
        </CButtonGroup> </CTableDataCell>
         }
        </CTableRow>

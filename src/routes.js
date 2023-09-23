@@ -14,6 +14,7 @@ const ActivateUser  = React.lazy(() => import( './pages/user/ActivateUser'));
 const DeactivateUser  = React.lazy(() => import( './pages/user/deactivateUser'));
 
 const PrintForm = React.lazy(()=> import('./pages/printout'))
+const Receipt = React.lazy(()=> import('./components/receipt'))
 const GifshipList = React.lazy(() => import('./pages/gifship/listall'));
 const  GifshipType  = React.lazy(() => import( './pages/gifship/gifshipType'));
 const GifshipEdit  = React.lazy(() => import( './pages/gifship/edit'));
@@ -124,6 +125,8 @@ const routes = [
  
 //================================
 {path: '/print/form/:id', name : 'PrintForm', element: PrintForm },
+
+{path: '/receipt', name : 'Receipt', element: Receipt },
 {path: '/user-rrr/', name: 'User_RRR', element: ListRRR},
 {path: '/user-rrr/view-list/', name: 'RRR', element: ListRRRByUser},
 {path: '/user-rrr/dependants', name: 'List_dependants', element: ListDependants},

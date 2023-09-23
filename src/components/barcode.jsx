@@ -1,15 +1,10 @@
 import React from 'react';
-import { useBarcode } from '@createnextapp/react-barcode';
+import Barcode from 'react-barcode';
+//import { useBarcode } from '@createnextapp/react-barcode';
 
-function Barcode(props) {
-  const { inputRef } = useBarcode({
-    value: props.value,
-    options: {
-      background: 'white',
-    }
-  });
+function Barcodes(props) {
 
-  return <img ref={inputRef} style={{width:'50%'}} />;
+  return <div style={{width:'10'}}><Barcode value={props.value} width={0.9} height={60} /></div>
 };
 
-export default Barcode;
+export default Barcodes;

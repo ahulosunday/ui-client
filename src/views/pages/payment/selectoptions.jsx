@@ -109,7 +109,7 @@ const SelectOptions = () => {
                 username===null? '': getGifship.length === 0? '': getGifship.map((item)=>{
                 
                   return(
-                      <CDropdownItem key={item.id}><ToggleClick user={username} option={item.id} name={item.gifship.name + ' - ' + item.name} /></CDropdownItem>
+                      <CDropdownItem key={item.id}><ToggleClick user={username} option={item.id} name={item.name} /></CDropdownItem>
                 
                   );
                 })

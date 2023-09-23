@@ -215,7 +215,7 @@ const datas = {
                  }}
             return(
             <CTableRow key={item.id}>
-            {countT !== item.maxNumber ?
+            {countT === item.maxNumber ?
              <CTableDataCell>
             
               <input type="checkbox" id={item.id}
