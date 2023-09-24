@@ -12,6 +12,8 @@ const ViewHospital = React.lazy(() => import('./pages/hospital/view'))
 const ListUsers = React.lazy(() => import('./pages/user/list'))
 const ActivateUser  = React.lazy(() => import( './pages/user/ActivateUser'));
 const DeactivateUser  = React.lazy(() => import( './pages/user/deactivateUser'));
+//==================
+const getCodes = React.lazy(() => import( './pages/auth/getCodes'));
 
 const PrintForm = React.lazy(()=> import('./pages/printout'))
 const Receipt = React.lazy(()=> import('./components/receipt'))
@@ -123,6 +125,7 @@ const routes = [
  {path: '/users/list', name:'Users', element: ListUsers },
  {  path: "/user/activate/0/1", name:'Password',  element: ActivateUser},
  {  path: "/user/Deactivate/0/1/0", name:'Password',  element: DeactivateUser},
+ {  path: "/auth/getcodes/", name:'Codes',  element: getCodes},
  
 //================================
 {path: '/print/form/:id', name : 'PrintForm', element: PrintForm },

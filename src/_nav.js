@@ -134,6 +134,13 @@ const _nav = [
 
     ],
   },
+  
+  {
+  component: CNavItem,
+  name: 'Reg. Codes',
+  to: '/auth/getcodes/',
+   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />
+},
   {
   component: CNavItem,
   name: 'Change Password',

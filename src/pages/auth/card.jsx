@@ -22,18 +22,30 @@ export default function Profile(){
  const {currentUser, permissions } = React.useContext(AuthContext);
  const [user, setUser] = React.useState([])
  const [err, setError] = React.useState('')
+ const [userInfos, setuserInfo]= React.useState([])
 
 React.useEffect(()=>{
     const getOne = async ()=>{
         await app.get(`/user/get/0/${currentUser?.id}/1/0/0/0/0`)
         .then(res=>{
       setUser(res.data)
-        })
+      })
         .catch(err=>{
  setError(err)
         })
     }
+    const userInfo = async ()=>{
+      await app.get(`/register/${currentUser?.id}/userId`)
+      .then(result=>{
+    setuserInfo(result.data[0])
+   
+      })
+      .catch(errs=>{
+
+      })
+    }
     getOne()
+    userInfo()
 }, [currentUser])
 
 
@@ -50,8 +62,10 @@ React.useEffect(()=>{
           <QrCode value={currentUser.uiid} />
           </CCol>
           <CCol xl={10} xs={10}>
+         
           <div style={{textAlign:'right'}}><img height={60} width={60}  src={`${baseURLStatic}${user.imgurl}`} /></div>
-     </CCol>
+      <span style={{textAlign:'center'}}><b >{userInfos.length !== 0 ? 'ID No#: ' + userInfos.idCode: 'ID No#: NHIA/FCT/0005656'}</b></span>
+      </CCol>
      </CRow>
      <hr />
           <CRow>
