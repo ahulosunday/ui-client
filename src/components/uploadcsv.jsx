@@ -91,7 +91,7 @@ export default function FormDialogCsv(props) {
             }
             else{
               
-                await app.post('/users/bulk', obj).then(res1=>{
+                await app.post('/users/bulk', obj).then(async res1=>{
                  showToastMessage('Transaction completed with status: ' +res1.statusText, 'success')
                 
                  const obj2 = res1.data.map((q, index)=>{
@@ -102,7 +102,7 @@ export default function FormDialogCsv(props) {
                 })
                  })
             
-                 app.post('/codes/', obj2).then(res2=>{
+                await app.post('/codes/', obj2).then(res2=>{
                 //send email here console.log(res2.data)
                 res1.data.map((ob)=>{
                 res2.data.map((item)=>{

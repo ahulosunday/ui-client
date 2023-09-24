@@ -48,6 +48,7 @@ const ViewForm  = React.lazy(() => import( './pages/gforms/view'));
 const GeneratePayment  = React.lazy(() => import( './pages/user-rrr/generatePayment'));
 const ListRRR  = React.lazy(() => import( './pages/user-rrr/list'));
 const ListRRRByUser = React.lazy(() => import( './pages/user-rrr/view-list'));
+const Renewal = React.lazy(() => import( './pages/user-rrr/renewal'));
 const ListDependants  = React.lazy(() => import( './pages/user-rrr/dependants'));
 const AddUserRRR  = React.lazy(() => import( './pages/user-rrr/add'));
 const AssignPermissions  = React.lazy(() => import( './pages/role/assign-permissions'));
@@ -127,6 +128,7 @@ const routes = [
 {path: '/print/form/:id', name : 'PrintForm', element: PrintForm },
 
 {path: '/receipt', name : 'Receipt', element: Receipt },
+{path: '/renewal/rrr/', name : 'Renewal', element: Renewal },
 {path: '/user-rrr/', name: 'User_RRR', element: ListRRR},
 {path: '/user-rrr/view-list/', name: 'RRR', element: ListRRRByUser},
 {path: '/user-rrr/dependants', name: 'List_dependants', element: ListDependants},
