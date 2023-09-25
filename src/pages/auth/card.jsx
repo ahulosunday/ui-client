@@ -35,7 +35,8 @@ React.useEffect(()=>{
         })
     }
     const userInfo = async ()=>{
-      await app.get(`/register/${currentUser?.id}/userId`)
+
+      await app.get(`/register/${currentUser?.id}/userId/auth/f`)
       .then(result=>{
     setuserInfo(result.data[0])
    
