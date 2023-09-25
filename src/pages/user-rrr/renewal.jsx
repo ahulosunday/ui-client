@@ -324,7 +324,7 @@ const handleChange = e =>{
         </DialogContent>
       </CModal>
 <p>{error}</p>
-      <CTable className="table table-striped">
+      <CTable className="table table-striped" responsive>
       <CTableHead>
       <CTableRow >
       <CTableHeaderCell>SN</CTableHeaderCell>

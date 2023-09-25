@@ -139,9 +139,9 @@ const datas = {
         <input id="search" placeholder='Search by Surname' className='form-control' type="text" onChange={handleSearch} />
       </CInputGroup>
             <DocsExample href="" add="Enrolee List"></DocsExample>
-            <span style={{width:'100%', display:'flex', flexDirection:'row', gap:'10px'}}>{ newreg > 0 ?'':<FormDialog /> }   {showUpload? <FormDialogCsv user_rrrId={rrrId} count ={count}/>:''} </span>
+            <span style={{width:'100%', display:'flex', flexDirection:'row', gap:'10px'}}>{ newreg > 0 ?'':<FormDialog /> }   {showUpload? <FormDialogCsv user_rrrId={rrrId} count ={count-1}/>:''} </span>
     
-       <CTable striped style={{fontSize:'12px'}} align="middle" responsive>
+       <CTable className='table' style={{fontSize:'12px'}} align="middle" responsive>
        <CTableHead>
        <CTableRow>
        <CTableDataCell>ID No#</CTableDataCell>

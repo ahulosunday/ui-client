@@ -33,42 +33,7 @@ const [expanded, setExpanded] = React.useState(false);
     const {currentUser, permissions } = React.useContext(AuthContext);
    const navigate = useNavigate()
    const [counts, setCounts] = React.useState([])
-   
-  React.useEffect(()=>{
-    if(!(permissions.indexOf("VIEW_RRR") > -1) ){
-        navigate('/')
-    }
-const loadItem = async e =>{
- try{
-         var arr = new Array();
-         
-        await app.get(`/rrr/not/activate/0/1/1/`).then(async res=>{
-             res.data.map(async(item)=>{
-             await app.get(`/codes/${item.id}/code/rrr/`)
-               .then( res=>{
-                arr.push({
-                  id: item.id,
-                  count: res.data.count
-                })
-                setCounts(arr)
-               })
-             })
-            setGetrrr(res.data)
-           
-        }).catch(err=>{
-            showToastMessage(err, 'error')
-        })
-    
-         
-    }catch(err){
-         return(err.message)
-        }
-        
-    }
-    loadItem()
- 
-      
-  }, [currentUser, permissions, navigate])
+      const [merger, setMerger] = React.useState([])
 
 const getData = async (e)=>{
   e.preventDefault()
@@ -118,6 +83,8 @@ await app.put('/user-rrr/', arr).then(async res=>{
                     })
                    app.post('/sendmail/user/auth/email/send', obj3).then(respo=>{
                     showToastMessage('Batch complted: = ' + i + ' completed', 'success' )
+                   }).catch(errs=>{
+                    setErr(<Alert severity='error'>Unable to send mails</Alert>)
                    })
  })
      .catch(errp=>{
@@ -142,6 +109,7 @@ else{
   catch(err){
 setErr(<Alert severity='error'>{err}</Alert>)
   }
+  alert('Transaction completed.')
 }
    const [search, setSearch] = React.useState('');
   const handleSearch = (event) => {
@@ -149,12 +117,14 @@ setErr(<Alert severity='error'>{err}</Alert>)
   };
   
 const datas = {
-  nodes: getrrr.filter((item) =>
-    item.createdAt.toLowerCase().includes(search.toLowerCase()
+  //Merge the two arrays to one and filter==============
+  nodes: counts.map((item, i) => Object.assign({}, item, getrrr[i])).filter((item) =>
+    item.rrr_number.toLowerCase().includes(search.toLowerCase()
     )
   ),
 };
  var sum = 0;
+
  const handleCheckAllChange = (e) => {
           setChecked( e.target.checked ? datas.nodes.map((c) => {
             var countT = 0
@@ -171,6 +141,42 @@ const datas = {
         const handleListChange = (e, c) => {
           setChecked((prevChecked) => e.target.checked ? [...prevChecked, c.id]: prevChecked.filter((item) => item !== c.id));
         };
+
+          React.useEffect(()=>{
+    if(!(permissions.indexOf("VIEW_RRR") > -1) ){
+        navigate('/')
+    }
+const loadItem = async e =>{
+ try{
+         var ids = []
+        await app.get(`/rrr/not/activate/0/1/1/`).then(async res=>{
+              res.data.map(async(item)=>{
+              ids.push(item.id)
+              })
+           
+             await app.get(`/codes/${ids}`)
+               .then( res1=>{
+                setCounts(res1.data)
+               })
+                  
+            setGetrrr(res.data)
+        }).catch(err=>{
+            showToastMessage(err, 'error')
+        })
+    
+         
+    }catch(err){
+         return(err.message)
+        }
+        
+    }
+
+    
+    loadItem()
+   
+      
+  }, [currentUser, permissions, navigate])
+
   return (
  <CRow >
 <CCol xs={12} >
@@ -181,7 +187,7 @@ const datas = {
           <CCardBody>
               <CInputGroup>
         <CInputGroupText> Search</CInputGroupText>
-        <input id="search" placeholder='Search by Date' className='form-control' type="text" onChange={handleSearch} />
+        <input id="search" placeholder='Search by RRR number' className='form-control' type="text" onChange={handleSearch} />
       </CInputGroup>
             <DocsExample add="Payment List">
                <p>{err}</p>
@@ -196,6 +202,8 @@ const datas = {
           <CTableDataCell>AMOUNT</CTableDataCell>
           <CTableDataCell>MAX_No#</CTableDataCell>
            <CTableDataCell>REG_No#</CTableDataCell>
+           <CTableDataCell>NAME</CTableDataCell>
+             <CTableDataCell>EMAIL</CTableDataCell>
           <CTableDataCell>PACKAGE</CTableDataCell>
           <CTableDataCell>DATE PAID</CTableDataCell>
         
@@ -207,15 +215,10 @@ const datas = {
         
             datas.nodes.length === 0? '': datas.nodes.map((item)=>{
                 sum = sum + item.amount
-                 var countT = 0
-                 if(counts.length !== 0){
-                 for (var i = 0; i < counts.length; i++) {
-                  if(counts[i].id === item.id)
-                  countT = (counts[i].count)
-                 }}
+                          
             return(
             <CTableRow key={item.id}>
-            {countT === item.maxNumber ?
+            {item.count === item.maxNumber ?
              <CTableDataCell>
             
               <input type="checkbox" id={item.id}
@@ -231,7 +234,9 @@ const datas = {
         <CTableDataCell>{item.authNumber}</CTableDataCell>
           <CTableDataCell>{formatCurreny.format(item.amount)}</CTableDataCell>
           <CTableDataCell>{item.maxNumber}</CTableDataCell>
-          <CTableDataCell>{countT}</CTableDataCell>
+          <CTableDataCell>{item.count}</CTableDataCell>
+          <CTableDataCell>{item.user.surname + ' ' + item.user.othername}</CTableDataCell>
+           <CTableDataCell>{item.user.email}</CTableDataCell>
           <CTableDataCell>{item.gifship.name + ' '+ item.gifshiptype.name + ' '+ item.gifshipPackage.name}</CTableDataCell>
           <CTableDataCell>{formatDate(new Date(item.createdAt))}</CTableDataCell>
 

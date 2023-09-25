@@ -34,7 +34,7 @@ React.useEffect(()=>{
  setError(err)
         })
     }
-    const userInfo = async ()=>{
+  /*  const userInfo = async ()=>{
 
       await app.get(`/register/${currentUser?.id}/userId/auth/f`)
       .then(result=>{
@@ -45,8 +45,9 @@ React.useEffect(()=>{
 
       })
     }
+    */
     getOne()
-    userInfo()
+   // userInfo()
 }, [currentUser])
 
 
@@ -60,12 +61,12 @@ React.useEffect(()=>{
           <p style={{textAlign:'center'}}><b>ENROLEE BASIC PROFILE INFORMATION</b></p>
           <CRow>
            <CCol xl={2} xs={2}>
-          <QrCode value={currentUser.uiid} />
+          <QrCode value={currentUser?.email} />
           </CCol>
           <CCol xl={10} xs={10}>
          
           <div style={{textAlign:'right'}}><img height={60} width={60}  src={`${baseURLStatic}${user.imgurl}`} /></div>
-      <span style={{textAlign:'center'}}><b >{userInfos.length !== 0 ? 'ID No#: ' + userInfos.idCode: 'ID No#: NHIA/FCT/0005656'}</b></span>
+                   
       </CCol>
      </CRow>
      <hr />

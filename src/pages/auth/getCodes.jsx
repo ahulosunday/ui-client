@@ -93,7 +93,7 @@ const handleChange = e =>{
         </DialogContent>
       </CModal>
 
-<CTable className="table table-bordered" style={{fontSize:'12px'}}>
+<CTable className="table table-bordered" style={{fontSize:'12px'}} responsive>
       <CTableHead>
       <CTableRow >
       <CTableHeaderCell>SN</CTableHeaderCell>
