@@ -124,7 +124,7 @@ const datas = {
   ),
 };
  var sum = 0;
-
+//console.log(counts.map((item, i) => Object.assign({}, item, getrrr[i])))
  const handleCheckAllChange = (e) => {
           setChecked( e.target.checked ? datas.nodes.map((c) => {
             var countT = 0
@@ -153,12 +153,16 @@ const loadItem = async e =>{
               res.data.map(async(item)=>{
               ids.push(item.id)
               })
-           
+         
              await app.get(`/codes/${ids}`)
                .then( res1=>{
-                setCounts(res1.data)
+                const strDescending = [...res1.data].sort((a, b) =>
+                        a.id > b.id ? -1 : 1,
+                      );
+           
+                setCounts(strDescending)
                })
-                  
+                 
             setGetrrr(res.data)
         }).catch(err=>{
             showToastMessage(err, 'error')

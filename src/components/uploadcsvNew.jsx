@@ -18,7 +18,7 @@ import { Alert, Link } from '@mui/material';
 import { nanoid, pin } from '../helpers/customAlphabet';
 import validateForm from './validateForm';
 
-export default function FormDialogCsv(props) {
+export default function FormDialogCsvNew(props) {
   const [open, setOpen] = React.useState(false);
   const [file, setFile] = React.useState([])
   const [err, setError] = React.useState('')
@@ -85,10 +85,7 @@ export default function FormDialogCsv(props) {
                 uiid: v1()
               })
             })
-               if(obj.length < props.count ){
-              setError(<Alert severity='error'>The minmun number NOT reached, please make sure you upload the correct numbers of enrolees</Alert>)
-            }
-            else if(obj.length > props.count ){
+           if(obj.length > props.count ){
               setError(<Alert severity='error'>The maximum number EXCEEDED, please make sure you upload the correct numbers of enrolees</Alert>)
             }
             else{
@@ -100,10 +97,10 @@ export default function FormDialogCsv(props) {
               return Object.assign({
                 userId: q.id,
                 user_rrrId: props.user_rrrId,
-                code:  pin+index
+                code:  pin+ + index + 'x'
                 })
                  })
-            
+            console.log(obj2)
                 await app.post('/codes/', obj2).then(res2=>{
                 //send email here console.log(res2.data)
                 res1.data.map((ob)=>{
@@ -129,12 +126,12 @@ export default function FormDialogCsv(props) {
                 })
                  })
                  }).catch(err2=>{
-setError(<Alert severity='error'>{err2.err}</Alert>)
+setError(<Alert severity='error'>Error occured:Unable to generate the activation code. {err2.err}</Alert>)
                  })
                  ///codes/
                  //====================user_rrrId: ,
                 }).catch(err1=>{
-                 setError(<Alert severity='error'>{err1.err}</Alert>)
+                 setError(<Alert severity='error'>Error occuered: Unable to create the list. {err1.err}</Alert>)
                 })
               
           }
@@ -154,29 +151,15 @@ setError(<Alert severity='error'>{err2.err}</Alert>)
 
   }
 
-  const handleEmial = async e =>{
-          const obj = Object.assign({
-                      msg:emailHtml,
-                      to: 'ahulosunday@gmail.com',
-                      subject:'Registartion',
-                      
-                    })
-                  app.post('sendmail/user/auth/email/send', obj).then(res=>{
-                      showToastMessage(res, 'success')
-                     
-                  }).catch(err=>{
-                        showToastMessage(err, 'error')
-                  })
-  }
-//<Link to='/form/register/add' className="addnew">Registration</Link>
+ 
   return (
     <div xs={12} xl={6}>
     <form className='validateForm'>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Upload
+      <Button variant="outlined" className='btn-link' onClick={handleClickOpen}>
+     Click here to upload the list.
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>UPLOAD</DialogTitle>
+        <DialogTitle>Upload the file </DialogTitle>
         <DialogContent>
           <DialogContentText>
             Please upload .xls, .xlsx, .csv only

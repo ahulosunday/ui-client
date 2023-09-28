@@ -27,6 +27,7 @@ const Renewal = () =>{
   const [gifship, setgifship] = useState([])
    const {currentUser, permissions } = useContext(AuthContext);
    const [error, setError]=useState('')
+   const [uid, setUid] = useState('')
     const [error2, setError2]=useState('')
    const [inputs, setInputs] = useState({
     username: '', password:''
@@ -39,8 +40,10 @@ const Renewal = () =>{
       if(validateForm('validateForm') === 0){
    await app.post('/signin/0', inputs).then(async res=>{
     await app.get(`/rrr/${res.data.id}/0/0/1`)
-.then(res1=>{
-   
+.then( async res1=>{
+   await app.get(`/findUserByUsername/${inputs.username}/1/1/1/1`).then(uid=>{
+ setUid(uid.data.id)
+   })
     setUser_rrr(res1.data)
     setVisible(false)
 }).catch(err1=>{
@@ -151,6 +154,7 @@ if(validateForm('validateForm') === 0){
 }
 
 }
+
 const handleRenew  = async (e)=>{
   const id = e.target.id
    await app.get(`/user-rrr/${id}/`)
@@ -324,7 +328,11 @@ const handleChange = e =>{
         </DialogContent>
       </CModal>
 <p>{error}</p>
-      <CTable className="table table-striped" responsive>
+
+<>
+
+{inputs.username.length === 0? '':<Link to={'/new/auth/'} className="btn btn-sm btn-primary" state={uid}>New Tariff</Link>}</>
+      <CTable className="table" responsive style={{fontSize:'12px'}}>
       <CTableHead>
       <CTableRow >
       <CTableHeaderCell>SN</CTableHeaderCell>

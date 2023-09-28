@@ -173,26 +173,13 @@ const handleChange = e =>{
         let authNumber= document.getElementById('authNumber').value
         let  expired_date= moment(Date.parse(activated_date) + ((duration * 1000 * 60 * 60 * 24))).format('YYYY-MM-DD')
 
-       await app.post('/user-rrr/', {rrr_number:rrr_number, userId:userId, activated:activated, activatedby:activatedby,	amount:amount,	duration:duration,	gifshipId:gifshipId,	gifshipTypeId:gifshipTypeId,	gifshipPackageId:gifshipPackageId,	activated_date:activated_date,	expired_date:expired_date, maxNumber:(amount/maxNumber), minNumber:minNumber, authNumber: authNumber})
+       await app.post('/user-rrr/code', {rrr_number:rrr_number, userId:userId, activated:activated, activatedby:activatedby,	amount:amount,	duration:duration,	gifshipId:gifshipId,	gifshipTypeId:gifshipTypeId,	gifshipPackageId:gifshipPackageId,	activated_date:activated_date,	expired_date:expired_date, maxNumber:(amount/maxNumber), minNumber:minNumber, authNumber: authNumber})
        .then(async res =>{
         setLoading(false)
-        let insertedId = res.data.id;
-        let code = pin;
-        await app.put(`/activate/${userId}/`,{}).then( async res1=>{
-         await app.post('/code/0', {user_rrrId: insertedId, userId: user.id, code:code })
-          .then(async res2 =>{
             setLoading(false)
-           const emailHtml = render(<><h2>Congratulations!</h2><p>We are pleased to inform you that your account has been created successfully.<br />Username is your registered username <br />Password: ******** <br />Registration code: { code } <br /> You will be notified appropriately when your registration is activated.<br /> If you encounter any further issues or have any questions, please do not hesitate to reach out to our customer support team via our customer support channels.<br /> Visit <a href={hostUrl}> here</a> to login and complete your registartion <br /> <hr /> Thanks.<br /> Management Team.</p></>);
+           const emailHtml = render(<><h2>Congratulations!</h2><p>We are pleased to inform you that your account has been created successfully.<br />Username is your registered username <br />Password: ******** <br />Registration code: { res.data.code } <br /> You will be notified appropriately when your registration is activated.<br /> If you encounter any further issues or have any questions, please do not hesitate to reach out to our customer support team via our customer support channels.<br /> Visit <a href={hostUrl}> here</a> to login and complete your registartion <br /> <hr /> Thanks.<br /> Management Team.</p></>);
             await app.post('/sendmail/user/auth/email/send',{to: email, msg: emailHtml, subject: 'Registration Confirmation'})
-              
-          })
-          .catch(err =>{
-            setLoading(false)
-            showToastMessage('Unable to renerate code: ' + err, 'error')
-          })
            showToastMessage('User activated successfuly', 'success')
-        })
-      
         navigate('/user-rrr/', {state : "ok"})
        }).catch(err =>{
         setLoading(false)
@@ -205,9 +192,6 @@ const handleChange = e =>{
         setMsg("Invalid data entry, check the entry and try again.")
         }
     }
-
-
-    
     return (
   
           <CRow >
