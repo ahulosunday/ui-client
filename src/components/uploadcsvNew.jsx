@@ -62,7 +62,7 @@ export default function FormDialogCsvNew(props) {
 
 //=========================================
   const handleSubmit = async e =>{
-     saveElement.current.click()
+     //saveElement.current.click()
     e.preventDefault() 
     if(validateForm('validateForm') === 0){
      if(file.length !== 0) {
@@ -83,55 +83,36 @@ export default function FormDialogCsvNew(props) {
                 isActive: 1,
                 roleid:3,
                 uiid: v1()
+               
               })
             })
            if(obj.length > props.count ){
               setError(<Alert severity='error'>The maximum number EXCEEDED, please make sure you upload the correct numbers of enrolees</Alert>)
             }
             else{
-              
-                await app.post('/users/bulk', obj).then(async res1=>{
-                 showToastMessage('Transaction completed with status: ' +res1.statusText, 'success')
-                
-                 const obj2 = res1.data.map((q, index)=>{
-              return Object.assign({
-                userId: q.id,
-                user_rrrId: props.user_rrrId,
-                code:  pin+ + index + 'x'
-                })
-                 })
-            console.log(obj2)
-                await app.post('/codes/', obj2).then(res2=>{
-                //send email here console.log(res2.data)
-                res1.data.map((ob)=>{
-                res2.data.map((item)=>{
-                  if(item.userId === ob.id){
-                  const msg = render(<><h2>Congratulations!</h2><p>We are pleased to inform you that your account has been created successfully.<br />Username: is your registered email,<br /> password: password@123 <br />Registration code: {item.code} <br /> You will be notified appropriately when your registration is activated.<br /> If you encounter any further issues or have any questions, please do not hesitate to reach out to our customer support team via our customer support channels.<br /> Visit <a href={hostUrl}> here</a> to login and complete your registration <br /> <hr /> Thanks.<br /> Management Team.</p></>);
-        
-                    const to = ob.email;
+              await app.post(`users/bulk/${props.user_rrrId}`, obj)
+              .then(async res1=>{
+                if(res1.data.length > 0){
+                res1.data.map((item)=>{
+                   const msg = render(<><h2>Congratulations!</h2><p>We are pleased to inform you that your account has been created successfully.<br />Username: is your registered email,<br /> password: password@123 <br />Registration code: {item.code} <br /> You will be notified appropriately when your registration is activated.<br /> If you encounter any further issues or have any questions, please do not hesitate to reach out to our customer support team via our customer support channels.<br /> Visit <a href={hostUrl}> here</a> to login and complete your registration <br /> <hr /> Thanks.<br /> Management Team.</p></>);
+                   const to = item.email;
                     const subject = 'Registration Code';
                     const obj3 = Object.assign({
                       msg: msg,
                       to: to,
                       subject: subject
                     })
-                  app.post('/sendmail/user/auth/email/send', obj3).then(res4=>{
-                  handleClose()
-
-                  }).catch(err4=>{
-                   setError(<Alert severity='error'>Unable to send mail, Networt error ...</Alert>)
+                  app.post('/sendmail/user/auth/email/send', obj3).then(m=>{
+                    
+                  }).catch(e=>{
+                     setError(<Alert severity='error'>Error occuered: Unable to send mails : {e}</Alert>)
                   })
-                  }
-                  
+                 
                 })
-                 })
-                 }).catch(err2=>{
-setError(<Alert severity='error'>Error occured:Unable to generate the activation code. {err2.err}</Alert>)
-                 })
-                 ///codes/
-                 //====================user_rrrId: ,
+                }
+ showToastMessage('Transaction completed. Registration details sent to emails', 'success')
                 }).catch(err1=>{
-                 setError(<Alert severity='error'>Error occuered: Unable to create the list. {err1.err}</Alert>)
+                 setError(<Alert severity='error'>Error occuered: Unable to create the list. {err1}</Alert>)
                 })
               
           }
@@ -139,24 +120,19 @@ setError(<Alert severity='error'>Error occured:Unable to generate the activation
         }).catch(err=>{
           setError(<Alert severity='info'>{'Reading data ..., click Save to effect chanhes'}</Alert>)
         })
-        
-                   
-         
-            }
+        }
             else{
               setError(<Alert severity='error'>Invalid file format (csv, xlxs, xls only</Alert>)
             }
-    }}
-        
-
-  }
+            }}
+    }
 
  
   return (
     <div xs={12} xl={6}>
     <form className='validateForm'>
-      <Button variant="outlined" className='btn-link' onClick={handleClickOpen}>
-     Click here to upload the list.
+      <Button className='btn-link' onClick={handleClickOpen}>
+     Click here to upload the list of enrolees.
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Upload the file </DialogTitle>
