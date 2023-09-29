@@ -59,7 +59,12 @@ const _nav = [
     to: '/user-rrr/',
     icon: <CIcon icon={cilMoney} customClassName="nav-icon" />,
   },
-  
+  {
+    component: CNavItem,
+    name: 'Renewal',
+    to: '/renewal/rrr/',
+    icon: <CIcon icon={cilMoney} customClassName="nav-icon" />,
+  },
   {
     component: CNavItem,
     name: 'Generate Payment',
@@ -129,6 +134,13 @@ const _nav = [
 
     ],
   },
+  
+  {
+  component: CNavItem,
+  name: 'Reg. Codes',
+  to: '/auth/getcodes/',
+   icon: <CIcon icon={cilNotes} customClassName="nav-icon" />
+},
   {
   component: CNavItem,
   name: 'Change Password',

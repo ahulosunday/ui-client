@@ -4,10 +4,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {AuthContext} from "../../context/authContext";
 import moment from "moment";
-import { Button, Pagination, Stack } from '@mui/material';
-import { startIndex, per_page } from '../../helpers/paging_indexes';
 import showToastMessage from '../../components/toast';
-import DataTable from 'datatables.net-dt';
 
 import {
   CButton,
@@ -36,7 +33,7 @@ import DeleteIcon from '../../components/deleteIcon';
 import EditIcon from '../../components/editIcon';
 import ViewIcon from '../../components/viewIcon';
 import { formatCurreny } from '../../components/formatCurrency';
-
+import PrintIcon from '@mui/icons-material/Print';
 
 const ListRRRByUser = () =>{
     const [getrrr, setGetrrr] = useState([]);
@@ -92,7 +89,8 @@ const datas = {
       </CInputGroup>
        <CTable striped style={{fontSize:'12px'}} align="middle" responsive>
        <CTableHead>
-       <CTableRow>      
+       <CTableRow>
+       <CTableHeaderCell></CTableHeaderCell>
        <CTableHeaderCell>RRR_NO#</CTableHeaderCell>
        <CTableHeaderCell>PAYMENT VERIFICATION NO#</CTableHeaderCell>
         <CTableHeaderCell>ENROLEE_NAME</CTableHeaderCell>
@@ -114,6 +112,7 @@ const datas = {
        {
             datas.nodes.length === 0? '': datas.nodes.map((item)=>(
             <CTableRow>
+            <CTableDataCell title='Print receipt'> <Link to={`/receipt`} style={{color:'black'}}  state={item.id} ><PrintIcon /></Link></CTableDataCell>
        <CTableDataCell>{item.rrr_number}</CTableDataCell>
         <CTableDataCell>{item.authNumber}</CTableDataCell>
        <CTableDataCell>{item.user.surname} {item.user.othername}</CTableDataCell>

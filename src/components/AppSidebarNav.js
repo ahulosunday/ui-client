@@ -8,7 +8,7 @@ export const AppSidebarNav = ({ items }) => {
   const [show, setShow] = useState(true)
   const location = useLocation()
   //Logins for Role with id 3, that is Guest
-   const arr = ['Change Password', 'Enrolement', 'Profile Pix', 'Dashboard']
+   const arr = ['Change Password', 'Enrolement', 'Profile Pix', 'Dashboard', 'Renewal', 'Reg. Codes']
   useEffect(()=>{
  if(currentUser?.roleid === 3) setShow(false)
   }, [currentUser])

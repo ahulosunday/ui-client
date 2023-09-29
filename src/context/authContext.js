@@ -17,13 +17,14 @@ export const AuthContextProvider = ({children}) =>{
          .then(res =>{
              setCurrentUser(res.data)
              setLoading(false)
-             return(true)
+             //return(true)
          })
          .catch(errs=>{
             setLoading(true)
-           return(false)
+            showToastMessage('Invalid Username or password', 'error')
+           //return(false)
          });
-           
+         //"@createnextapp/react-barcode": "^1.1.1",  
     }
     //logout ====================admin@gmail.com
     const logout = async()=>{

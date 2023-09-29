@@ -20,6 +20,9 @@ import moment from 'moment';
 import { Alert } from '@mui/material';
 import { render } from '@react-email/render';
 import hostUrl from '../../helpers/hostUrl';
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
+
+
 const GeneratePayment = ()=>{
 const [expanded, setExpanded] = React.useState(false);
  const [checked, setChecked] = React.useState([])
@@ -29,53 +32,8 @@ const [expanded, setExpanded] = React.useState(false);
     const [data, setData] = React.useState([])
     const {currentUser, permissions } = React.useContext(AuthContext);
    const navigate = useNavigate()
-   
-
-  const handleChanged = async (e, value) => {
-    setPage(value);
-    await app.get(`/rrr/not/activate/0/1/1/`).then(res=>{
-            setGetrrr(res.data)
-        }).catch(err=>{
-            showToastMessage(err, 'error')
-        })
-
-  }
-
-  const getCount = async (user_rrrId)=>{
-    try{
-      const count = await app.get(`/codes/${user_rrrId}/code/rrr/`)
-      return(count.data.count)
-    }
-    catch(err){
-      return (0)
-    }
-    
-  }
-
-  const loadItem = async e =>{
- try{
-         
-        await app.get(`/rrr/not/activate/0/1/1/`).then(res=>{
-            setGetrrr(res.data)
-           
-        }).catch(err=>{
-            showToastMessage(err, 'error')
-        })
-    
-         
-    }catch(err){
-         return(err.message)
-        }
-        
-    }
-  React.useEffect(()=>{
-    if(!(permissions.indexOf("VIEW_RRR") > -1) ){
-        navigate('/')
-    }
-    loadItem()
-         
-      
-  }, [currentUser, permissions, navigate])
+   const [counts, setCounts] = React.useState([])
+      const [merger, setMerger] = React.useState([])
 
 const getData = async (e)=>{
   e.preventDefault()
@@ -91,6 +49,7 @@ var arr = [];
 var len = oResponse.length;
 
 for (var i = 0; i < len; i++) {
+  if(oResponse[i] == '') continue
   const dataLog = await app.get(`/user-rrr/${oResponse[i]}/`)
        let  expired_date= moment(Date.parse(activated_date) + ((dataLog.data.duration * 1000 * 60 * 60 * 24))).format('YYYY-MM-DD')
     arr.push({
@@ -101,6 +60,7 @@ for (var i = 0; i < len; i++) {
     }); 
  
 }
+if(arr.length !== 0){
 await app.put('/user-rrr/', arr).then(async res=>{
   //send mails ====================
   const subject = 'Registration Activation';
@@ -123,25 +83,33 @@ await app.put('/user-rrr/', arr).then(async res=>{
                     })
                    app.post('/sendmail/user/auth/email/send', obj3).then(respo=>{
                     showToastMessage('Batch complted: = ' + i + ' completed', 'success' )
+                   }).catch(errs=>{
+                    setErr(<Alert severity='error'>Unable to send mails</Alert>)
                    })
  })
      .catch(errp=>{
 setErr(<Alert severity='error'>{errp}</Alert>)
      })
 } ///loop end
-  loadItem()
+ // loadItem()
  setErr(<Alert severity='success'>Transaction completed successfully</Alert>)
-})
-.catch(err=>{
+
+//navigate('/')
+}).catch(err=>{
 setErr(<Alert severity='error'>{err}</Alert>)
 })
-
+}
+else{
+  showToastMessage("No record selected, No record updated ", 'error')
+}
 }
 
+  
   }
   catch(err){
 setErr(<Alert severity='error'>{err}</Alert>)
   }
+  alert('Transaction completed.')
 }
    const [search, setSearch] = React.useState('');
   const handleSearch = (event) => {
@@ -149,23 +117,70 @@ setErr(<Alert severity='error'>{err}</Alert>)
   };
   
 const datas = {
-  nodes: getrrr.filter((item) =>
-    item.createdAt.toLowerCase().includes(search.toLowerCase()
+  //Merge the two arrays to one and filter==============
+  nodes: counts.map((item, i) => Object.assign({}, item, getrrr[i])).filter((item) =>
+    item.rrr_number.toLowerCase().includes(search.toLowerCase()
     )
   ),
 };
  var sum = 0;
-
+//console.log(counts.map((item, i) => Object.assign({}, item, getrrr[i])))
  const handleCheckAllChange = (e) => {
           setChecked( e.target.checked ? datas.nodes.map((c) => {
-            if(getCount(c.id) === c.maxNumber)
+            var countT = 0
+                 if(counts.length !== 0){
+                 for (var i = 0; i < counts.length; i++) {
+                  if(counts[i].id === c.id)
+                  countT = (counts[i].count)
+                 }}
+                 if(c.maxNumber === countT)
             return c.id
             }) : []);
         };
 
-        const handlePermissionChange = (e, c) => {
+        const handleListChange = (e, c) => {
           setChecked((prevChecked) => e.target.checked ? [...prevChecked, c.id]: prevChecked.filter((item) => item !== c.id));
         };
+
+          React.useEffect(()=>{
+    if(!(permissions.indexOf("VIEW_RRR") > -1) ){
+        navigate('/')
+    }
+const loadItem = async e =>{
+ try{
+         var ids = []
+        await app.get(`/rrr/not/activate/0/1/1/`).then(async res=>{
+              res.data.map(async(item)=>{
+              ids.push(item.id)
+              })
+         
+             await app.get(`/codes/${ids}`)
+               .then( res1=>{
+                const strDescending = [...res1.data].sort((a, b) =>
+                        a.id > b.id ? -1 : 1,
+                      );
+           
+                setCounts(strDescending)
+               })
+                 
+            setGetrrr(res.data)
+        }).catch(err=>{
+            showToastMessage(err, 'error')
+        })
+    
+         
+    }catch(err){
+         return(err.message)
+        }
+        
+    }
+
+    
+    loadItem()
+   
+      
+  }, [currentUser, permissions, navigate])
+
   return (
  <CRow >
 <CCol xs={12} >
@@ -176,7 +191,7 @@ const datas = {
           <CCardBody>
               <CInputGroup>
         <CInputGroupText> Search</CInputGroupText>
-        <input id="search" placeholder='Search by Date' className='form-control' type="text" onChange={handleSearch} />
+        <input id="search" placeholder='Search by RRR number' className='form-control' type="text" onChange={handleSearch} />
       </CInputGroup>
             <DocsExample add="Payment List">
                <p>{err}</p>
@@ -189,33 +204,45 @@ const datas = {
           <CTableDataCell>RRR NUMBER</CTableDataCell>
           <CTableDataCell>AUTH. CODE</CTableDataCell>
           <CTableDataCell>AMOUNT</CTableDataCell>
-          <CTableDataCell>No#</CTableDataCell>
+          <CTableDataCell>MAX_No#</CTableDataCell>
+           <CTableDataCell>REG_No#</CTableDataCell>
+           <CTableDataCell>NAME</CTableDataCell>
+             <CTableDataCell>EMAIL</CTableDataCell>
           <CTableDataCell>PACKAGE</CTableDataCell>
           <CTableDataCell>DATE PAID</CTableDataCell>
-          <CTableDataCell>STATUS</CTableDataCell>
+        
           </CTableRow>
           </CTableHead>
           <CTableBody>
+         
        {
-       
+        
             datas.nodes.length === 0? '': datas.nodes.map((item)=>{
                 sum = sum + item.amount
-
+                          
             return(
             <CTableRow key={item.id}>
-             <CTableDataCell>{getCount(item.id) === item.maxNumber ? <input type="checkbox" id={item.id}
+            {item.count === item.maxNumber ?
+             <CTableDataCell>
+            
+              <input type="checkbox" id={item.id}
                 checked={checked.includes(item.id)}
-                  onChange={(e) => handlePermissionChange(e, item)}  
+                  onChange={(e) => handleListChange(e, item)}  
                   value={item.id}
-                  name="ck"/>: null}</CTableDataCell>
+                  
+                  name="ck"/></CTableDataCell>:
+                  <CTableDataCell style={{color:'red'}}><ClearIcon /></CTableDataCell>}
+
        <CTableDataCell>
        <Link title='View the list of enrolees under this payment' to={`/user-rrr/dependants`} state={item.id}>{item.rrr_number}</Link></CTableDataCell>
         <CTableDataCell>{item.authNumber}</CTableDataCell>
           <CTableDataCell>{formatCurreny.format(item.amount)}</CTableDataCell>
           <CTableDataCell>{item.maxNumber}</CTableDataCell>
+          <CTableDataCell>{item.count}</CTableDataCell>
+          <CTableDataCell>{item.user.surname + ' ' + item.user.othername}</CTableDataCell>
+           <CTableDataCell>{item.user.email}</CTableDataCell>
           <CTableDataCell>{item.gifship.name + ' '+ item.gifshiptype.name + ' '+ item.gifshipPackage.name}</CTableDataCell>
           <CTableDataCell>{formatDate(new Date(item.createdAt))}</CTableDataCell>
-<CTableDataCell>{getCount(item.id) === item.maxNumber ? <CheckBoxIcon  />:<ClearIcon />}</CTableDataCell>
 
 </CTableRow>
 )})}

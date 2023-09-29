@@ -12,8 +12,11 @@ const ViewHospital = React.lazy(() => import('./pages/hospital/view'))
 const ListUsers = React.lazy(() => import('./pages/user/list'))
 const ActivateUser  = React.lazy(() => import( './pages/user/ActivateUser'));
 const DeactivateUser  = React.lazy(() => import( './pages/user/deactivateUser'));
+//==================
+const getCodes = React.lazy(() => import( './pages/auth/getCodes'));
 
 const PrintForm = React.lazy(()=> import('./pages/printout'))
+const Receipt = React.lazy(()=> import('./components/receipt'))
 const GifshipList = React.lazy(() => import('./pages/gifship/listall'));
 const  GifshipType  = React.lazy(() => import( './pages/gifship/gifshipType'));
 const GifshipEdit  = React.lazy(() => import( './pages/gifship/edit'));
@@ -44,9 +47,22 @@ const EditHmo  = React.lazy(() => import( './pages/hmo/edit'));
 const EditRegister  = React.lazy(() => import( './pages/gforms/edit'));
 const ViewForm  = React.lazy(() => import( './pages/gforms/view'));
 //const PrintForm  = React.lazy(() => import( './pages/printout'));
-const GeneratePayment  = React.lazy(() => import( './pages/user-rrr/generatePayment'));
-const ListRRR  = React.lazy(() => import( './pages/user-rrr/list'));
+const GeneratePayment  = React.lazy(() => import('./pages/user-rrr/generatePayment'));
+const ListRRR  = React.lazy(() => import('./pages/user-rrr/list'));
 const ListRRRByUser = React.lazy(() => import( './pages/user-rrr/view-list'));
+const Renewal = React.lazy(() => import( './pages/user-rrr/renewal'));
+<<<<<<< HEAD
+<<<<<<< HEAD
+const BulkAdd= React.lazy(() => import( './pages/user-rrr/bulkAdd'));
+const NewRegWithTransfer = React.lazy(() => import( './pages/user-rrr/new'));
+=======
+const NewRegWithTransfer = React.lazy(() => import( './pages/user-rrr/new'));
+
+>>>>>>> e1f21e82cefd7bc01d28f5150f934ae20e79f212
+=======
+const NewRegWithTransfer = React.lazy(() => import( './pages/user-rrr/new'));
+
+>>>>>>> e1f21e82cefd7bc01d28f5150f934ae20e79f212
 const ListDependants  = React.lazy(() => import( './pages/user-rrr/dependants'));
 const AddUserRRR  = React.lazy(() => import( './pages/user-rrr/add'));
 const AssignPermissions  = React.lazy(() => import( './pages/role/assign-permissions'));
@@ -121,9 +137,21 @@ const routes = [
  {path: '/users/list', name:'Users', element: ListUsers },
  {  path: "/user/activate/0/1", name:'Password',  element: ActivateUser},
  {  path: "/user/Deactivate/0/1/0", name:'Password',  element: DeactivateUser},
+ {  path: "/auth/getcodes/", name:'Codes',  element: getCodes},
  
 //================================
 {path: '/print/form/:id', name : 'PrintForm', element: PrintForm },
+
+{path: '/receipt', name : 'Receipt', element: Receipt },
+{path: '/renewal/rrr/', name : 'Renewal', element: Renewal },
+{path: '/new/auth/', name : 'New_Tariff', element: NewRegWithTransfer },
+<<<<<<< HEAD
+<<<<<<< HEAD
+{path: '/new/auth/add', name : 'Bulk_Add', element: BulkAdd },
+=======
+>>>>>>> e1f21e82cefd7bc01d28f5150f934ae20e79f212
+=======
+>>>>>>> e1f21e82cefd7bc01d28f5150f934ae20e79f212
 {path: '/user-rrr/', name: 'User_RRR', element: ListRRR},
 {path: '/user-rrr/view-list/', name: 'RRR', element: ListRRRByUser},
 {path: '/user-rrr/dependants', name: 'List_dependants', element: ListDependants},

@@ -22,6 +22,7 @@ export default function FormDialogCsv(props) {
   const [open, setOpen] = React.useState(false);
   const [file, setFile] = React.useState([])
   const [err, setError] = React.useState('')
+  const saveElement = React.useRef()
    const [items, setItems] = React.useState({
     Surname:'', Othername:'', Email:'', Phone:'', NIN:''
    });
@@ -61,6 +62,7 @@ export default function FormDialogCsv(props) {
 
 //=========================================
   const handleSubmit = async e =>{
+     saveElement.current.click()
     e.preventDefault() 
     if(validateForm('validateForm') === 0){
      if(file.length !== 0) {
@@ -91,7 +93,7 @@ export default function FormDialogCsv(props) {
             }
             else{
               
-                await app.post('/users/bulk', obj).then(res1=>{
+                await app.post('/users/bulk', obj).then(async res1=>{
                  showToastMessage('Transaction completed with status: ' +res1.statusText, 'success')
                 
                  const obj2 = res1.data.map((q, index)=>{
@@ -102,7 +104,7 @@ export default function FormDialogCsv(props) {
                 })
                  })
             
-                 app.post('/codes/', obj2).then(res2=>{
+                await app.post('/codes/', obj2).then(res2=>{
                 //send email here console.log(res2.data)
                 res1.data.map((ob)=>{
                 res2.data.map((item)=>{
@@ -194,7 +196,7 @@ setError(<Alert severity='error'>{err2.err}</Alert>)
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleSubmit}>Save</Button>
+          <Button onClick={handleSubmit} ref={saveElement} >Save</Button>
        
         </DialogActions>
       </Dialog>
