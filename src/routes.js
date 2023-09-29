@@ -51,23 +51,9 @@ const GeneratePayment  = React.lazy(() => import('./pages/user-rrr/generatePayme
 const ListRRR  = React.lazy(() => import('./pages/user-rrr/list'));
 const ListRRRByUser = React.lazy(() => import( './pages/user-rrr/view-list'));
 const Renewal = React.lazy(() => import( './pages/user-rrr/renewal'));
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 const BulkAdd= React.lazy(() => import( './pages/user-rrr/bulkAdd'));
 const NewRegWithTransfer = React.lazy(() => import( './pages/user-rrr/new'));
-=======
-const NewRegWithTransfer = React.lazy(() => import( './pages/user-rrr/new'));
-
->>>>>>> e1f21e82cefd7bc01d28f5150f934ae20e79f212
-=======
-const NewRegWithTransfer = React.lazy(() => import( './pages/user-rrr/new'));
-
->>>>>>> e1f21e82cefd7bc01d28f5150f934ae20e79f212
-=======
-const NewRegWithTransfer = React.lazy(() => import( './pages/user-rrr/new'));
-
->>>>>>> ca210d484c121728a77b169da9cc07cabb009396
 const ListDependants  = React.lazy(() => import( './pages/user-rrr/dependants'));
 const AddUserRRR  = React.lazy(() => import( './pages/user-rrr/add'));
 const AssignPermissions  = React.lazy(() => import( './pages/role/assign-permissions'));
@@ -150,16 +136,9 @@ const routes = [
 {path: '/receipt', name : 'Receipt', element: Receipt },
 {path: '/renewal/rrr/', name : 'Renewal', element: Renewal },
 {path: '/new/auth/', name : 'New_Tariff', element: NewRegWithTransfer },
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 {path: '/new/auth/add', name : 'Bulk_Add', element: BulkAdd },
-=======
->>>>>>> e1f21e82cefd7bc01d28f5150f934ae20e79f212
-=======
->>>>>>> e1f21e82cefd7bc01d28f5150f934ae20e79f212
-=======
->>>>>>> ca210d484c121728a77b169da9cc07cabb009396
+
 {path: '/user-rrr/', name: 'User_RRR', element: ListRRR},
 {path: '/user-rrr/view-list/', name: 'RRR', element: ListRRRByUser},
 {path: '/user-rrr/dependants', name: 'List_dependants', element: ListDependants},
