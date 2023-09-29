@@ -34,6 +34,7 @@ import {
   CTableRow,
 } from '@coreui/react'
 import { DocsExample } from '../../components'
+import FormDialogCsvNew from '../../components/uploadcsvNew';
 
 
 const ListRegister
@@ -81,9 +82,15 @@ const loadItem = async e =>{
           const diff = today.diff(exp, 'days')
          if(diff < 0){
           await app.get(`/codes/${res.data.id}/code/rrr/`).then(res1=>{
-            setCount(res.data.maxNumber)
-           if(res1.data.count < res.data.maxNumber) setShowUpload(true)
+            const a = res.data.maxNumber
+            const b = res1.data.count
+           if(b < a)
+           {
+             setCount((a - b))
+            setShowUpload(true)
+           }
            setRrrId(res1.data.rows[0].user_rrrId)
+            
           }).catch(err=>{
           })
          }
@@ -139,7 +146,7 @@ const datas = {
         <input id="search" placeholder='Search by Surname' className='form-control' type="text" onChange={handleSearch} />
       </CInputGroup>
             <DocsExample href="" add="Enrolee List"></DocsExample>
-            <span style={{width:'100%', display:'flex', flexDirection:'row', gap:'10px'}}>{ newreg > 0 ?'':<FormDialog /> }   {showUpload? <FormDialogCsv user_rrrId={rrrId} count ={count-1}/>:''} </span>
+            <span style={{width:'100%', display:'flex', flexDirection:'row', gap:'10px'}}>{ newreg > 0 ?'':<FormDialog /> }   {showUpload? <FormDialogCsvNew user_rrrId={rrrId} count ={count}/>:''} </span>
     
        <CTable className='table' style={{fontSize:'12px'}} align="middle" responsive>
        <CTableHead>
