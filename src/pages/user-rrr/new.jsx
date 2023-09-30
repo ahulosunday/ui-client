@@ -569,19 +569,10 @@ const datasRight = {
 <CCol xs={12} xl={12}>
 <p><h2>Add existing Enrolees</h2></p>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 <p style={{textAlign:'right'}}>Upload New Enrolees <button ref ={saveElement1} onClick={showUpload} style={{cursor:'pointer'}} ><BackupIcon  /></button> {IsSet? <FormDialogCsvNew user_rrrId={user_rrr.user_rrrId} count ={Count}/>: ''}</p>
-=======
+
 <p>Upload New Enrolees <button ref ={saveElement1} onClick={showUpload} style={{cursor:'pointer'}} ><BackupIcon  /></button> {IsSet? <FormDialogCsvNew user_rrrId={user_rrr.user_rrrId} count ={Count}/>: ''}</p>
->>>>>>> e1f21e82cefd7bc01d28f5150f934ae20e79f212
-=======
-<p>Upload New Enrolees <button ref ={saveElement1} onClick={showUpload} style={{cursor:'pointer'}} ><BackupIcon  /></button> {IsSet? <FormDialogCsvNew user_rrrId={user_rrr.user_rrrId} count ={Count}/>: ''}</p>
->>>>>>> e1f21e82cefd7bc01d28f5150f934ae20e79f212
-=======
-<p>Upload New Enrolees <button ref ={saveElement1} onClick={showUpload} style={{cursor:'pointer'}} ><BackupIcon  /></button> {IsSet? <FormDialogCsvNew user_rrrId={user_rrr.user_rrrId} count ={Count}/>: ''}</p>
->>>>>>> ca210d484c121728a77b169da9cc07cabb009396
+
 <Grid container spacing={2} justifyContent="center" alignItems="center" >
       <Grid item>{customList('Users', datas.nodes, <input id="search" placeholder='Search by Surname or Othername' className='form-control' type="text" onChange={handleSearch} />)}</Grid>
       <Grid item>
