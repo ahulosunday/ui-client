@@ -568,11 +568,7 @@ const datasRight = {
 <CRow >
 <CCol xs={12} xl={12}>
 <p><h2>Add existing Enrolees</h2></p>
-
 <p style={{textAlign:'right'}}>Upload New Enrolees <button ref ={saveElement1} onClick={showUpload} style={{cursor:'pointer'}} ><BackupIcon  /></button> {IsSet? <FormDialogCsvNew user_rrrId={user_rrr.user_rrrId} count ={Count}/>: ''}</p>
-
-<p>Upload New Enrolees <button ref ={saveElement1} onClick={showUpload} style={{cursor:'pointer'}} ><BackupIcon  /></button> {IsSet? <FormDialogCsvNew user_rrrId={user_rrr.user_rrrId} count ={Count}/>: ''}</p>
-
 <Grid container spacing={2} justifyContent="center" alignItems="center" >
       <Grid item>{customList('Users', datas.nodes, <input id="search" placeholder='Search by Surname or Othername' className='form-control' type="text" onChange={handleSearch} />)}</Grid>
       <Grid item>
@@ -604,23 +600,9 @@ const datasRight = {
 
     <p>
     <br />
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+
     <CButton id='saveSelected' onClick={handleUsersSave}>Save Selected Users</CButton><br />
     <Link to={'/renewal/rrr/'}>Back</Link>
-=======
-    <CButton id='saveSelected' onClick={handleUsersSave}>Save Selected Users</CButton>
-    <Link to={'/'}>Back</Link>
->>>>>>> e1f21e82cefd7bc01d28f5150f934ae20e79f212
-=======
-    <CButton id='saveSelected' onClick={handleUsersSave}>Save Selected Users</CButton>
-    <Link to={'/'}>Back</Link>
->>>>>>> e1f21e82cefd7bc01d28f5150f934ae20e79f212
-=======
-    <CButton id='saveSelected' onClick={handleUsersSave}>Save Selected Users</CButton>
-    <Link to={'/'}>Back</Link>
->>>>>>> ca210d484c121728a77b169da9cc07cabb009396
     <p>{msg}</p>
     </p>
     </CCol>
