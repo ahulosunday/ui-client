@@ -1,3 +1,3 @@
    //const baseURLStatic = "http://localhost:6001/upload/";
-   const baseURLStatic = "https://api-lky4.onrender.com/upload/";
+   const baseURLStatic = "https://api-qu4v.onrender.com/upload/";
  export default baseURLStatic;
