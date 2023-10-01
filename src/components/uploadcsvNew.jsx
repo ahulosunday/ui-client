@@ -73,7 +73,7 @@ export default function FormDialogCsvNew(props) {
         await app.get(`/hashed/change/pass/${'password@123'}/ok/ww`).then( async res=>{
              const obj = items.map((d, index)=>{
               return Object.assign({
-                Surname: d.Surname,
+                surname: d.Surname,
                 othername: d.Othername,
                 email: d.Email,
                 username: d.Email,
