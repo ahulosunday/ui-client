@@ -222,14 +222,12 @@ const loadItem = async e =>{
                           
             return(
             <CTableRow key={item.id}>
-            {item.count === item.maxNumber ?
+            {(item.maxNumber === item.count)?
              <CTableDataCell>
-            
-              <input type="checkbox" id={item.id}
+            <input type="checkbox" id={item.id}
                 checked={checked.includes(item.id)}
                   onChange={(e) => handleListChange(e, item)}  
                   value={item.id}
-                  
                   name="ck"/></CTableDataCell>:
                   <CTableDataCell style={{color:'red'}}><ClearIcon /></CTableDataCell>}
 
