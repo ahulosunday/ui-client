@@ -119,7 +119,7 @@ const AssignPermissions = () =>{
         }
       
         catch(errp){
-setErrs(<Alert severity='error'>{errp}</Alert>)
+setErrs(<Alert severity='error'>{errp.message}</Alert>)
         showToastMessage( "Invalid data entry, check the entry and try again", "error")
         }
     }
