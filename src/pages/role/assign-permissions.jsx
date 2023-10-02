@@ -7,7 +7,7 @@ import { AiTwotonePlusCircle } from "react-icons/ai";
 import showToastMessage from '../../components/toast';
 import { trackPromise } from 'react-promise-tracker';
 import SendIcon from '@mui/icons-material/Send';
-import { Stack } from '@mui/material';
+import { Alert, Stack } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton/LoadingButton';
 import { CButton, CButtonGroup, CCard, CCardBody, CCardHeader, CCol, CFormInput, CFormLabel, CFormSelect, CFormTextarea, CRow, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow } from '@coreui/react';
 import { DocsExample } from '../../components';
@@ -19,6 +19,7 @@ const AssignPermissions = () =>{
      const [perms, setPerms] = useState([{id:'', name:'', description: ''},])
      const [assignedperms, setAssignedPerms] = useState([])
        const [checked, setChecked] = useState([])
+       const [errs, setErrs]=useState('')
     const {currentUser, permissions } = useContext(AuthContext);
     const navigate = useNavigate()
      const id = location.state//apathname.split("/")[1]
@@ -117,7 +118,8 @@ const AssignPermissions = () =>{
        })
         }
       
-        catch(errs){
+        catch(errp){
+setErrs(<Alert severity='error'>{errp}</Alert>)
         showToastMessage( "Invalid data entry, check the entry and try again", "error")
         }
     }
@@ -158,9 +160,11 @@ const AssignPermissions = () =>{
             <strong style={{color:'white'}}>ASSIGN PERMISSIONS</strong>
           </CCardHeader>
           <CCardBody className='validateForm'>
+          {errs}
             <DocsExample add="Assign Permissions"> 
         <CRow>
         <CCol xs={12} xl={12}>
+
      <label htmlFor="name">Role</label> 
        <CFormInput type="text" value={inputs.name} placeholder={inputs.name} readOnly name="name"  onChange={handleChange} />
         </CCol>
