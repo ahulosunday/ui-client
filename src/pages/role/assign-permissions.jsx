@@ -106,7 +106,7 @@ const AssignPermissions = () =>{
               })
             }) 
               
-       await app.post(`/role-permissions/`,(obj))
+       await app.post(`/role-permissions/`, obj)
        .then(res=>{
         setLoading(false)
         showToastMessage('Permission(s) assigned successfully', 'success')
