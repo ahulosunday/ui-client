@@ -95,7 +95,6 @@ const AssignPermissions = () =>{
         
         try{
           e.preventDefault()
-          if(validateForm('validateForm') === 0){
           setLoading(true)
             var permlist = document.getElementById('permlist').value;
             var arr = [];
@@ -117,7 +116,7 @@ const AssignPermissions = () =>{
         showToastMessage(err, 'error')
        })
         }
-        }
+      
         catch(errs){
         showToastMessage( "Invalid data entry, check the entry and try again", "error")
         }
