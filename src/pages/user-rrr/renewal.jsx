@@ -366,7 +366,7 @@ const handleChange = e =>{
           <CTableDataCell>{item.maxNumber}</CTableDataCell>
          <CTableDataCell>{formatDate(new Date(item.createdAt))}</CTableDataCell>
           <CTableDataCell>{formatDate(new Date(item.expired_date))}</CTableDataCell>
-           <CTableDataCell>{item.activated?<span style={{color:'green'}}><CheckIcon /></span>:<span style={{color:'red'}}><ClearIcon /></span>}</CTableDataCell>
+           <CTableDataCell>{item.activated === 1?<span style={{color:'green'}}><CheckIcon /></span>:<span style={{color:'red'}}><ClearIcon /></span>}</CTableDataCell>
                 <CTableDataCell><Link  id={item.id} onClick={handleRenew}  className="btn btn-sm btn-success" style={{color:'white'}}>Renew</Link>
       <Link to={'/new/auth/add'} className="btn btn-sm btn-info" style={{color:'white'}} state={uid+'/'+item.id+'/'+item.maxNumber}>Add Enrolee</Link></CTableDataCell>
       </CTableRow>

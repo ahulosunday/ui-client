@@ -20,7 +20,7 @@ import moment from 'moment';
 import { Alert } from '@mui/material';
 import { render } from '@react-email/render';
 import hostUrl from '../../helpers/hostUrl';
-import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
+
 
 
 const GeneratePayment = ()=>{
@@ -219,17 +219,17 @@ const loadItem = async e =>{
         
             datas.nodes.length === 0? '': datas.nodes.map((item)=>{
                 sum = sum + item.amount
-                          
+                          var i = item.count
             return(
             <CTableRow key={item.id}>
-            {(item.maxNumber === item.count)?
+            { item.count < item.maxNumber?  <CTableDataCell style={{color:'red'}}><ClearIcon /></CTableDataCell>:
              <CTableDataCell>
             <input type="checkbox" id={item.id}
                 checked={checked.includes(item.id)}
                   onChange={(e) => handleListChange(e, item)}  
                   value={item.id}
-                  name="ck"/></CTableDataCell>:
-                  <CTableDataCell style={{color:'red'}}><ClearIcon /></CTableDataCell>}
+                  name="ck"/></CTableDataCell>
+                  }
 
        <CTableDataCell>
        <Link title='View the list of enrolees under this payment' to={`/user-rrr/dependants`} state={item.id}>{item.rrr_number}</Link></CTableDataCell>

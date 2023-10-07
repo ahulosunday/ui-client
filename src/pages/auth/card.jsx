@@ -1,4 +1,4 @@
-import { CCard, CCardBody, CCardHeader, CCol, CRow } from "@coreui/react";
+import { CCard, CCardBody, CCardHeader, CCol, CRow, CTable, CTableBody, CTableDataCell, CTableHead, CTableRow } from "@coreui/react";
 import * as React from 'react';
 import Stack from '@mui/material/Stack';
 import Paper from '@mui/material/Paper';
@@ -10,6 +10,7 @@ import Barcodes from "../../components/barcode";
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import QrCode from "../../components/QrCode";
+import formatDate from  '../../components/formatDate';
 const DemoPaper = styled(Paper)(({ theme }) => ({
   width: '100%',
   height: 'auto',
@@ -34,20 +35,20 @@ React.useEffect(()=>{
  setError(err)
         })
     }
-  /*  const userInfo = async ()=>{
+  const userInfo = async ()=>{
 
-      await app.get(`/register/${currentUser?.id}/userId/auth/f`)
+      await app.get(`/getuserid/${currentUser.id}/0/1/`)
       .then(result=>{
-    setuserInfo(result.data[0])
+    setuserInfo(result.data)
    
       })
       .catch(errs=>{
 
       })
     }
-    */
+    
     getOne()
-   // userInfo()
+  userInfo()
 }, [currentUser])
 
 
@@ -103,12 +104,49 @@ React.useEffect(()=>{
           </CCol>
           </CRow>
         
+        <CRow>
+        <CCol xs={12} xl={12}>
+ <CTable style={{fontSize:'12px'}} align="middle" responsive>
+          <CTableHead>
+          <CTableRow>
+          <CTableDataCell>SN</CTableDataCell>
+              <CTableDataCell>AUTHCODE</CTableDataCell>
+                <CTableDataCell>RRR_NUMBER</CTableDataCell>
+                 <CTableDataCell>DATE_ACTIVATE</CTableDataCell>
+                  <CTableDataCell>EXPIRE_DATE</CTableDataCell>
+          </CTableRow>
+          </CTableHead>
+          <CTableBody>
+          {
+         userInfos.length === 0? '':  userInfos.map((item, index)=>{
+        
+             return(
+              <CTableRow>
+               <CTableDataCell>{index+1}</CTableDataCell>
+              <CTableDataCell>{item.authNumber}</CTableDataCell>
+                <CTableDataCell>{item.rrr_number}</CTableDataCell>
+                <CTableDataCell>{formatDate(new Date(item.activated_date))}</CTableDataCell>
+                  <CTableDataCell>{formatDate(new Date(item.expired_date))}</CTableDataCell>
+
+          </CTableRow>
+             )
+            })
+          }
+          </CTableBody>
+
+
+</CTable>
+
+</CCol>
+        </CRow>
           </DemoPaper>
           </CCardBody>
           </CCard>
             
 </CCol>
+
 </CRow>
+
             
     )
 }
