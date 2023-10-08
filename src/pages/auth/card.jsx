@@ -11,6 +11,8 @@ import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import QrCode from "../../components/QrCode";
 import formatDate from  '../../components/formatDate';
+import Scanner from "./scanner";
+import { Link } from "react-router-dom";
 const DemoPaper = styled(Paper)(({ theme }) => ({
   width: '100%',
   height: 'auto',
@@ -62,7 +64,7 @@ React.useEffect(()=>{
           <p style={{textAlign:'center'}}><b>ENROLEE BASIC PROFILE INFORMATION</b></p>
           <CRow>
            <CCol xl={2} xs={2}>
-          <QrCode value={currentUser?.email} />
+          <QrCode value={currentUser?.id} />
           </CCol>
           <CCol xl={10} xs={10}>
          
@@ -103,7 +105,11 @@ React.useEffect(()=>{
           {user.isActive === 1?<CheckIcon />:<ClearIcon />}
           </CCol>
           </CRow>
-        
+        <CRow>
+        <CCol xl={12}>
+       {/* <Link to={'/pages/auth/scanner/'} className="btn btn-info">Scan Now</Link>*/}
+        </CCol>
+        </CRow>
         <CRow>
         <CCol xs={12} xl={12}>
  <CTable style={{fontSize:'12px'}} align="middle" responsive>

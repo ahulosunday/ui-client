@@ -66,6 +66,7 @@ const ChangePassword  = React.lazy(() => import( './pages/auth/change-password')
 const ChangePort  = React.lazy(() => import( './pages/auth/change-passport'));
 
 const PaymentInfo  = React.lazy(() => import( './pages/paymeninfo'));
+const Scanner  = React.lazy(() => import( './pages/auth/scanner'));
 
 // Base
 const Accordion = React.lazy(() => import('./views/base/accordion/Accordion'))
@@ -119,6 +120,9 @@ const routes = [
   { path: '/theme', name: 'Theme', element: Colors, exact: true },
   { path: '/theme/colors', name: 'Colors', element: Colors },
   { path: '/theme/typography', name: 'Typography', element: Typography },
+
+  //=====================Scanner===========
+  {path:'/pages/auth/scanner/', name: 'Code Reader', element: Scanner },
     //=================================
   {path: '/hospitals', name:'Hospital', element: Phc},
   {path: '/hospital/add', name:'Hospital', element: AddHospital},
