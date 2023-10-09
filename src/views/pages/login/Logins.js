@@ -27,7 +27,7 @@ const Logins = () => {
       const {currentUser, login } = useContext(AuthContext);
     const [loading, setLoading] = useState(false)
     const  navigate = useNavigate();
-   
+    var doc = document.getElementById('logins');
     //=========================
      const [ err, setError ] = useState(null)
     const msg = useLocation().state
@@ -53,14 +53,29 @@ const Logins = () => {
         }
       
    const handleSummit = async e =>{
-    
+           doc.innerHTML = 'please wait ...';
+           doc.disabled = true
              e.preventDefault()
             if(validateForm('login') === 0){
-           login(inputs)
+              try{
+                 login(inputs)
+                 if(currentUser === null){
+                   doc.innerHTML = 'Login';
+                doc.disabled = false
+                 }
+                
+              }
+          catch(ex){
+            doc.innerHTML='Login'
+             doc.disabled = false
+           setError(<Alert severity="error">Invalid Username/Password</Alert>)
+          }
+          /*
            //setError(<Alert severity="success">Redirecting, please wait ...</Alert>)
           if(!currentUser){
             setError(<Alert severity="error">Invalid Username/Password</Alert>)
             } 
+            */
            
             }
             
@@ -114,6 +129,7 @@ const Logins = () => {
           loading={loading}
           loadingPosition="end"
           variant="contained"
+          id="logins"
         >
           Login
         </LoadingButton>  

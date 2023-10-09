@@ -11,20 +11,17 @@ export const AuthContextProvider = ({children}) =>{
     const [loading, setLoading] = useState(false)
     const [action , setAction] = useState(false)
  const login = async(inputs)=>{
-       
-            setLoading(true)
-           await app.post("/login", inputs)
+       await app.post("/login", inputs)
          .then(res =>{
              setCurrentUser(res.data)
-             setLoading(false)
-             //return(true)
+            
          })
          .catch(errs=>{
-            setLoading(true)
+          
             showToastMessage('Invalid Username or password', 'error')
-           //return(false)
+          
          });
-         //"@createnextapp/react-barcode": "^1.1.1",  
+           
     }
     //logout ====================admin@gmail.com
     const logout = async()=>{
