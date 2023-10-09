@@ -57,17 +57,20 @@ const Logins = () => {
           
              e.preventDefault()
             if(validateForm('login') === 0){
-
-               doc.innerHTML = 'please wait ...';
+            doc.innerHTML = 'please wait ...';
            doc.disabled = true
-            saveElement.current.click()
+          
               try{
-                 login(inputs)
-                 if(currentUser === null){
+                saveElement.current.click();
+                 login(inputs).then(rest=>{
+                  if(currentUser === null){
                   setError(<Alert severity="error">Invalid Username/Password</Alert>)
                    doc.innerHTML = 'Login';
                    doc.disabled = false
+                  
                  }
+                 })
+                 
                 
               }
           catch(ex){
@@ -135,6 +138,7 @@ const Logins = () => {
           loadingPosition="end"
           variant="contained"
           id="logins"
+          ref={saveElement}
         >
           Login
         </LoadingButton>  

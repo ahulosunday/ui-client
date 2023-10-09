@@ -26,7 +26,7 @@ export const AuthContextProvider = ({children}) =>{
     //logout ====================admin@gmail.com
     const logout = async()=>{
         try{
-         trackPromise( await app.post("/logout")
+         trackPromise(app.post("/logout")
         .then(res=>{
         setCurrentUser(null)
         setPermissions(null)
