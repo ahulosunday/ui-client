@@ -13,7 +13,7 @@ import {
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { cilLockLocked, cilUser } from '@coreui/icons'
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import LoadingButton from "@mui/lab/LoadingButton/LoadingButton";
 import { Alert, Stack } from "@mui/material";
@@ -27,6 +27,7 @@ const Logins = () => {
       const {currentUser, login } = useContext(AuthContext);
     const [loading, setLoading] = useState(false)
     const  navigate = useNavigate();
+    const saveElement = useRef()
     var doc = document.getElementById('logins');
     //=========================
      const [ err, setError ] = useState(null)
@@ -53,15 +54,19 @@ const Logins = () => {
         }
       
    const handleSummit = async e =>{
-           doc.innerHTML = 'please wait ...';
-           doc.disabled = true
+          
              e.preventDefault()
             if(validateForm('login') === 0){
+
+               doc.innerHTML = 'please wait ...';
+           doc.disabled = true
+            saveElement.current.click()
               try{
                  login(inputs)
                  if(currentUser === null){
+                  setError(<Alert severity="error">Invalid Username/Password</Alert>)
                    doc.innerHTML = 'Login';
-                doc.disabled = false
+                   doc.disabled = false
                  }
                 
               }
