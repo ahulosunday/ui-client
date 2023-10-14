@@ -26,7 +26,7 @@ export default function FormDialogCsvWards(props) {
   var doc = document.getElementById('wait');
   const saveElement = React.useRef()
    const [items, setItems] = React.useState({
-    Surname:'', Othername:'', Email:'', Phone:'', NIN:''
+    Name:'', Code:''
    });
 
   const handleClickOpen = () => {

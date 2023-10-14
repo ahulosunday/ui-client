@@ -192,7 +192,7 @@ State
             <CRow>
       <CCol xl={12} xs={12}>
        Use this for bulk upload of Wards. Select Country, Region, State and Lga (Format: Name, Code)
-      <FormDialogCsvWards countryId={inputs.countryId} regionId={inputs.regionId} stateId={inputs.stateId} lgaId={inputs.stateId} />
+      <FormDialogCsvWards countryId={inputs.countryId} regionId={inputs.regionId} stateId={inputs.stateId} lgaId={inputs.lgaId} />
        </CCol>
        </CRow>
        <CRow>
