@@ -10,6 +10,7 @@ import showToastMessage from '../../components/toast';
 import { CCard, CCardBody, CCardHeader, CCol, CFormInput, CFormLabel, CFormSelect, CFormTextarea, CRow } from '@coreui/react';
 import { DocsExample } from '../../components';
 import validateForm from '../../components/validateForm';
+import FormDialogCsvWards from './bulk';
 const AddWard = () =>{
     const [loading, setLoading] = useState(false);
     const [country, setCountry] = useState([])
@@ -176,6 +177,7 @@ State
       }
       
        </CFormSelect></CCol>
+  
        </CRow>
         <CRow>
         <CCol xs={12} xl={6}>
@@ -185,6 +187,12 @@ State
         <CCol xs={12} xl={6}>
        Code
         <CFormInput type="text" value={inputs.code} name="code" placeholder="Ward Code" onChange={handleChange} />
+       </CCol>
+       </CRow>
+            <CRow>
+      <CCol xl={12} xs={12}>
+       Use this for bulk upload of Wards. Select Country, Region, State and Lga (Format: Name, Code)
+      <FormDialogCsvWards countryId={inputs.countryId} regionId={inputs.regionId} stateId={inputs.stateId} lgaId={inputs.stateId} />
        </CCol>
        </CRow>
        <CRow>

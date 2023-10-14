@@ -10,6 +10,7 @@ import SendIcon from '@mui/icons-material/Send';
 import { CCard, CCardBody, CCardHeader, CCol, CFormInput, CFormLabel, CFormSelect, CFormTextarea, CRow } from '@coreui/react';
 import { DocsExample } from '../../components';
 import validateForm from '../../components/validateForm';
+import FormDialogCsvLgas from './bulk';
 const AddLga = () =>{
     const [loading, setLoading] = useState(false);
     const [country, setCountry] = useState([])
@@ -148,16 +149,22 @@ State
       
        </CFormSelect>
        </CCol>
+<CCol xs={12} xl={6}>
+   Lga
+       <CFormInput type="text" value={inputs.name} name="name" placeholder="Lga Name" onChange={handleChange}  />
+        </CCol>       
        </CRow>
 
    <CRow>
-   <CCol xs={12} xl={6}>
-   Lga
-       <CFormInput type="text" value={inputs.name} name="name" placeholder="Lga Name" onChange={handleChange}  />
-        </CCol>
+   
         <CCol xs={12} xl={6}>
      Code
         <CFormInput type="text" value={inputs.code} name="code" placeholder="Lga Code" onChange={handleChange} />
+       </CCol>
+
+       <CCol xl={6} xs={12}>
+       Use this for bulk upload of LGAs. Select Country, Region and State. (Format: Name, Code)
+      <FormDialogCsvLgas countryId={inputs.countryId} regionId={inputs.regionId} stateId={inputs.stateId} />
        </CCol>
        </CRow>
        <CRow>

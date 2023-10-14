@@ -97,7 +97,7 @@ const loadItem = async e =>{
           <CCardBody className='validateForm'>
             <DocsExample add="States"> 
             <CRow>
-            <CCol xs>
+            <CCol xs={12} xl={6}>
             Country
               <CFormSelect name="countryId"  onChange={handleChange} onBlur={loadRegion} >
        <option value={0} disabled selected>--select Country--</option>
@@ -109,7 +109,7 @@ const loadItem = async e =>{
       
        </CFormSelect>
             </CCol>
-            <CCol xs>
+            <CCol xs={12} xl={6}>
             Region
             <CFormSelect name="regionId"  onChange={handleChange} >
        <option value={0} disabled selected>--select Region--</option>
@@ -123,19 +123,19 @@ const loadItem = async e =>{
             </CCol>
             </CRow>
             <CRow>
-            <CCol xs>
+            <CCol xs={12} xl={6}>
              State 
        <CFormInput type="text" value={inputs.name} name="name" placeholder="State Name" onChange={handleChange}  />
      
             </CCol>
-            <CCol xs>
+            <CCol xs={12} xl={6}>
             Code 
         <CFormInput type="text" value={inputs.code} name="code" placeholder="State Code" onChange={handleChange} />
             </CCol>
              
             </CRow>
             <CRow>
-            <CCol xs>
+            <CCol xs={12} xl={6}>
            <br />
        { permissions.indexOf("ADD_STATES") > -1? 
        <Stack direction="row" spacing={1}> <LoadingButton size="small"
