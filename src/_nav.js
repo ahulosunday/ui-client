@@ -77,6 +77,30 @@ const _nav = [
     to: '/hmo',
     icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
   },
+   {
+    component: CNavGroup,
+    name: 'Reports',
+    to: '#',
+    icon: <CIcon icon={cibKeybase} customClassName="nav-icon" />,
+    items: [
+{
+  component: CNavItem,
+  name: 'Enrolees',
+  to: '/'
+},
+{
+  component: CNavItem,
+  name: 'Transactions',
+  to: '/'
+},
+{
+  component: CNavItem,
+  name: 'Others',
+  to: '/'
+},
+
+    ]
+  },
   {
     component: CNavTitle,
     name: 'Settings',
