@@ -6,6 +6,7 @@ import { trackPromise } from 'react-promise-tracker';
 import { per_page, startIndex } from '../../helpers/paging_indexes';
 import showToastMessage from '../../components/toast';
 import { Pagination, Stack } from '@mui/material';
+import ClipLoader from "react-spinners/ClipLoader";
 import {
   CButton,
   CButtonGroup,
@@ -28,8 +29,14 @@ import {
   CTableRow,
 } from '@coreui/react'
 import { DocsExample } from '../../components'
-
+const override: CSSProperties = {
+  display: "block",
+  margin: "0 auto",
+  borderColor: "red",
+};
 const ListLga = () =>{
+   let [loading, setLoading] = useState(true);
+  let [color, setColor] = useState("#ffffff");
        const [lgas, setLgas] = useState([]);
        const [page, setPage] = useState(1)
        const [data, setData] = useState([])
@@ -43,6 +50,7 @@ const loadItem = async e =>{
         await app.get(`/lga/${startIndex}/${per_page}/0`).then(res=>{
           setLgas(res.data.res)
           setData(res.data)
+          setLoading(false)
          }).catch(err=>{
           showToastMessage(err, 'error')
          })
@@ -118,6 +126,14 @@ const datas = {
        </CTableHead>
 
        <CTableBody>
+       <ClipLoader
+        color={color}
+        loading={loading}
+       cssOverride={override}
+        size={50}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />
        {
         
             datas.nodes.length ===0? '' : datas.nodes.map((item)=>(

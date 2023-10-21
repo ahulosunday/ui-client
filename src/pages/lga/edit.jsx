@@ -101,6 +101,8 @@ const loadItem = async e =>{
          
           await app.get(`/lga/${id}`).then(res=>{
             setInputs(res.data)
+            loadRegion(res.data.countryId)
+            loadStates(res.data.regionId)
           }).catch(err=>{
             showToastMessage(err, 'error')
 
@@ -108,6 +110,31 @@ const loadItem = async e =>{
           }
         catch(err){
          showToastMessage('Internal error occured ...', 'error')
+        }
+    }
+    const loadRegion =async e =>{
+      try{
+          const countryId = e
+          await app.get(`/region/country/${countryId}`).then(res=>{
+             setRegion(res.data);
+          }).catch(err=>{
+           showToastMessage(err, 'error')
+          })
+    }catch(err){
+        showToastMessage('Internal error occured ...', 'error')
+        }
+    }
+    //===============load states===========
+    const loadStates =async e =>{
+      try{
+          const regionId = e
+          await app.get(`/state/region/${regionId}`).then(res=>{
+            setStates(res.data);
+          }).catch(err=>{
+             showToastMessage(err, 'error')
+          })
+    }catch(err){
+          showToastMessage('Internal error occured ...', 'error')
         }
     }
     formData()

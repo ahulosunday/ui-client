@@ -90,6 +90,7 @@ const loadItem = async e =>{
          trackPromise(app.get(`/state/${state}`)
          .then(res=>{
           setInputs(res.data)
+          loadRegion(res.data.countryId)
          })
          .catch(err=>{
           showToastMessage('Unable to load the selected data, ...' + err, 'error')
@@ -98,6 +99,18 @@ const loadItem = async e =>{
         }
         catch(err){
          showToastMessage('Error occured while loading data ...', 'error')
+        }
+    }
+    const loadRegion =async e =>{
+      try{
+          const countryId = e
+          await app.get(`/region/country/${countryId}`).then(res=>{
+            setRegion(res.data);
+          }).catch(err=>{
+            showToastMessage('Error occured while loading Country data ...', 'error')
+          })  
+    }catch(err){
+         showToastMessage('Error occured ...', 'error')
         }
     }
     if(!(permissions.indexOf("EDIT_STATES") > -1)){

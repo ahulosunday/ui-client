@@ -6,6 +6,8 @@ import { Pagination, Stack } from '@mui/material';
 import { trackPromise } from 'react-promise-tracker';
 import { per_page, startIndex } from '../../helpers/paging_indexes';
 import showToastMessage from '../../components/toast';
+
+import ClipLoader from "react-spinners/ClipLoader";
 import {
   CButton,
   CButtonGroup,
@@ -28,8 +30,16 @@ import {
   CTableRow,
 } from '@coreui/react'
 import { DocsExample } from '../../components'
+const override: CSSProperties = {
+  display: "block",
+  margin: "0 auto",
+  borderColor: "red",
+};
 
 const ListWard = () =>{
+  let [loading, setLoading] = useState(true);
+  const [color, setColor] = useState("#ffffff");
+
        const [ward, setWards] = useState([]);
        const [data, setData] = useState([])
        const [page, setPage] =useState(1)
@@ -43,6 +53,7 @@ const loadItem = async e =>{
        await app.get(`/ward/${startIndex}/${per_page}/0`).then(res=>{
           setWards(res.data.res)
           setData(res.data)
+          setLoading(false)
         }).catch(err=>{
           showToastMessage('Error occured while loading data ...:'+ err, 'error')
         })
@@ -84,7 +95,10 @@ const datas = {
     item.name.toLowerCase().includes(search.toLowerCase())
   ),
 };
+
     return (
+   
+   
         <CRow >
         <CCol xs={12} xl={12} >
         <CCard className="mb-12" >
@@ -116,6 +130,14 @@ const datas = {
        </CTableRow>
        </CTableHead>
        <CTableBody>
+          <ClipLoader
+        color={color}
+        loading={loading}
+       cssOverride={override}
+        size={50}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />
        {
         
             datas.nodes.length===0? '' : datas.nodes.map((item)=>(

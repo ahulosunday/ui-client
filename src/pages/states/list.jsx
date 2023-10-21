@@ -27,11 +27,20 @@ import {
   CTableRow,
 } from '@coreui/react'
 import { DocsExample } from '../../components'
+import ClipLoader from 'react-spinners/ClipLoader';
 
+const override: CSSProperties = {
+  display: "block",
+  margin: "0 auto",
+  borderColor: "red",
+};
 const ListStates = () =>{
+  
        const [stated, setStates] = useState([]);
        const [page, setPage] = useState(1)
         const [data, setData] = useState([]);
+        const [loading, setLoading] = useState(true)
+          const [color, setColor] = useState("#ffffff");
        const {currentUser, permissions } = useContext(AuthContext);
        const navigate = useNavigate()
        
@@ -42,6 +51,7 @@ const loadItem = async e =>{
         await app.get(`/state/${startIndex}/${per_page}/0`).then(res=>{
            setStates(res.data.res)
            setData(res.data)
+           setLoading(false)
         }).catch(err=>{
           showToastMessage(err, 'error')
         })
@@ -114,6 +124,14 @@ const datas = {
        </CTableRow>
        </CTableHead>
        <CTableBody>
+       <ClipLoader
+        color={color}
+        loading={loading}
+       cssOverride={override}
+        size={50}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />
        {
         
             datas.nodes.length===0? '': datas.nodes.map((item)=>(
