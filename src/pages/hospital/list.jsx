@@ -28,11 +28,15 @@ import {
   CTableRow,
 } from '@coreui/react'
 import { DocsExample } from '../../components'
+import Loadings from '../../components/loading';
+
 const ListHospital = () =>{
        const [hositals, setHospitals] = useState([]);
        const [page, setPage] = React.useState(1);
         const [data, setData] = useState([]);
         const [canAdd, setcanAdd]= useState(false)
+          const [loading, setLoading]= useState(true)
+          
    const {currentUser, permissions } = useContext(AuthContext);
     const navigate = useNavigate()
        
@@ -51,6 +55,7 @@ const loadItem = async e =>{
         .then(res=>{
           setHospitals(res.data.res)
           setData(res.data)
+          setLoading(false)
         })
         .catch(err=>{
           showToastMessage('Unable to load data !', 'error')
@@ -129,6 +134,7 @@ const datas = {
        </CTableRow>
        </CTableHead>
        <CTableBody>
+       <Loadings loading = { loading} />
        {
         
             datas.nodes.length === 0? '':datas.nodes.map((item)=>(

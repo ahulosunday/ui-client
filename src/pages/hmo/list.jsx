@@ -7,6 +7,7 @@ import showToastMessage from '../../components/toast';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { per_page, startIndex } from '../../helpers/paging_indexes';
+
 import {
   CButton,
   CButtonGroup,
@@ -29,16 +30,16 @@ import {
   CTableRow,
 } from '@coreui/react'
 import { DocsExample } from '../../components'
-
-
+import Loadings from '../../components/loading';
 const ListHmo = () =>{
        const [hmo, setHmo] = useState([]);
        const [page, setPage] = React.useState(1);
        const [data, setData] = useState([]);
-
+ 
    const {currentUser, permissions } = useContext(AuthContext);
     const navigate = useNavigate()
-       
+    const [loading, setLoading] = useState(true)
+  
 
 useEffect(()=>{
 const loadItem = async e =>{
@@ -47,6 +48,7 @@ const loadItem = async e =>{
        .then(res=>{
         setHmo(res.data.res)
         setData(res.data)
+        setLoading(false)
        })
        .catch(err=>{
         showToastMessage('Unable to load data, reason:'+err, 'error')
@@ -119,6 +121,7 @@ const datas = {
        </CTableRow>
        </CTableHead>
        <CTableBody>
+       <Loadings loading = { loading} />
        {
         
             (datas.nodes.length ===0?'':datas.nodes.map((item)=>(

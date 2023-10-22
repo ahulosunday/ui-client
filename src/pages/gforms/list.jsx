@@ -35,10 +35,12 @@ import {
 } from '@coreui/react'
 import { DocsExample } from '../../components'
 import FormDialogCsvNew from '../../components/uploadcsvNew';
+import Loadings from '../../components/loading';
 
 
 const ListRegister
  = () =>{
+      const [loading, setLoading] = useState(true)
        const [gforms, setGforms] = useState([]);
        const [newreg, setnewreg] = useState(0);
        const [page, setPage] = React.useState(1);
@@ -57,6 +59,7 @@ const loadItem = async e =>{
           .then(res=>{
                 setGforms(res?.data.res)
                 setData(res.data)
+                setLoading(false)
           })
           .catch(err=>{
                showToastMessage('Error occured while trying loading data','error')
@@ -164,6 +167,7 @@ const datas = {
        </CTableRow>
        </CTableHead>
        <CTableBody>
+        <Loadings loading = { loading} />
        {
         permissions?.indexOf('VIEW_ALL_MEMBERS') > -1?
         datas.nodes.length === 0? '': datas.nodes.map((item)=>{

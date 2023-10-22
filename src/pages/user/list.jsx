@@ -24,6 +24,7 @@ import {
   CTableRow,
 } from '@coreui/react'
 import { DocsExample } from '../../components'
+import Loadings from '../../components/loading';
 
 const ListUsers = () =>{
        const [users, setUsers] = useState([]);
@@ -32,6 +33,7 @@ const ListUsers = () =>{
         const [data, setData] = useState([]);
        const {currentUser, permissions } = useContext(AuthContext);
        const navigate = useNavigate()
+       const [loading, setLoading] = useState(true)
        
 
 useEffect(()=>{
@@ -40,6 +42,7 @@ const loadItem = async e =>{
         await app.get(`/users/${startIndex}/${per_page}/0/1`).then(res=>{
            setUsers(res.data.res)
            setData(res.data)
+           setLoading(false)
         }).catch(err=>{
           showToastMessage(err, 'error')
         })
@@ -109,6 +112,7 @@ if(!(permissions.indexOf("VIEW_USERS") > -1)){
        </CTableRow>
        </CTableHead>
        <CTableBody>
+       <Loadings loading={loading} />
        {
         
             users.length===0? '': users.map((item, index)=>(

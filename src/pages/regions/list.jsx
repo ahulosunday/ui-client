@@ -28,15 +28,17 @@ import {
   CTableRow,
 } from '@coreui/react'
 import { DocsExample } from '../../components'
-
+import Loadings from '../../components/loading';
 
 const ListRegion = () =>{
    const [region, setRegion] = useState([]);
+   
    const {currentUser, permissions } = useContext(AuthContext);
     const navigate = useNavigate()
      const [page, setPage] = React.useState(1);
         const [data, setData] = useState([]);
         const [canAdd, setcanAdd] = useState(false)
+const [loading, setLoading] = useState(true)
 
 useEffect(()=>{
 const loadItem = async e =>{
@@ -46,6 +48,7 @@ const loadItem = async e =>{
         .then(res=>{
           setRegion(res.data.res)
           setData(res.data)
+          setLoading(false)
         }).catch(err=>{
           showToastMessage('Error occured while loading data ...' + err, 'error')
         })
@@ -116,6 +119,7 @@ const datas = {
        </CTableRow>
 </CTableHead>
 <CTableBody>
+<Loadings  loading = { loading} />
        {
         
             datas.nodes.length === 0? '': datas.nodes.map((item)=>(

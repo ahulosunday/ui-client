@@ -8,6 +8,7 @@ import showToastMessage from '../../components/toast';
 import { trackPromise } from 'react-promise-tracker';
 import { CButton, CButtonGroup, CCard, CCardBody, CCardHeader, CCol, CFormInput, CFormLabel, CFormSelect, CFormTextarea, CRow, CTable, CTableBody, CTableDataCell, CTableHead, CTableHeaderCell, CTableRow } from '@coreui/react';
 import { DocsExample } from '../../components';
+import Loadings from '../../components/loading';
 
 const List = () =>{
        const [role, setRole] = useState([]);
@@ -15,6 +16,7 @@ const List = () =>{
         const [data, setData] = useState([]);
     const {currentUser, permissions } = useContext(AuthContext);
     const navigate = useNavigate()
+    const [loading, setLoading] = useState(true)
        
 
 useEffect(()=>{
@@ -28,6 +30,7 @@ const loadItem = async e =>{
     .then(res=>{
      setRole(res.data.res);
      setData(res.data)
+     setLoading(false)
     })
     .catch(err=>{
      showToastMessage('Error occured while loading data.', 'error')
@@ -82,6 +85,7 @@ const loadItem = async e =>{
        </CTableRow>
        </CTableHead>
        <CTableBody>
+         <Loadings loading={loading} />
        {
            role.length === 0? '': role.map((item)=>(
             <CTableRow key={item.id}>

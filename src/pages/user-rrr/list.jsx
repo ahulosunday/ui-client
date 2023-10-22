@@ -36,9 +36,11 @@ import DeleteIcon from '../../components/deleteIcon';
 import EditIcon from '../../components/editIcon';
 import ViewIcon from '../../components/viewIcon';
 import { formatCurreny } from '../../components/formatCurrency';
+import Loadings from '../../components/loading';
 
 
 const ListRRR = () =>{
+   const [loading, setLoading] = useState(true)
     const [getrrr, setGetrrr] = useState([]);
     const [page, setPage]= useState(1)
     const [data, setData] = useState([])
@@ -52,10 +54,10 @@ useEffect(()=>{
 
 const loadItem = async e =>{
  try{
-         
-        await app.get(`user-rrr/${startIndex}/${per_page}/0`).then(res=>{
+         await app.get(`user-rrr/${startIndex}/${per_page}/0`).then(res=>{
             setGetrrr(res.data.res)
             setData(res.data)
+            setLoading(false)
         }).catch(err=>{
             showToastMessage(err, 'error')
         })
@@ -126,6 +128,7 @@ const datas = {
        </CTableRow>
        </CTableHead>
        <CTableBody>
+       <Loadings loading = { loading} />
        {
             datas.nodes.length === 0? '': datas.nodes.map((item)=>(
             <CTableRow>

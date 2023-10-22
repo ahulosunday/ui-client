@@ -6,7 +6,7 @@ import { trackPromise } from 'react-promise-tracker';
 import { per_page, startIndex } from '../../helpers/paging_indexes';
 import showToastMessage from '../../components/toast';
 import { Pagination, Stack } from '@mui/material';
-import ClipLoader from "react-spinners/ClipLoader";
+
 import {
   CButton,
   CButtonGroup,
@@ -29,11 +29,8 @@ import {
   CTableRow,
 } from '@coreui/react'
 import { DocsExample } from '../../components'
-const override: CSSProperties = {
-  display: "block",
-  margin: "0 auto",
-  borderColor: "red",
-};
+import Loadings from '../../components/loading';
+
 const ListLga = () =>{
    let [loading, setLoading] = useState(true);
   let [color, setColor] = useState("#ffffff");
@@ -126,14 +123,7 @@ const datas = {
        </CTableHead>
 
        <CTableBody>
-       <ClipLoader
-        color={color}
-        loading={loading}
-       cssOverride={override}
-        size={50}
-        aria-label="Loading Spinner"
-        data-testid="loader"
-      />
+<Loadings loading = { loading} />
        {
         
             datas.nodes.length ===0? '' : datas.nodes.map((item)=>(

@@ -29,6 +29,7 @@ import {
   CTableRow,
 } from '@coreui/react'
 import { DocsExample } from '../../components'
+import Loadings from '../../components/loading';
 
 
 const GifshipPackageList = () =>{
@@ -37,6 +38,7 @@ const GifshipPackageList = () =>{
         const [data, setData] = useState([]);
        const {currentUser, permissions } = useContext(AuthContext);
     const navigate = useNavigate()
+    const [loading, setLoading] = useState(true)
        
 
 useEffect(()=>{
@@ -47,6 +49,7 @@ const loadItem = async e =>{
        .then(res=>{
         setGifship(res.data.res);
         setData(res.data)
+        setLoading(false)
        })
        .catch(err=>{
         showToastMessage('Error occured while loading data', 'error')
@@ -116,6 +119,7 @@ const datas = {
        </CTableRow>
        </CTableHead>
        <CTableBody>
+         <Loadings loading={loading} />
        {
             datas.nodes.map((item)=>(
             <CTableRow>
