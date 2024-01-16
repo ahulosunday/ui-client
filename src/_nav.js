@@ -6,6 +6,8 @@ import {
   cibPicartoTv,
   cilBell,
   cilCalculator,
+  cilChart,
+  cilChartLine,
   cilChartPie,
   cilControl,
   cilCursor,
@@ -16,6 +18,7 @@ import {
   cilMoney,
   cilNotes,
   cilPencil,
+  cilPeople,
   cilPuzzle,
   cilRouter,
   cilSpeedometer,
@@ -39,6 +42,13 @@ const _nav = [
     component: CNavTitle,
     name: 'CATEGORIES',
   },
+  //==================3
+   {
+    component: CNavGroup,
+    name: 'GIFSHIP',
+    to: '#',
+    icon: <CIcon icon={cilHospital} customClassName="nav-icon" />,
+    items: [
   {
     component: CNavItem,
     name: 'Enrolement',
@@ -76,7 +86,10 @@ const _nav = [
     name: 'HMOs',
     to: '/hmo',
     icon: <CIcon icon={cilStar} customClassName="nav-icon" />,
-  },
+  }
+   
+  //=================3
+  ,
    {
     component: CNavGroup,
     name: 'Reports',
@@ -100,7 +113,10 @@ const _nav = [
 },
 
     ]
-  },
+  }
+   ]
+   },
+
   {
     component: CNavTitle,
     name: 'Settings',
@@ -158,7 +174,38 @@ const _nav = [
 
     ],
   },
-  
+ //===== 
+   {
+    component: CNavGroup,
+    name: 'Account Settings',
+    to: '#',
+    icon: <CIcon icon={cilMoney} customClassName="nav-icon" />,
+    items: [{
+      component: CNavItem,
+  name: 'Chart of Account',
+  to: '/chart/of/account/',
+   icon: <CIcon icon={cilChart} customClassName="nav-icon" />
+    },
+    {
+      component: CNavItem,
+  name: 'Account',
+  to: '/',
+   icon: <CIcon icon={cilChartLine} customClassName="nav-icon" />
+    },
+    {
+      component: CNavItem,
+  name: 'Type of Account',
+  to: '/account/type/',
+   icon: <CIcon icon={cilChartPie} customClassName="nav-icon" />
+    }
+]
+},
+   {
+    component: CNavGroup,
+    name: 'User Settings',
+    to: '#',
+    icon: <CIcon icon={cilPeople} customClassName="nav-icon" />,
+    items: [
   {
   component: CNavItem,
   name: 'Reg. Codes',
@@ -189,7 +236,9 @@ component: CNavItem,
   to: '/role/list',
    icon: <CIcon icon={cilRouter} customClassName="nav-icon" />
 }
- 
+    ]
+   }
+ //================
 ]
 
 export default _nav

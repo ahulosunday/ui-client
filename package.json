@@ -26,6 +26,7 @@
     "@mui/material": "^5.14.5",
     "@mui/styled-engine": "^5.13.2",
     "@react-email/render": "^0.0.7",
+    "@react-spring/web": "^9.7.3",
     "acorn": "^8.10.0",
     "axios": "^1.4.0",
     "bcryptjs": "^2.4.3",

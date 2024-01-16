@@ -39,7 +39,7 @@ const handleDelete = async e =>{
   
     trackPromise(app.delete(`${url+id}`)
                 .then(res =>{
-                  console.log(res)
+                  
                   if(res.data.err) showToastMessage(res.data.err, 'error')
                   else showToastMessage('Transaction completed with status: ' + res.statusText, 'info')
                    navigate(`${back}`)

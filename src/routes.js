@@ -68,6 +68,11 @@ const ChangePort  = React.lazy(() => import( './pages/auth/change-passport'));
 const PaymentInfo  = React.lazy(() => import( './pages/paymeninfo'));
 const Scanner  = React.lazy(() => import( './pages/auth/scanner'));
 
+//================account type====================
+const list_account_type = React.lazy(()=>import('./pages/account_type/list'));
+const add_account_type = React.lazy(()=>import('./pages/account_type/add'));
+const CustomizedTreeView = React.lazy(()=> import('./pages/chart_of_account/chart_of_account'));
+
 // Base
 const Accordion = React.lazy(() => import('./views/base/accordion/Accordion'))
 const Breadcrumbs = React.lazy(() => import('./views/base/breadcrumbs/Breadcrumbs'))
@@ -316,6 +321,23 @@ const routes = [
     name:'Gifship',
   element: EditGifshipPackage
 },
+//==============account===========
+{
+path:"/account/type/",
+name: "Account Type",
+element: list_account_type
+},
+{
+path: "/account/type/add",
+name: "Add",
+element: add_account_type
+},
+{
+  path: "/chart/of/account/",
+  name: "Chart of Account",
+  element: CustomizedTreeView
+},
+
 //==============================================
 
   { path: '/base', name: 'Base', element: Cards, exact: true },
